@@ -1,18 +1,24 @@
 use std::mem;
 use std::collections::HashMap;
+use std::mem::transmute;
 
 struct Graph {
-	vertices: HashMap<i64, Vertex>,
+	vertices: HashMap<i64, *mut Vertex>,
 }
 
 impl Graph {
 	fn new() -> Box<Graph> {
-		let hm: HashMap<i64, Vertex> = HashMap::new();
+		let hm: HashMap<i64, *mut Vertex> = HashMap::new();
 		Box::new(Graph{vertices:hm})
 	}
-	fn add_vertex(&mut self) -> Box<Vertex> {
+	fn add_vertex(&mut self) -> *mut Vertex {
 		let mut v = Box::new(Vertex{id:0});
-		v
+
+		unsafe {
+			let foo: *mut Vertex = transmute(v);
+			foo
+		}
+
 	}
 }
 struct Vertex {
