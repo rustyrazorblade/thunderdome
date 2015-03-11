@@ -10,8 +10,8 @@ impl Graph {
 		let hm: HashMap<i64, Vertex> = HashMap::new();
 		Box::new(Graph{vertices:hm})
 	}
-	fn add_vertex(&mut self) -> Vertex {
-		let mut v = Vertex{id:0};
+	fn add_vertex(&mut self) -> Box<Vertex> {
+		let mut v = Box::new(Vertex{id:0});
 		v
 	}
 }
