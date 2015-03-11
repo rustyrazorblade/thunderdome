@@ -6,9 +6,9 @@ struct Graph {
 }
 
 impl Graph {
-	fn new() -> Graph {
+	fn new() -> Box<Graph> {
 		let hm: HashMap<i64, Vertex> = HashMap::new();
-		Graph{vertices:hm}
+		Box::new(Graph{vertices:hm})
 	}
 	fn add_vertex(&mut self) -> Vertex {
 		let mut v = Vertex{id:0};
