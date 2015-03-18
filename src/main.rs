@@ -3,16 +3,18 @@ use std::collections::HashMap;
 use std::mem::transmute;
 
 struct Graph {
+	elements: i64,
 	vertices: HashMap<i64, Box<Vertex>>,
 }
 
 impl Graph {
 	fn new() -> Box<Graph> {
 		let vertices: HashMap<i64, Box<Vertex>> = HashMap::new();
-		Box::new(Graph{vertices:vertices})
+		Box::new(Graph{elements:0, vertices:vertices})
 	}
 	fn add_vertex(&mut self) -> VertexProxy {
-		let new_id = 1;
+		let new_id = self.elements + 1;
+		self.elements += 1;
 		let v = Vertex::new(new_id);
 
 		let ptr: *const Box<Vertex> = &v as *const Box<Vertex>;
@@ -91,6 +93,10 @@ fn main() {
 fn test_unsafe_vertex() {
 	let mut g = Graph::new();
 	let mut v1 = g.add_vertex();
+	assert!(v1.id == 1);
+
+	let mut v2 = g.add_vertex();
+	assert!(v2.id == 2);
 }
 
 #[test]
