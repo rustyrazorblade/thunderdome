@@ -15,8 +15,8 @@ impl Graph {
 		let new_id = 1;
 		let vertex = Vertex{id:new_id};
 
-		let ptr: *const Vertex = &vertex as *const Vertex;
 		let mut v = Box::new(vertex);
+		let ptr: *const Box<Vertex> = &v as *const Box<Vertex>;
 
 		self.vertices.insert(new_id, v);
 
@@ -37,7 +37,7 @@ impl Vertex {
 
 struct VertexProxy {
 	id: i64,
-	v: *const Vertex,
+	v: *const Box<Vertex>,
 }
 
 impl VertexProxy {
