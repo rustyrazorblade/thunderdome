@@ -41,7 +41,7 @@ struct VertexProxy {
 }
 
 impl VertexProxy {
-	fn add_edge() {
+	fn add_edge(&self, v2: &VertexProxy) {
 
 	}
 }
