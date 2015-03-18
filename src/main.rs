@@ -44,6 +44,7 @@ impl Vertex {
 	}
 }
 
+#[derive(Show)]
 struct VertexProxy {
 	id: i64,
 	v: *const Box<Vertex>,
@@ -64,12 +65,12 @@ struct VertexProxy {
 impl VertexProxy {
 	fn add_edge(& self, to_vertex: &VertexProxy) {
 		unsafe {
-			let in_vertex = &* self .v;
+			let in_vertex =  &* self .v;
 			let out_vertex = &*to_vertex.v;
 		}
 		// create the edge
 		let e = Edge{from_vertex: self.v,
-					 to_vertex:to_vertex.v};
+					 to_vertex:   to_vertex.v};
 
 
 	}
