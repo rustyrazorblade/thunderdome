@@ -90,8 +90,13 @@ fn main() {
 fn test_unsafe_vertex() {
 	let mut g = Graph::new();
 	let mut v1 = g.add_vertex();
-	let mut v2 = g.add_vertex();
+}
 
-	v1.test()
+#[test]
+fn test_add_edge() {
+	let mut g = Graph::new();
+	let mut v1 = g.add_vertex();
+	let mut v2 = g.add_vertex();
+	v2.add_edge(&v2);
 
 }
