@@ -3,13 +3,13 @@ use std::collections::HashMap;
 use std::mem::transmute;
 
 struct Graph {
-	vertices: HashMap<i64, Vertex>,
+	vertices: HashMap<i64, Box<Vertex>>,
 }
 
 impl Graph {
 	fn new() -> Box<Graph> {
-		let hm: HashMap<i64, Vertex> = HashMap::new();
-		Box::new(Graph{vertices:hm})
+		let vertices: HashMap<i64, Box<Vertex>> = HashMap::new();
+		Box::new(Graph{vertices:vertices})
 	}
 	fn add_vertex(&mut self) -> VertexProxy {
 		let new_id = 1;
@@ -17,6 +17,8 @@ impl Graph {
 
 		let ptr: *const Vertex = &vertex as *const Vertex;
 		let mut v = Box::new(vertex);
+
+		self.vertices.insert(new_id, v);
 
 		// return the proxy which knows it's own id
 		VertexProxy{id:new_id, v: ptr}
@@ -36,6 +38,12 @@ impl Vertex {
 struct VertexProxy {
 	id: i64,
 	v: *const Vertex,
+}
+
+impl VertexProxy {
+	fn add_edge() {
+
+	}
 }
 
 struct Edge {
