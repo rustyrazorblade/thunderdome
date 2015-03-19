@@ -1,5 +1,5 @@
 [package]
 
-name = "graph_unsafe"
+name = "graph"
 version = "0.0.1"
 authors = ["Jon Haddad <jon@jonhaddad.com>"]
