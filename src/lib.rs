@@ -2,17 +2,18 @@
 pub mod graph {
 	use std::collections::HashMap;
 
-	struct Graph {
+	pub struct Graph {
 		elements: i64,
 		vertices: HashMap<i64, Box<Vertex>>,
 	}
 
 	impl Graph {
-		fn new() -> Box<Graph> {
+		pub fn new() -> Box<Graph> {
 			let vertices: HashMap<i64, Box<Vertex>> = HashMap::new();
 			Box::new(Graph{elements:0, vertices:vertices})
 		}
-		fn add_vertex(&mut self) -> VertexProxy {
+
+		pub fn add_vertex(&mut self) -> VertexProxy {
 			let new_id = self.elements + 1;
 			self.elements += 1;
 			let v = Vertex::new(new_id);
@@ -32,7 +33,7 @@ pub mod graph {
 	}
 
 	impl Vertex {
-		fn new(id: i64) -> Box<Vertex> {
+		pub fn new(id: i64) -> Box<Vertex> {
 
 			let mut edges : Vec<Edge> = Vec::new();
 			let edges_ptr :    *mut Vec<Edge> = &mut edges;
@@ -41,13 +42,10 @@ pub mod graph {
 			return v;
 		}
 
-		fn query(self) {
-
-		}
 	}
 
 	#[derive(Debug)]
-	struct VertexProxy {
+	pub struct VertexProxy {
 		id: i64,
 		v: *const Box<Vertex>,
 	}
@@ -65,7 +63,7 @@ pub mod graph {
 	//}
 
 	impl VertexProxy {
-		fn add_edge(& self, to_vertex: &VertexProxy) {
+		pub fn add_edge(& self, to_vertex: &VertexProxy) {
 			unsafe {
 				let in_vertex =  &* self .v;
 				let out_vertex = &*to_vertex.v;
@@ -74,6 +72,9 @@ pub mod graph {
 			let e = Edge{from_vertex: self.v,
 			to_vertex:   to_vertex.v};
 
+
+		}
+		pub fn query(self) {
 
 		}
 	}
@@ -86,18 +87,18 @@ pub mod graph {
 	#[test]
 	fn test_unsafe_vertex() {
 		let mut g = Graph::new();
-		let mut v1 = g.add_vertex();
+		let v1 = g.add_vertex();
 		assert!(v1.id == 1);
 
-		let mut v2 = g.add_vertex();
+		let v2 = g.add_vertex();
 		assert!(v2.id == 2);
 	}
 
 	#[test]
 	fn test_add_edge() {
 		let mut g = Graph::new();
-		let mut v1 = g.add_vertex();
-		let mut v2 = g.add_vertex();
+		let v1 = g.add_vertex();
+		let v2 = g.add_vertex();
 		v2.add_edge(&v2);
 
 
