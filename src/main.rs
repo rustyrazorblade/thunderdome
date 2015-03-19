@@ -1,6 +1,4 @@
-use std::mem;
 use std::collections::HashMap;
-use std::mem::transmute;
 
 struct Graph {
 	elements: i64,
@@ -105,5 +103,6 @@ fn test_add_edge() {
 	let mut v1 = g.add_vertex();
 	let mut v2 = g.add_vertex();
 	v2.add_edge(&v2);
+
 
 }
