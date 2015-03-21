@@ -62,7 +62,7 @@ pub mod graph {
             return v;
         }
 
-        pub fn add_out_edge(self, edge: Edge ) {
+        pub fn add_out_edge(&mut self, edge: Edge ) {
             self.out_edges.push(edge)
         }
 
@@ -96,9 +96,8 @@ pub mod graph {
             let out_vertex: &mut Box<Vertex>;
 
             unsafe {
-                let tmp = self.v;
-                in_vertex =  &*self.v;
-                out_vertex = &*to_vertex.v;
+                in_vertex =  &mut *self.v;
+                out_vertex = &mut *to_vertex.v;
             }
             // create the edge
 
