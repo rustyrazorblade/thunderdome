@@ -54,7 +54,7 @@ pub mod graph {
         pub fn new(id: i64) -> Box<Vertex> {
 
             let mut edges : Vec<Edge> = Vec::new();
-            let edges_ptr :    *mut Vec<Edge> = &mut edges;
+            let edges_ptr : *mut Vec<Edge> = &mut edges;
             let out_edges: Vec<Edge> = Vec::new();
             let vertex = Vertex{id:id, out_edges: out_edges, in_edges:edges_ptr};
             let mut v = Box::new(vertex);
@@ -73,7 +73,7 @@ pub mod graph {
 
     #[derive(Debug)]
     pub struct VertexProxy {
-        id: i64,
+        pub id: i64,
         v: *mut Box<Vertex>,
     }
 
@@ -124,6 +124,10 @@ pub mod graph {
         from_vertex: *const Box<Vertex>,
         to_vertex: *const Box<Vertex>
     }
+}
+
+mod tests {
+    use graph::Graph;
 
     #[test]
     fn test_unsafe_vertex() {
@@ -142,8 +146,5 @@ pub mod graph {
         let mut v2 = g.add_vertex();
 
         v1.add_edge(&mut v2);
-
-
     }
-
 }
