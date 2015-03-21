@@ -1,5 +1,4 @@
 
-use std::ops::Deref;
 
 pub mod graph {
     use std::collections::HashMap;
@@ -53,12 +52,12 @@ pub mod graph {
     impl Vertex {
         pub fn new(id: i64) -> Box<Vertex> {
 
+            // in edges
             let mut edges : Vec<Edge> = Vec::new();
             let edges_ptr : *mut Vec<Edge> = &mut edges;
+
             let out_edges: Vec<Edge> = Vec::new();
-            let vertex = Vertex{id:id, out_edges: out_edges, in_edges:edges_ptr};
-            let mut v = Box::new(vertex);
-            return v;
+            Box::new(Vertex{id:id, out_edges: out_edges, in_edges:edges_ptr})
         }
 
         pub fn add_out_edge(&mut self, edge: Edge ) {
@@ -71,7 +70,6 @@ pub mod graph {
 
     }
 
-    #[derive(Debug)]
     pub struct VertexProxy {
         pub id: i64,
         v: *mut Box<Vertex>,
@@ -138,6 +136,7 @@ mod tests {
         let v2 = g.add_vertex();
         assert!(v2.id == 2);
     }
+
 
     #[test]
     fn test_add_edge() {
