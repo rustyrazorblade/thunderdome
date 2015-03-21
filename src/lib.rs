@@ -20,9 +20,9 @@ pub mod graph {
         pub fn add_vertex(&mut self) -> VertexProxy {
             let new_id = self.elements + 1;
             self.elements += 1;
-            let v = Vertex::new(new_id);
+            let mut v = Vertex::new(new_id);
 
-            let ptr: *const Box<Vertex> = &v as *const Box<Vertex>;
+            let ptr: *mut Box<Vertex> = &mut v as *mut Box<Vertex>;
 
             self.vertices.insert(new_id, v);
 
@@ -75,7 +75,7 @@ pub mod graph {
     #[derive(Debug)]
     pub struct VertexProxy {
         id: i64,
-        v: *const Box<Vertex>,
+        v: *mut Box<Vertex>,
     }
 
     //let i: u32 = 1;
@@ -91,7 +91,7 @@ pub mod graph {
     //}
 
     impl VertexProxy {
-        pub fn add_edge(&self, to_vertex: &VertexProxy) {
+        pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) {
             let in_vertex: &mut Box<Vertex>;
             let out_vertex: &mut Box<Vertex>;
 
@@ -99,8 +99,8 @@ pub mod graph {
                 in_vertex =  &mut *(self.v);
                 out_vertex = &mut *(to_vertex.v);
             }
-            // create the edge
 
+            // create the edge
             let mut e = Edge{from_vertex: self.v, to_vertex: to_vertex.v};
             in_vertex.add_out_edge(e);
         }
