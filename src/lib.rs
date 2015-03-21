@@ -1,7 +1,11 @@
+#![feature(associated_types)]
+
+use std::ops::Deref;
 
 pub mod graph {
 	use std::collections::HashMap;
 
+	#[derive(Debug)]
 	pub struct Graph {
 		elements: i64,
 		vertices: HashMap<i64, Box<Vertex>>,
@@ -40,6 +44,7 @@ pub mod graph {
 
 	the cost is a little code complexity but i think that won't be too bad
 	 */
+	#[derive(Debug)]
 	struct Vertex {
 		id: i64,
 		out_edges: Vec<Edge>,
@@ -55,6 +60,14 @@ pub mod graph {
 			let vertex = Vertex{id:id, out_edges: out_edges, in_edges:edges_ptr};
 			let mut v = Box::new(vertex);
 			return v;
+		}
+
+		pub fn add_out_edge(&mut self, edge: Edge ) {
+			self.out_edges.push(edge)
+		}
+
+		pub fn add_in_edge() {
+
 		}
 
 	}
@@ -78,21 +91,37 @@ pub mod graph {
 	//}
 
 	impl VertexProxy {
-		pub fn add_edge(& self, to_vertex: &VertexProxy) {
+		pub fn add_edge(&self, to_vertex: &VertexProxy) {
+			let mut in_vertex: &Box<Vertex>;
+			let mut out_vertex: &Box<Vertex>;
+
 			unsafe {
-				let in_vertex =  &* self .v;
-				let out_vertex = &*to_vertex.v;
+				let tmp = self.v;
+				in_vertex =  &*self.v;
+				out_vertex = &*to_vertex.v;
 			}
 			// create the edge
-			let e = Edge{from_vertex: self.v, to_vertex:   to_vertex.v};
 
-
+			let mut e = Edge{from_vertex: self.v, to_vertex: to_vertex.v};
+			in_vertex.add_out_edge(e);
 		}
 		pub fn query(self) {
 
 		}
 	}
 
+
+	/*
+	impl<T> Deref for DerefExample<T> {
+		type Target = T;
+
+		fn deref<'a>(&'a self) -> &'a T {
+			&self.value
+		}
+	}
+	 */
+
+	#[derive(Debug)]
 	struct Edge {
 		from_vertex: *const Box<Vertex>,
 		to_vertex: *const Box<Vertex>
