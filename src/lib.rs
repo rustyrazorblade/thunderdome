@@ -2,6 +2,7 @@
 
 pub mod graph {
     use std::collections::HashMap;
+    use std::ops::Deref;
 
     #[derive(Debug)]
     pub struct Graph {
@@ -113,16 +114,13 @@ pub mod graph {
         }
     }
 
+    impl Deref for VertexProxy {
+        type Target = &Box<Vertex>;
 
-    /*
-    impl<T> Deref for DerefExample<T> {
-        type Target = T;
-
-        fn deref<'a>(&'a self) -> &'a T {
-            &self.value
+        fn deref<'a>(&'a self) -> &'a Box<Vertex> {
+            *(self.v)
         }
     }
-     */
 
     #[derive(Debug)]
     pub struct Edge {
@@ -137,14 +135,16 @@ mod tests {
     #[test]
     fn test_unsafe_vertex() {
         let v = Vertex::new(1);
+
         let out_edges = &v.out_edges;
         let in_edges = &v.in_edges;
-        
     }
+    
     #[test]
     fn test_new_vertex() {
         let mut g = Graph::new();
         let v1 = g.add_vertex();
+        println!("here I am");
         assert!(v1.id == 1);
 
         unsafe {
