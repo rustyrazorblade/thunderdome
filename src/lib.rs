@@ -96,8 +96,8 @@ pub mod graph {
             let out_vertex: &mut Box<Vertex>;
 
             unsafe {
-                in_vertex =  &mut *self.v;
-                out_vertex = &mut *to_vertex.v;
+                in_vertex =  &mut *(self.v);
+                out_vertex = &mut *(to_vertex.v);
             }
             // create the edge
 
