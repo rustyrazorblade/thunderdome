@@ -48,8 +48,8 @@ pub mod graph {
     #[derive(Debug)]
     pub struct Vertex {
         pub id: i64,
-        out_edges: Vec<Edge>,
-        in_edges: *mut Vec<Edge>,
+        pub out_edges: Vec<Edge>,
+        pub in_edges: *mut Vec<Edge>,
     }
 
     impl Vertex {
@@ -133,6 +133,8 @@ mod tests {
     #[test]
     fn test_unsafe_vertex() {
         let v = Vertex::new(1);
+        let out_edges = &v.out_edges;
+        let in_edges = &v.in_edges;
         
     }
     #[test]
