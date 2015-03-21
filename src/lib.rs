@@ -27,6 +27,8 @@ pub mod graph {
             // return the proxy which knows it's own id
             VertexProxy{id:new_id, v: ptr}
         }
+        pub fn get(vertex_id:i64) -> Vertex {
+        }
     }
 
     /*
@@ -43,8 +45,8 @@ pub mod graph {
     the cost is a little code complexity but i think that won't be too bad
      */
     #[derive(Debug)]
-    struct Vertex {
-        id: i64,
+    pub struct Vertex {
+        pub id: i64,
         out_edges: Vec<Edge>,
         in_edges: *mut Vec<Edge>,
     }
@@ -61,7 +63,7 @@ pub mod graph {
         }
 
         pub fn add_out_edge(&mut self, edge: Edge ) {
-            self.out_edges.push(edge)
+            self.out_edges.push(edge);
         }
 
         pub fn add_in_edge() {
@@ -72,7 +74,7 @@ pub mod graph {
 
     pub struct VertexProxy {
         pub id: i64,
-        v: *mut Box<Vertex>,
+        pub v: *mut Box<Vertex>,
     }
 
     //let i: u32 = 1;
@@ -118,14 +120,14 @@ pub mod graph {
      */
 
     #[derive(Debug)]
-    struct Edge {
+    pub struct Edge {
         from_vertex: *const Box<Vertex>,
         to_vertex: *const Box<Vertex>
     }
 }
 
 mod tests {
-    use graph::Graph;
+    use graph::{Graph, Vertex};
 
     #[test]
     fn test_unsafe_vertex() {
@@ -133,8 +135,15 @@ mod tests {
         let v1 = g.add_vertex();
         assert!(v1.id == 1);
 
+        unsafe {
+            let vertex: &mut Box<Vertex> = &mut *(v1.v);
+            assert!(vertex.id == 1);
+        }
+
         let v2 = g.add_vertex();
         assert!(v2.id == 2);
+
+        
     }
 
 
