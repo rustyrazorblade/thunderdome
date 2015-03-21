@@ -48,23 +48,27 @@ pub mod graph {
     #[derive(Debug)]
     pub struct Vertex {
         pub id: i64,
-        pub out_edges: Vec<Edge>,
-        pub in_edges: *mut Vec<Edge>,
+
+        // pointers on both sides, yay
+        pub out_edges: Vec<*mut Edge>,
+        pub in_edges:  Vec<*mut Edge>,
     }
 
     impl Vertex {
         pub fn new(id: i64) -> Box<Vertex> {
 
             // in edges
-            let mut edges : Vec<Edge> = Vec::new();
-            let edges_ptr : *mut Vec<Edge> = &mut edges;
+            let in_edges : Vec<*mut Edge> = Vec::new();
+            let out_edges: Vec<*mut Edge> = Vec::new();
 
-            let out_edges: Vec<Edge> = Vec::new();
-            Box::new(Vertex{id:id, out_edges: out_edges, in_edges:edges_ptr})
+            Box::new(Vertex{id:id, 
+                            out_edges: out_edges, 
+                            in_edges:in_edges})
         }
 
-        pub fn add_out_edge(&mut self, edge: Edge ) {
-            self.out_edges.push(edge);
+        pub fn add_out_edge(&mut self, edge: &mut Edge ) {
+            let edge_p: *mut Edge = edge;
+            self.out_edges.push(edge_p);
         }
 
         pub fn add_in_edge() {
@@ -102,7 +106,7 @@ pub mod graph {
 
             // create the edge
             let mut e = Edge{from_vertex: self.v, to_vertex: to_vertex.v};
-            in_vertex.add_out_edge(e);
+            in_vertex.add_out_edge(&mut e);
         }
         pub fn query(self) {
 
