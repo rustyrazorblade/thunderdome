@@ -1,4 +1,3 @@
-#![feature(associated_types)]
 
 use std::ops::Deref;
 
@@ -139,9 +138,10 @@ pub mod graph {
     #[test]
     fn test_add_edge() {
         let mut g = Graph::new();
-        let v1 = g.add_vertex();
-        let v2 = g.add_vertex();
-        v1.add_edge(&v2);
+        let mut v1 = g.add_vertex();
+        let mut v2 = g.add_vertex();
+
+        v1.add_edge(&mut v2);
 
 
     }
