@@ -80,6 +80,7 @@ pub mod graph {
 
             in_vertex.out_edges.push(edge);
             out_vertex.in_edges.push(edge);
+            EdgeProxy{edge:edge}
         }
 
         pub fn query(self) {
