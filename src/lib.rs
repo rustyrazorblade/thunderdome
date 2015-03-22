@@ -69,18 +69,6 @@ pub mod graph {
                             out_edges: out_edges, 
                             in_edges:in_edges})
         }
-
-        pub fn add_out_edge(&mut self, edge: &mut Edge ) {
-            let edge_p: *mut Edge = edge;
-            self.out_edges.push(edge_p);
-        }
-
-        pub fn add_in_edge(&mut self, edge: &mut Edge) {
-            let edge_p: *mut Edge = edge;
-            self.in_edges.push(edge_p);
-
-        }
-
     }
 
     pub struct VertexProxy {
@@ -111,9 +99,12 @@ pub mod graph {
             }
 
             // create the edge
-            let mut e = Edge{from_vertex: self.v, to_vertex: to_vertex.v};
-            in_vertex.add_out_edge(&mut e);
-            out_vertex.add_out_edge(&mut e);
+            let mut e = Box::new(Edge{from_vertex: self.v, to_vertex: to_vertex.v});
+
+            let mut edge: *mut Edge = unsafe { mem::transmute(e) };
+
+            in_vertex.out_edges.push(edge);
+            out_vertex.in_edges.push(edge);
         }
 
         pub fn query(self) {
@@ -136,6 +127,7 @@ pub mod graph {
         from_vertex: *const Vertex,
         to_vertex: *const Vertex
     }
+
 }
 
 mod tests {
@@ -182,6 +174,7 @@ mod tests {
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
+
 
         // ensure the vertex and edge pointers are correct
     }
