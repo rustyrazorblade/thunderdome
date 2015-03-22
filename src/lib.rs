@@ -8,6 +8,7 @@ pub mod graph {
     #[derive(Debug)]
     pub struct Graph {
         elements: i64,
+        // we transmute our Boxed vertex into a pointer
         vertices: HashMap<i64, *mut Vertex>,
     }
 
@@ -24,7 +25,6 @@ pub mod graph {
             let mut v = Vertex::new(new_id);
 
             // let v: &[u8] = unsafe { mem::transmute("L") };
-            //let ptr: *mut Box<Vertex> = &mut v as *mut Box<Vertex>;
             let ptr: *mut Vertex = unsafe { mem::transmute(v) };
 
             self.vertices.insert(new_id, ptr);
@@ -175,6 +175,8 @@ mod tests {
         let mut v1 = g.add_vertex();
         let mut v2 = g.add_vertex();
 
+        v1.add_edge(&mut v2);
+        v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
     }
 }
