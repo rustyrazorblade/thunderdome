@@ -100,8 +100,8 @@ pub mod graph {
 
     #[derive(Debug)]
     pub struct Edge {
-        from_vertex: *const Vertex,
-        to_vertex: *const Vertex
+        pub from_vertex: *mut Vertex,
+        pub to_vertex: *mut Vertex
     }
 
     pub struct EdgeProxy {
@@ -119,6 +119,7 @@ pub mod graph {
 
 mod tests {
     use graph::{Graph, Vertex};
+    use std::mem;
     
     #[test]
     fn test_unsafe_vertex() {
@@ -165,6 +166,9 @@ mod tests {
         assert_eq!(v1.out_edges.len(), v2.in_edges.len());
 
         // ensure the vertex and edge pointers are correct
+
+        assert_eq!(v1.v, e1.from_vertex);
+        assert_eq!(e1.to_vertex, v2.v);
         
         //assert_eq!(v1.v, *(e1.edge).from_vertex);
     }
