@@ -158,13 +158,14 @@ mod tests {
         let mut v1 = g.add_vertex();
         let mut v2 = g.add_vertex();
 
-        v1.add_edge(&mut v2);
+        let e1 = v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
 
         assert_eq!(v1.out_edges.len(), v2.in_edges.len());
 
-
         // ensure the vertex and edge pointers are correct
+        
+        //assert_eq!(v1.v, *(e1.edge).from_vertex);
     }
 }
