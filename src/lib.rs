@@ -75,7 +75,9 @@ pub mod graph {
             self.out_edges.push(edge_p);
         }
 
-        pub fn add_in_edge() {
+        pub fn add_in_edge(&mut self, edge: &mut Edge) {
+            let edge_p: *mut Edge = edge;
+            self.in_edges.push(edge_p);
 
         }
 
@@ -111,7 +113,9 @@ pub mod graph {
             // create the edge
             let mut e = Edge{from_vertex: self.v, to_vertex: to_vertex.v};
             in_vertex.add_out_edge(&mut e);
+            out_vertex.add_out_edge(&mut e);
         }
+
         pub fn query(self) {
 
         }
@@ -178,5 +182,7 @@ mod tests {
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
+
+        // ensure the vertex and edge pointers are correct
     }
 }
