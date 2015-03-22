@@ -1,6 +1,8 @@
 use std::ops::Deref;
 use std::mem;
 
+use edge::{Edge,EdgeProxy};
+
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
@@ -59,20 +61,5 @@ impl Deref for VertexProxy {
         unsafe {
             &*(self.v)
         }
-    }
-}
-
-#[derive(Debug)]
-pub struct Edge {
-    pub from_vertex: *mut Vertex,
-    pub to_vertex: *mut Vertex
-}
-
-pub struct EdgeProxy(*mut Edge);
-
-impl Deref for EdgeProxy {
-    type Target = Edge;
-    fn deref<'a>(&'a self) -> &'a Edge {
-        unsafe { &*(self.0) }
     }
 }

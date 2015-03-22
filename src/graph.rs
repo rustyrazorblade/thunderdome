@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::mem;
+
 use vertex::{Vertex,VertexProxy};
 
 #[derive(Debug)]
