@@ -1,3 +1,5 @@
+#![allow(raw_pointer_derive)]
+
 pub mod graph;
 pub mod vertex;
 

@@ -38,9 +38,9 @@ impl VertexProxy {
         }
 
         // create the edge
-        let mut e = Box::new(Edge{from_vertex: self.v, to_vertex: to_vertex.v});
+        let e = Box::new(Edge{from_vertex: self.v, to_vertex: to_vertex.v});
 
-        let mut edge: *mut Edge = unsafe { mem::transmute(e) };
+        let edge: *mut Edge = unsafe { mem::transmute(e) };
 
         in_vertex.out_edges.push(edge);
         out_vertex.in_edges.push(edge);

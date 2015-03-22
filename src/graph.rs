@@ -18,7 +18,7 @@ impl Graph {
     pub fn add_vertex(&mut self) -> VertexProxy {
         let new_id = self.elements + 1;
         self.elements += 1;
-        let mut v = Vertex::new(new_id);
+        let v = Vertex::new(new_id);
         let ptr: *mut Vertex = unsafe { mem::transmute(v) };
 
         self.vertices.insert(new_id, ptr);
@@ -28,5 +28,6 @@ impl Graph {
     }
 
     pub fn get(vertex_id:i64)  {
+        
     }
 }
