@@ -115,10 +115,12 @@ pub mod graph {
     }
 
     impl Deref for VertexProxy {
-        type Target = &Box<Vertex>;
+        type Target = Box<Vertex>;
 
         fn deref<'a>(&'a self) -> &'a Box<Vertex> {
-            *(self.v)
+            unsafe {
+                &*(self.v)
+            }
         }
     }
 
