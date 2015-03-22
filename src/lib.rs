@@ -103,6 +103,17 @@ pub mod graph {
         to_vertex: *const Vertex
     }
 
+    struct EdgeProxy {
+        edge: *mut Edge
+    }
+
+    impl Deref for EdgeProxy {
+        type Target = Edge;   
+        fn deref<'a>(&'a self) -> &'a Edge {
+            unsafe { &*(self.edge) }
+        }
+    }
+
 }
 
 mod tests {
