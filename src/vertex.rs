@@ -1,5 +1,13 @@
 use std::ops::Deref;
 use std::mem;
+use std::collections::HashMap;
+
+#[derive(Debug)]
+pub enum GraphProperty {
+    i64,
+    float, 
+    String,
+}
 
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
@@ -9,6 +17,7 @@ use std::mem;
 #[derive(Debug)]
 pub struct Vertex {
     pub id: i64,
+    pub properties: HashMap<String, GraphProperty>,
     // pointers on both sides, yay
     pub out_edges: Vec<*mut Edge>,
     pub in_edges:  Vec<*mut Edge>,
@@ -16,7 +25,9 @@ pub struct Vertex {
 
 impl Vertex {
     pub fn new(id: i64) -> Box<Vertex> {
+        let mut props  = HashMap::new();
         Box::new(Vertex{id:id, 
+                        properties: props,
                         out_edges: Vec::new(), 
                         in_edges: Vec::new()})
     }
@@ -83,3 +94,9 @@ enum GraphIterable {
     VertexProxy,
     EdgeProxy
 }
+
+struct GraphPath {
+    path: GraphIterable
+}
+
+
