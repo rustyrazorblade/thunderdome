@@ -78,3 +78,8 @@ impl Deref for EdgeProxy {
         unsafe { &*(self.edge) }
     }
 }
+
+enum GraphIterable {
+    VertexProxy,
+    EdgeProxy
+}
