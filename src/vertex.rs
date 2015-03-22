@@ -44,13 +44,12 @@ impl VertexProxy {
 
         in_vertex.out_edges.push(edge);
         out_vertex.in_edges.push(edge);
-        EdgeProxy{edge:edge}
+        EdgeProxy(edge)
     }
 
     pub fn query(self) {
         unimplemented!()
     }
-
 }
 
 impl Deref for VertexProxy {
@@ -69,13 +68,4 @@ pub struct Edge {
     pub to_vertex: *mut Vertex
 }
 
-pub struct EdgeProxy {
-    edge: *mut Edge
-}
-
-impl Deref for EdgeProxy {
-    type Target = Edge;   
-    fn deref<'a>(&'a self) -> &'a Edge {
-        unsafe { &*(self.edge) }
-    }
-}
+pub struct EdgeProxy(*mut Edge);
