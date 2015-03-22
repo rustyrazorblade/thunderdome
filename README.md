@@ -1,2 +1,2 @@
-<img align="center" src="https://camo.githubusercontent.com/1ab4dd93c138ed27dd632f5e23fa48b829663d40/68747470733a2f2f7261772e6769746875622e636f6d2f537461727454686553686966742f7468756e646572646f6d652f6d61737465722f646f63732f6c6f676f2e706e67" alt="Thunderdome Logo" />
+<img align="center" src="https://s3.amazonaws.com/haddad.public/thunderdome.png" alt="Thunderdome Logo" />
 
