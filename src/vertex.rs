@@ -33,6 +33,7 @@ impl Vertex {
                         out_edges: Vec::new(), 
                         in_edges: Vec::new()})
     }
+
 }
 
 pub struct VertexProxy {
@@ -59,6 +60,11 @@ impl VertexProxy {
         out_vertex.in_edges.push(edge);
         EdgeProxy{edge:edge}
     }
+    
+    pub fn set_property(&mut self, field: String, value: GraphProperty) {
+        unimplemented!();
+    }
+
 
     pub fn query(self) {
         unimplemented!()
