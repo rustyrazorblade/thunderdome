@@ -154,12 +154,12 @@ mod tests {
     fn test_new_vertex() {
         let mut g = Graph::new();
         let v1 = g.add_vertex();
-        println!("here I am");
-        assert!(v1.id == 1);
+
+        assert_eq!(v1.id, 1);
 
         unsafe {
-            let vertex: &mut Box<Vertex> = &mut *(v1.v);
-            assert!(vertex.id == 1);
+            let vertex = &*v1;
+            assert_eq!((*v1).id, 1);
         }
 
         let v2 = g.add_vertex();
