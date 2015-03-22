@@ -4,6 +4,8 @@ pub mod graph;
 pub mod vertex;
 
 mod tests {
+    use vertex::Vertex;
+    use graph::Graph;
     #[test]
     fn test_unsafe_vertex() {
         let v = Vertex::new(1);
