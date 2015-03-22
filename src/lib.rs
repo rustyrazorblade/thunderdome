@@ -175,6 +175,8 @@ mod tests {
         v1.add_edge(&mut v2);
         v1.add_edge(&mut v2);
 
+        assert_eq!(v1.out_edges.len(), v2.in_edges.len());
+
 
         // ensure the vertex and edge pointers are correct
     }
