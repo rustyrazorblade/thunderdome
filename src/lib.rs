@@ -64,7 +64,7 @@ pub mod graph {
     }
 
     impl VertexProxy {
-        pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) {
+        pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) -> EdgeProxy {
             let in_vertex: &mut Vertex;
             let out_vertex: &mut Vertex;
 
@@ -104,7 +104,7 @@ pub mod graph {
         to_vertex: *const Vertex
     }
 
-    struct EdgeProxy {
+    pub struct EdgeProxy {
         edge: *mut Edge
     }
 
