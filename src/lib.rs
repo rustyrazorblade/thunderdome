@@ -8,7 +8,7 @@ pub mod graph {
     #[derive(Debug)]
     pub struct Graph {
         elements: i64,
-        // we transmute our Boxed vertex into a pointer
+        // we transmute our Boxed vertex into a pointer later
         vertices: HashMap<i64, *mut Vertex>,
     }
 
@@ -24,7 +24,6 @@ pub mod graph {
 
             let mut v = Vertex::new(new_id);
 
-            // let v: &[u8] = unsafe { mem::transmute("L") };
             let ptr: *mut Vertex = unsafe { mem::transmute(v) };
 
             self.vertices.insert(new_id, ptr);
@@ -37,18 +36,11 @@ pub mod graph {
     }
 
     /*
-    I'm not sure on this, but it feels reasonable.  a vertex can own it's out_edges.
-    this should? make it easier to manage the memory?
-
-    additionally, it should cut down on the number of "things" i have to traverse
-    if a vertex has 10k edges (5k in and out 5k out) then doing something like
-
-    g(v).outV()
-
-    should be faster to iterate over
-
-    the cost is a little code complexity but i think that won't be too bad
-     */
+    * storing in & out edges seperately should cut down on the number of "things" i have to traverse
+    * if a vertex has 10k edges (5k in and out 5k out) then doing something like
+    *   g(v).outV()
+    * should be ok
+    */
     #[derive(Debug)]
     pub struct Vertex {
         pub id: i64,
@@ -60,14 +52,9 @@ pub mod graph {
 
     impl Vertex {
         pub fn new(id: i64) -> Box<Vertex> {
-
-            // in edges
-            let in_edges : Vec<*mut Edge> = Vec::new();
-            let out_edges: Vec<*mut Edge> = Vec::new();
-
             Box::new(Vertex{id:id, 
-                            out_edges: out_edges, 
-                            in_edges:in_edges})
+                            out_edges: Vec::new(), 
+                            in_edges: Vec::new()})
         }
     }
 
