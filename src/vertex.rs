@@ -9,6 +9,8 @@ pub enum GraphProperty {
     String,
 }
 
+use edge::{Edge,EdgeProxy};
+
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
@@ -61,7 +63,6 @@ impl VertexProxy {
     pub fn query(self) {
         unimplemented!()
     }
-
 }
 
 impl Deref for VertexProxy {
@@ -74,23 +75,6 @@ impl Deref for VertexProxy {
     }
 }
 
-#[derive(Debug)]
-pub struct Edge {
-    pub from_vertex: *mut Vertex,
-    pub to_vertex: *mut Vertex
-}
-
-pub struct EdgeProxy {
-    edge: *mut Edge
-}
-
-impl Deref for EdgeProxy {
-    type Target = Edge;   
-    fn deref<'a>(&'a self) -> &'a Edge {
-        unsafe { &*(self.edge) }
-    }
-}
-
 enum GraphIterable {
     VertexProxy,
     EdgeProxy
@@ -99,5 +83,3 @@ enum GraphIterable {
 struct GraphPath {
     path: GraphIterable
 }
-
-
