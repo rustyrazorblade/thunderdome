@@ -28,6 +28,6 @@ impl Graph {
     }
 
     pub fn get(vertex_id:i64)  {
-        
+        unimplemented!()
     }
 }

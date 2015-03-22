@@ -59,6 +59,7 @@ impl VertexProxy {
     }
 
     pub fn query(self) {
+        unimplemented!()
     }
 
 }
