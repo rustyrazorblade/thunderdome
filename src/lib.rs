@@ -3,16 +3,17 @@
 pub mod graph {
     use std::collections::HashMap;
     use std::ops::Deref;
+    use std::mem;
 
     #[derive(Debug)]
     pub struct Graph {
         elements: i64,
-        vertices: HashMap<i64, *mut Box<Vertex>>,
+        vertices: HashMap<i64, *mut Vertex>,
     }
 
     impl Graph {
         pub fn new() -> Box<Graph> {
-            let vertices: HashMap<i64, *mut Box<Vertex>> = HashMap::new();
+            let vertices: HashMap<i64, *mut Vertex> = HashMap::new();
             Box::new(Graph{elements:0, vertices:vertices})
         }
 
@@ -22,7 +23,9 @@ pub mod graph {
 
             let mut v = Vertex::new(new_id);
 
-            let ptr: *mut Box<Vertex> = &mut v as *mut Box<Vertex>;
+            // let v: &[u8] = unsafe { mem::transmute("L") };
+            //let ptr: *mut Box<Vertex> = &mut v as *mut Box<Vertex>;
+            let ptr: *mut Vertex = unsafe { mem::transmute(v) };
 
             self.vertices.insert(new_id, ptr);
 
@@ -80,7 +83,7 @@ pub mod graph {
 
     pub struct VertexProxy {
         pub id: i64,
-        pub v: *mut Box<Vertex>,
+        pub v: *mut Vertex,
     }
 
     //let i: u32 = 1;
@@ -97,8 +100,8 @@ pub mod graph {
 
     impl VertexProxy {
         pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) {
-            let in_vertex: &mut Box<Vertex>;
-            let out_vertex: &mut Box<Vertex>;
+            let in_vertex: &mut Vertex;
+            let out_vertex: &mut Vertex;
 
             unsafe {
                 in_vertex =  &mut *(self.v);
@@ -115,9 +118,9 @@ pub mod graph {
     }
 
     impl Deref for VertexProxy {
-        type Target = Box<Vertex>;
+        type Target = Vertex;
 
-        fn deref<'a>(&'a self) -> &'a Box<Vertex> {
+        fn deref<'a>(&'a self) -> &'a Vertex {
             unsafe {
                 &*(self.v)
             }
@@ -126,8 +129,8 @@ pub mod graph {
 
     #[derive(Debug)]
     pub struct Edge {
-        from_vertex: *const Box<Vertex>,
-        to_vertex: *const Box<Vertex>
+        from_vertex: *const Vertex,
+        to_vertex: *const Vertex
     }
 }
 
@@ -172,6 +175,6 @@ mod tests {
         let mut v1 = g.add_vertex();
         let mut v2 = g.add_vertex();
 
-        //v1.add_edge(&mut v2);
+        v1.add_edge(&mut v2);
     }
 }
