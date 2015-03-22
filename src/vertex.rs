@@ -69,3 +69,10 @@ pub struct Edge {
 }
 
 pub struct EdgeProxy(*mut Edge);
+
+impl Deref for EdgeProxy {
+    type Target = Edge;
+    fn deref<'a>(&'a self) -> &'a Edge {
+        unsafe { &*(self.0) }
+    }
+}
