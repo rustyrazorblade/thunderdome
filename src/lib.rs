@@ -61,11 +61,21 @@ mod tests {
     }
 
     #[test]
-    fn test_set_property() {
+    fn test_properties() {
         let mut g = Graph::new();
         let mut v1 = g.add_vertex();
         let key = "jon".to_string();
         let value = GraphProperty::Int(1);
-        v1.set_property(key, value);
+        v1.set_property(key.clone(), value);
+        
+        let result = v1.get_property(key).unwrap();
+
+        match result {
+            &GraphProperty::Int(1) => 
+                // we're ok
+                println!("OK"),
+            _ => 
+                panic!("wrong graph property")
+        }
     }
 }

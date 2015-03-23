@@ -65,7 +65,10 @@ impl VertexProxy {
     pub fn set_property(&mut self, field: String, value: GraphProperty) {
         self.properties.insert(field, value);
     }
-
+    
+    pub fn get_property(&self, field:String) -> Option<&GraphProperty> {
+        self.properties.get(&field)
+    }
 
     pub fn query(self) {
         unimplemented!()
