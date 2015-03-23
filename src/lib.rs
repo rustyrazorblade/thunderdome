@@ -64,8 +64,8 @@ mod tests {
     fn test_set_property() {
         let mut g = Graph::new();
         let mut v1 = g.add_vertex();
-        let mut key = "jon".to_string();
-        let mut value = GraphProperty::Int(1);
+        let key = "jon".to_string();
+        let value = GraphProperty::Int(1);
         v1.set_property(key, value);
     }
 }

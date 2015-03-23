@@ -1,4 +1,4 @@
-use std::ops::Deref;
+use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
 
@@ -54,6 +54,7 @@ impl VertexProxy {
         // create the edge
         let e = Box::new(Edge{from_vertex: self.v, to_vertex: to_vertex.v});
 
+        // keep it on the heap but manage it myself
         let edge: *mut Edge = unsafe { mem::transmute(e) };
 
         in_vertex.out_edges.push(edge);
@@ -77,6 +78,14 @@ impl Deref for VertexProxy {
     fn deref<'a>(&'a self) -> &'a Vertex {
         unsafe {
             &*(self.v)
+        }
+    }
+}
+
+impl DerefMut for VertexProxy {
+    fn deref_mut<'a>(&'a mut self) -> &'a mut Vertex {
+        unsafe {
+            &mut *(self.v)
         }
     }
 }
