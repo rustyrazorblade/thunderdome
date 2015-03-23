@@ -6,7 +6,7 @@ pub mod edge;
 
 #[cfg(test)]
 mod tests {
-    use vertex::Vertex;
+    use vertex::{Vertex, GraphProperty};
     use graph::Graph;
     #[test]
     fn test_unsafe_vertex() {
@@ -58,5 +58,14 @@ mod tests {
         assert_eq!(e1.to_vertex, v2.v);
         
         //assert_eq!(v1.v, *(e1.edge).from_vertex);
+    }
+
+    #[test]
+    fn test_set_property() {
+        let mut g = Graph::new();
+        let mut v1 = g.add_vertex();
+        let mut key = "jon".to_string();
+        let mut value = GraphProperty::Int(1);
+        v1.set_property(key, value);
     }
 }

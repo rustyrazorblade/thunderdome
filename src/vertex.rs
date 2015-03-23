@@ -4,9 +4,9 @@ use std::collections::HashMap;
 
 #[derive(Debug)]
 pub enum GraphProperty {
-    i64,
-    float, 
-    String,
+    Int(i64),
+    Float(f64), 
+    String(String),
 }
 
 use edge::{Edge,EdgeProxy};
@@ -62,7 +62,7 @@ impl VertexProxy {
     }
     
     pub fn set_property(&mut self, field: String, value: GraphProperty) {
-        unimplemented!();
+        self.properties.insert(field, value);
     }
 
 
