@@ -75,6 +75,7 @@ impl VertexProxy {
     }
 }
 
+
 impl Deref for VertexProxy {
     type Target = Vertex;
 
@@ -98,6 +99,32 @@ enum GraphIterable {
     EdgeProxy
 }
 
-struct GraphPath {
+
+
+// used to track a single graph traversal
+//
+struct Path {
     path: GraphIterable
+}
+
+impl Path {
+    fn new(vertex: VertexProxy) -> Path {
+    }
+}
+
+struct GraphQuery {
+    paths: Vec<GraphIterable>
+}
+
+impl GraphQuery {
+    fn new(vertices: Vec<VertexProxy>) -> GraphQuery {
+        // create a new path for each proxy, add the proxy
+        let paths = Vec::new();
+        let path: Path;
+        for p in vertices {
+            
+            path.push( )
+        }
+        GraphQuery{paths}
+    }
 }
