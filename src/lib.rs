@@ -24,7 +24,7 @@ mod tests {
         let vertex = &*v1;
         assert!(vertex.id == 1);
     }
-    
+
     #[test]
     fn test_new_vertex() {
         let mut g = Graph::new();
@@ -57,7 +57,7 @@ mod tests {
 
         assert_eq!(v1.v, e1.from_vertex);
         assert_eq!(e1.to_vertex, v2.v);
-        
+
         //assert_eq!(v1.v, *(e1.edge).from_vertex);
     }
 
@@ -68,14 +68,14 @@ mod tests {
         let key = "jon".to_string();
         let value = GraphProperty::Int(1);
         v1.set_property(key.clone(), value);
-        
+
         let result = v1.get_property(key).unwrap();
 
         match result {
-            &GraphProperty::Int(1) => 
+            &GraphProperty::Int(1) =>
                 // we're ok
                 println!("OK"),
-            _ => 
+            _ =>
                 panic!("wrong graph property")
         }
     }
@@ -101,4 +101,17 @@ mod tests {
         let vertex = g.add_vertex();
         let result = g.v(1).outV();
     }
+
+	#[test]
+	fn test_vertex_outv() {
+		let mut g = Graph::new();
+		let mut vertex = g.add_vertex();
+		let mut vertex2 = g.add_vertex();
+
+		vertex.add_edge(&mut vertex2);
+
+		let result = vertex.outV();
+		assert_eq!(1, result.len());
+
+	}
 }

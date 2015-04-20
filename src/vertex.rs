@@ -5,7 +5,7 @@ use std::collections::HashMap;
 #[derive(Debug)]
 pub enum GraphProperty {
     Int(i64),
-    Float(f64), 
+    Float(f64),
     String(String),
 }
 
@@ -28,11 +28,12 @@ pub struct Vertex {
 impl Vertex {
     pub fn new(id: i64) -> Box<Vertex> {
         let mut props  = HashMap::new();
-        Box::new(Vertex{id:id, 
+        Box::new(Vertex{id:id,
                         properties: props,
-                        out_edges: Vec::new(), 
+                        out_edges: Vec::new(),
                         in_edges: Vec::new()})
     }
+
 
 }
 
@@ -61,11 +62,11 @@ impl VertexProxy {
         out_vertex.in_edges.push(edge);
         EdgeProxy{edge:edge}
     }
-    
+
     pub fn set_property(&mut self, field: String, value: GraphProperty) {
         self.properties.insert(field, value);
     }
-    
+
     pub fn get_property(&self, field:String) -> Option<&GraphProperty> {
         self.properties.get(&field)
     }
@@ -73,6 +74,16 @@ impl VertexProxy {
     pub fn query(self) {
         unimplemented!()
     }
+
+	// returns all the outV vertex proxies
+	// mainly for internal use
+	pub fn outV(&self) -> Vec<Vertex> {
+		let mut result = Vec::new();
+		for x in self.out_edges.iter() {
+
+		}
+		result
+	}
 }
 
 
