@@ -64,10 +64,16 @@ impl GraphQuery {
         let g = GraphQuery::empty();
 
 		let f = |path: Path| {
-			
+			let mut result : Vec<Path>  = Vec::new();
+			result
 		};
 //		let g = self.map()
         g
     }
+
+	pub fn inv(&self) -> GraphQuery {
+		let g = GraphQuery::empty();
+		g
+	}
 }
 
