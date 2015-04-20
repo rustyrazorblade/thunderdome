@@ -56,10 +56,10 @@ impl GraphQuery {
         GraphQuery{paths:Vec::new()}
     }
 
-    fn map(closure: &Fn() -> Path) -> GraphQuery  {
+    fn map(closure: &Fn(Path) -> Vec<Path>) -> GraphQuery  {
         GraphQuery{paths:Vec::new()}
-
     }
+
     pub fn outV(&self) -> GraphQuery {
         let g = GraphQuery::empty();
         g
