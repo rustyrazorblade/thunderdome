@@ -3,6 +3,7 @@
 pub mod graph;
 pub mod vertex;
 pub mod edge;
+pub mod traversal;
 
 #[cfg(test)]
 mod tests {

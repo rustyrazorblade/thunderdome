@@ -1,10 +1,10 @@
 
-use vertex::Vertex;
-use edge::Edge;
+use vertex::{Vertex, VertexProxy};
+use edge::{Edge, EdgeProxy};
 // define a traversal as a series of stages
 
 struct VertexVisit {
-    vertex: VertexProxy;
+    vertex: VertexProxy
 }
 
 struct EdgeVisit {
@@ -14,11 +14,6 @@ struct EdgeVisit {
 enum TraversalStage {
 
 }
-
-struct Traversal {
-    steps: Vec<TraversalStage>
-}
-
 
 enum GraphIterable {
     VertexProxy,
@@ -34,7 +29,7 @@ struct Path {
 }
 
 impl Path {
-    fn new(vertex: VertexProxy) -> Path {
+    fn new(vertex: VertexProxy)  {
     }
 }
 
@@ -49,9 +44,15 @@ impl GraphQuery {
         let path: Path;
         for p in vertices {
             
-            path.push( )
+            //paths.push(path)
         }
-        GraphQuery{paths}
+        GraphQuery{paths:paths}
+    }
+
+    
+    fn map(closure: &Fn() -> i32) -> GraphQuery  {
+        GraphQuery{paths:Vec::new()}
+
     }
 }
 
