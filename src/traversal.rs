@@ -23,9 +23,10 @@ pub enum GraphIterable {
 
 
 // used to track a single graph traversal
-//
+// will be used in conjunction with a GraphQuery
+
 struct Path {
-    path: GraphIterable
+    path: Vec<GraphIterable>
 }
 
 impl Path {
@@ -34,7 +35,8 @@ impl Path {
 }
 
 pub struct GraphQuery {
-    paths: Vec<GraphIterable>
+	// many paths
+    paths: Vec<Path>
 }
 
 impl GraphQuery {
@@ -43,18 +45,18 @@ impl GraphQuery {
         let paths = Vec::new();
         let path: Path;
         for p in vertices {
-            
+
             //paths.push(path)
         }
         GraphQuery{paths:paths}
     }
+
     pub fn empty() -> GraphQuery {
         // return an empty graph query
-        let v: Vec<GraphIterable> = Vec::new();
-        GraphQuery{paths:v}
+        GraphQuery{paths:Vec::new()}
     }
-    
-    fn map(closure: &Fn() -> i32) -> GraphQuery  {
+
+    fn map(closure: &Fn() -> Path) -> GraphQuery  {
         GraphQuery{paths:Vec::new()}
 
     }
