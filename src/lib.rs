@@ -97,6 +97,8 @@ mod tests {
 
     #[test]
     fn test_traversal_map() {
-        
+        let mut g = Graph::new();
+        let vertex = g.add_vertex();
+        let result = g.v(1).outV();
     }
 }

@@ -58,5 +58,9 @@ impl GraphQuery {
         GraphQuery{paths:Vec::new()}
 
     }
+    pub fn outV(&self) -> GraphQuery {
+        let g = GraphQuery::empty();
+        g
+    }
 }
 
