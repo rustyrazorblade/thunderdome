@@ -62,6 +62,11 @@ impl GraphQuery {
 
     pub fn outV(&self) -> GraphQuery {
         let g = GraphQuery::empty();
+
+		let f = |path: Path| {
+			
+		};
+//		let g = self.map()
         g
     }
 }
