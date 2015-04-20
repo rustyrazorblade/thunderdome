@@ -15,9 +15,9 @@ enum TraversalStage {
 
 }
 
-enum GraphIterable {
-    VertexProxy,
-    EdgeProxy
+pub enum GraphIterable {
+    Vertex(VertexProxy),
+    Edge(EdgeProxy)
 }
 
 
@@ -33,12 +33,12 @@ impl Path {
     }
 }
 
-struct GraphQuery {
+pub struct GraphQuery {
     paths: Vec<GraphIterable>
 }
 
 impl GraphQuery {
-    fn new(vertices: Vec<VertexProxy>) -> GraphQuery {
+    pub fn new(vertices: Vec<VertexProxy>) -> GraphQuery {
         // create a new path for each proxy, add the proxy
         let paths = Vec::new();
         let path: Path;
@@ -48,7 +48,11 @@ impl GraphQuery {
         }
         GraphQuery{paths:paths}
     }
-
+    pub fn empty() -> GraphQuery {
+        // return an empty graph query
+        let v: Vec<GraphIterable> = Vec::new();
+        GraphQuery{paths:v}
+    }
     
     fn map(closure: &Fn() -> i32) -> GraphQuery  {
         GraphQuery{paths:Vec::new()}

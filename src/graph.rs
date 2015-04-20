@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::mem;
 
 use vertex::{Vertex,VertexProxy};
+use traversal::{GraphQuery, GraphIterable};
 
 #[derive(Debug)]
 pub struct Graph {
@@ -28,7 +29,28 @@ impl Graph {
         VertexProxy{id:new_id, v: ptr}
     }
 
-    pub fn get(vertex_id:i64)  {
-        unimplemented!()
+    pub fn get(&self, vertex_id:i64) -> Option<VertexProxy>  {
+        let vertex_pointer = self.vertices.get(&vertex_id);
+        // return a proxy
+        match vertex_pointer {
+            Some(ptr) => 
+                Some(VertexProxy{id:vertex_id, v:*ptr}),
+            None => 
+                None
+        }
+    }
+    
+    // this will be used to start a graph query
+    pub fn v(&self, vertex_id:i64) -> GraphQuery {
+        // grab the original vertex
+        let vertex = self.get(vertex_id);
+        let mut v = Vec::new();
+        match vertex {
+            Some(result) => {
+                v.push(result);
+                GraphQuery::new(v)
+            }
+            None => GraphQuery::empty()
+        }
     }
 }
