@@ -30,7 +30,8 @@ struct Path {
 }
 
 impl Path {
-    fn new(vertex: VertexProxy)  {
+    fn new(vertex: VertexProxy) -> Path {
+		Path{path:vec![GraphIterable::Vertex(vertex)]}
     }
 }
 
@@ -42,11 +43,10 @@ pub struct GraphQuery {
 impl GraphQuery {
     pub fn new(vertices: Vec<VertexProxy>) -> GraphQuery {
         // create a new path for each proxy, add the proxy
-        let paths = Vec::new();
-        let path: Path;
+        let mut paths = Vec::new();
         for p in vertices {
-
-            //paths.push(path)
+			let mut path = Path::new(p);
+            paths.push(path)
         }
         GraphQuery{paths:paths}
     }
