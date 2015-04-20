@@ -87,6 +87,12 @@ mod tests {
         assert_eq!(v.id, 1);
     }
 
+    fn test_graph_query_off_vertex() {
+        let mut g = Graph::new();
+        let vertex = g.add_vertex();
+        let query = g.v(1);
+    }
+
     fn test_traversal_map() {
         
     }
