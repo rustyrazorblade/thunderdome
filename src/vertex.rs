@@ -43,6 +43,11 @@ pub struct VertexProxy {
 }
 
 impl VertexProxy {
+
+	pub fn new(v: *mut Vertex) {
+
+	}
+
     pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) -> EdgeProxy {
         let in_vertex: &mut Vertex;
         let out_vertex: &mut Vertex;
@@ -77,12 +82,17 @@ impl VertexProxy {
 
 	// returns all the outV vertex proxies
 	// mainly for internal use
-	pub fn outV(&self) -> Vec<Vertex> {
+	pub fn outV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
-		for x in self.out_edges.iter() {
-
+		unsafe {
+			for x in self.out_edges.iter() {
+				let edge = x.as_mut().unwrap();
+				let vertex = edge.to_vertex.as_mut().unwrap();
+				let proxy = VertexProxy{id:vertex.id, v:edge.to_vertex};
+				result.push(proxy);
+			}
+			result
 		}
-		result
 	}
 }
 
