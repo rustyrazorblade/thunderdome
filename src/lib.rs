@@ -101,6 +101,8 @@ mod tests {
         let mut g = Graph::new();
         let vertex = g.add_vertex();
         let result = g.v(1).outV();
+
+		assert_eq!(result.paths.len(), 1);
     }
 
 	#[test]
