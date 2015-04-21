@@ -95,7 +95,6 @@ impl VertexProxy {
 			for x in self.out_edges.iter() {
 				let edge: Edge = mem::transmute(x);
 				let vertex: Vertex = mem::transmute(edge.to_vertex);
-//				let vertex = edge.to_vertex.as_mut().unwrap();
 				let proxy = VertexProxy{id:vertex.id, v:edge.to_vertex};
 				result.push(proxy);
 			}
