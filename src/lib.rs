@@ -113,5 +113,12 @@ mod tests {
 		let result = vertex.outV();
 		assert_eq!(1, result.len());
 
+		// add another edge, check length
+		let mut vertex3 = g.add_vertex();
+		vertex.add_edge(&mut vertex3);
+
+		let result = vertex.outV();
+		assert_eq!(2, result.len());
+
 	}
 }
