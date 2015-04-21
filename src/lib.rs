@@ -120,5 +120,7 @@ mod tests {
 		let result = vertex.outV();
 		assert_eq!(2, result.len());
 
+		let result = g.v(1).outV();
+
 	}
 }

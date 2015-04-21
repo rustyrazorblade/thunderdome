@@ -56,6 +56,11 @@ impl GraphQuery {
         GraphQuery{paths:Vec::new()}
     }
 
+	/*
+	generic mapper for our queries
+	future this may use worker threads to perform
+	traversals
+	 */
     fn map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
 		for x in self.paths.iter() {
@@ -68,6 +73,8 @@ impl GraphQuery {
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
 			let mut result : Vec<Path>  = Vec::new();
+			//take the final element in the path
+			// apply outV
 			result
 		};
 		self.map(f)

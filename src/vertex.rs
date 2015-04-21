@@ -2,6 +2,7 @@ use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
 
+
 #[derive(Debug)]
 pub enum GraphProperty {
     Int(i64),
@@ -80,14 +81,21 @@ impl VertexProxy {
         unimplemented!()
     }
 
-	// returns all the outV vertex proxies
-	// mainly for internal use
+	/* basic traversal operations
+	   cannot be chained
+	   look at traversal.rs for breadth first chaining
+	*/
+
+	/* returns all the outV vertex proxies
+	   mainly for internal use
+	*/
 	pub fn outV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
 		unsafe {
 			for x in self.out_edges.iter() {
-				let edge = x.as_mut().unwrap();
-				let vertex = edge.to_vertex.as_mut().unwrap();
+				let edge: Edge = mem::transmute(x);
+				let vertex: Vertex = mem::transmute(edge.to_vertex);
+//				let vertex = edge.to_vertex.as_mut().unwrap();
 				let proxy = VertexProxy{id:vertex.id, v:edge.to_vertex};
 				result.push(proxy);
 			}
