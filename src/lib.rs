@@ -1,4 +1,5 @@
 #![allow(raw_pointer_derive)]
+#![feature(collections)]
 
 pub mod graph;
 pub mod vertex;

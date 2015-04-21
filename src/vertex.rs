@@ -92,9 +92,10 @@ impl VertexProxy {
 	pub fn outV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
 		unsafe {
-			for x in self.out_edges.iter() {
-				let edge: Edge = mem::transmute(x);
-				let vertex: Vertex = mem::transmute(edge.to_vertex);
+			for &x in self.out_edges.iter() {
+				let edge: &Edge = &*x;
+				let vertex: &Vertex = &*(edge.to_vertex);
+
 				let proxy = VertexProxy{id:vertex.id, v:edge.to_vertex};
 				result.push(proxy);
 			}

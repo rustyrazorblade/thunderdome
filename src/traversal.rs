@@ -72,7 +72,7 @@ impl GraphQuery {
 
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
-			let mut result : Vec<Path>  = Vec::new();
+			let mut result : Vec<Path> = Vec::new();
 			//take the final element in the path
 			// apply outV
 			result
