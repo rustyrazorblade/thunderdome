@@ -99,7 +99,10 @@ mod tests {
     #[test]
     fn test_traversal_map() {
         let mut g = Graph::new();
-        let vertex = g.add_vertex();
+        let mut vertex = g.add_vertex();
+		let mut vertex2 = g.add_vertex();
+		vertex.add_edge(&mut vertex2);
+
         let result = g.v(1).outV();
 
 		assert_eq!(result.paths.len(), 1);

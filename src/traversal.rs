@@ -33,6 +33,20 @@ impl Path {
     fn new(vertex: VertexProxy) -> Path {
 		Path{path:vec![GraphIterable::Vertex(vertex)]}
     }
+	fn new_empty() -> Path {
+		Path{path:vec![]}
+	}
+
+}
+
+impl Clone for Path {
+	fn clone(&self) -> Path {
+		Path::new_empty()
+	}
+
+	fn clone_from(&mut self, source: &Self ) {
+
+	}
 }
 
 pub struct GraphQuery {
@@ -76,9 +90,27 @@ impl GraphQuery {
 
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
+			println!("applying outV");
 			let mut result : Vec<Path> = Vec::new();
 			//take the final element in the path
+			let element = path.path.last().unwrap();
+
+			match element {
+				&GraphIterable::Vertex(ref v) => {
+					println!("matched vertex");
+					let mut tmp = v.outV();
+					for vertex in tmp {
+						println!("adding path based on vertex match");
+						let new_path = path.clone();
+						result.push(new_path);
+					}
+				},
+				&GraphIterable::Edge(ref e) => {
+
+				}
+			}
 			// apply outV
+
 			result
 		};
 		self.map(f)
