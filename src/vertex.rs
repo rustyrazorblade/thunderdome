@@ -120,6 +120,16 @@ impl Traversable for VertexProxy {
 			result
 		}
 	}
+//	fn inE(&self) -> Vec<EdgeProxy> {
+//		let mut result = Vec::new();
+//
+//		result
+//	}
+//	fn outE(&self) -> Vec<EdgeProxy> {
+//		let mut result = Vec::new();
+//
+//		result
+//	}
 
 }
 

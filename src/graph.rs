@@ -3,6 +3,7 @@ use std::mem;
 
 use vertex::{Vertex,VertexProxy};
 use traversal::{GraphQuery, GraphElement};
+use edge::EdgeProxy;
 
 #[derive(Debug)]
 pub struct Graph {
@@ -58,5 +59,7 @@ impl Graph {
 pub trait Traversable {
 	fn inV(&self) -> Vec<VertexProxy>;
 	fn outV(&self) -> Vec<VertexProxy>;
+//	fn inE(&self) -> Vec<EdgeProxy>;
+
 
 }
