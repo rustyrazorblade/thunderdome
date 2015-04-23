@@ -15,7 +15,7 @@ enum TraversalStage {
 
 }
 
-pub enum GraphIterable {
+pub enum GraphElement {
     Vertex(VertexProxy),
     Edge(EdgeProxy)
 }
@@ -26,12 +26,12 @@ pub enum GraphIterable {
 // will be used in conjunction with a GraphQuery
 
 pub struct Path {
-    path: Vec<GraphIterable>
+    path: Vec<GraphElement>
 }
 
 impl Path {
     fn new(vertex: VertexProxy) -> Path {
-		Path{path:vec![GraphIterable::Vertex(vertex)]}
+		Path{path:vec![GraphElement::Vertex(vertex)]}
     }
 	fn new_empty() -> Path {
 		Path{path:vec![]}
@@ -90,12 +90,16 @@ impl GraphQuery {
 
 	/*
 	accepts a proxy and a closure, per
+	takes the last element
 	 */
-	fn map<F: Fn(&VertexProxy) -> Vec<GraphIterable>>(&self, closure: F)
+	fn map<F: Fn(&GraphElement) -> Vec<GraphElement>>(&self, closure: F)
 		-> GraphQuery {
 		GraphQuery::empty()
 	}
 
+	/*
+
+	 */
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
 			println!("applying outV");
@@ -104,7 +108,7 @@ impl GraphQuery {
 			let element = path.path.last().unwrap();
 
 			match element {
-				&GraphIterable::Vertex(ref v) => {
+				&GraphElement::Vertex(ref v) => {
 					println!("matched vertex");
 					let mut tmp = v.outV();
 					for vertex in tmp {
@@ -113,7 +117,7 @@ impl GraphQuery {
 						result.push(new_path);
 					}
 				},
-				&GraphIterable::Edge(ref e) => {
+				&GraphElement::Edge(ref e) => {
 
 				}
 			}
@@ -126,7 +130,11 @@ impl GraphQuery {
 
 	pub fn inV(&self) -> GraphQuery {
 		let g = GraphQuery::empty();
-		g
+		let f = |element: &VertexProxy| {
+
+		};
+		GraphQuery::empty()
+//		self.map(f)
 	}
 }
 
