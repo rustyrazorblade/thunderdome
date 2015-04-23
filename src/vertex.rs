@@ -102,6 +102,19 @@ impl VertexProxy {
 			result
 		}
 	}
+	pub fn inV(&self) -> Vec<VertexProxy> {
+		let mut result = Vec::new();
+		unsafe {
+			for &x in self.in_edges.iter() {
+				let edge: &Edge = &*x;
+				let vertex: &Vertex = &*(edge.from_vertex);
+
+				let proxy = VertexProxy{id:vertex.id, v:edge.from_vertex};
+				result.push(proxy);
+			}
+			result
+		}
+	}
 }
 
 

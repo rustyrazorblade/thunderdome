@@ -130,11 +130,17 @@ impl GraphQuery {
 
 	pub fn inV(&self) -> GraphQuery {
 		let g = GraphQuery::empty();
-		let f = |element: &VertexProxy| {
-
+		let f = |element: &GraphElement| {
+			match element {
+				&GraphElement::Vertex(ref v) => {
+					return v.inV()
+				}
+				&GraphElement::Edge(ref e) => {
+					return e.inV()
+				}
+			}
 		};
-		GraphQuery::empty()
-//		self.map(f)
+		self.map(f)
 	}
 }
 

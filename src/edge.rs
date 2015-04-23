@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use vertex::Vertex;
+use vertex::{Vertex, VertexProxy};
 
 #[derive(Debug)]
 pub struct Edge {
@@ -19,4 +19,9 @@ impl Deref for EdgeProxy {
     }
 }
 
+impl EdgeProxy {
+	pub fn inV(&self) -> Vec<VertexProxy> {
+
+	}
+}
 
