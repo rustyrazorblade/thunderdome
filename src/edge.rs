@@ -21,7 +21,13 @@ impl Deref for EdgeProxy {
 
 impl EdgeProxy {
 	pub fn inV(&self) -> Vec<VertexProxy> {
-
+		let mut result = Vec::new();
+		unsafe {
+			let vertex: &Vertex = &*(self.to_vertex);
+			let proxy = VertexProxy{id:vertex.id, v:self.to_vertex};
+			result.push(proxy);
+		}
+		result
 	}
 }
 

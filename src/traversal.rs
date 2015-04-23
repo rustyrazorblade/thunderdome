@@ -128,19 +128,12 @@ impl GraphQuery {
 		self.full_map(f)
     }
 
-	pub fn inV(&self) -> GraphQuery {
-		let g = GraphQuery::empty();
-		let f = |element: &GraphElement| {
-			match element {
-				&GraphElement::Vertex(ref v) => {
-					return v.inV()
-				}
-				&GraphElement::Edge(ref e) => {
-					return e.inV()
-				}
-			}
-		};
-		self.map(f)
-	}
+//	pub fn inV(&self) -> GraphQuery {
+//		let g = GraphQuery::empty();
+//		let f = |element: &GraphElement| {
+//			element.inV()
+//		};
+//		self.map(f)
+//	}
 }
 
