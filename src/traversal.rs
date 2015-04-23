@@ -79,7 +79,7 @@ impl GraphQuery {
 	future this may use worker threads to perform
 	traversals
 	 */
-    fn map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
+    fn full_map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
 		for x in self.paths.iter() {
 			let mut tmp = closure(x);
@@ -87,6 +87,14 @@ impl GraphQuery {
 		}
 		result
     }
+
+	/*
+	accepts a proxy and a closure, per
+	 */
+	fn map<F: Fn(&VertexProxy) -> Vec<GraphIterable>>(&self, closure: F)
+		-> GraphQuery {
+		GraphQuery::empty()
+	}
 
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
@@ -113,7 +121,7 @@ impl GraphQuery {
 
 			result
 		};
-		self.map(f)
+		self.full_map(f)
     }
 
 	pub fn inV(&self) -> GraphQuery {
