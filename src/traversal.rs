@@ -1,6 +1,7 @@
 
 use vertex::{Vertex, VertexProxy};
 use edge::{Edge, EdgeProxy};
+use graph::Traversable;
 // define a traversal as a series of stages
 
 struct VertexVisit {

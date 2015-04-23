@@ -11,6 +11,7 @@ pub enum GraphProperty {
 }
 
 use edge::{Edge,EdgeProxy};
+use graph::Traversable;
 
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
@@ -81,6 +82,10 @@ impl VertexProxy {
         unimplemented!()
     }
 
+
+}
+
+impl Traversable for VertexProxy {
 	/* basic traversal operations
 	   cannot be chained
 	   look at traversal.rs for breadth first chaining
@@ -89,7 +94,7 @@ impl VertexProxy {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	pub fn outV(&self) -> Vec<VertexProxy> {
+	fn outV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {
@@ -102,7 +107,7 @@ impl VertexProxy {
 			result
 		}
 	}
-	pub fn inV(&self) -> Vec<VertexProxy> {
+	fn inV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.in_edges.iter() {
@@ -115,8 +120,8 @@ impl VertexProxy {
 			result
 		}
 	}
-}
 
+}
 
 impl Deref for VertexProxy {
     type Target = Vertex;

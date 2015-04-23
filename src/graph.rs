@@ -55,7 +55,7 @@ impl Graph {
     }
 }
 
-trait Traversable {
+pub trait Traversable {
 	fn inV(&self) -> Vec<VertexProxy>;
 	fn outV(&self) -> Vec<VertexProxy>;
 
