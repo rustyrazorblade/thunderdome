@@ -1,6 +1,7 @@
 use std::ops::Deref;
 
 use vertex::{Vertex, VertexProxy};
+use graph::Traversable;
 
 #[derive(Debug)]
 pub struct Edge {
@@ -19,12 +20,21 @@ impl Deref for EdgeProxy {
     }
 }
 
-impl EdgeProxy {
-	pub fn inV(&self) -> Vec<VertexProxy> {
+impl Traversable for EdgeProxy {
+	fn inV(&self) -> Vec<VertexProxy> {
 		let mut result = Vec::new();
 		unsafe {
 			let vertex: &Vertex = &*(self.to_vertex);
 			let proxy = VertexProxy{id:vertex.id, v:self.to_vertex};
+			result.push(proxy);
+		}
+		result
+	}
+	fn outV(&self) -> Vec<VertexProxy> {
+		let mut result = Vec::new();
+		unsafe {
+			let vertex: &Vertex = &*(self.from_vertex);
+			let proxy = VertexProxy{id:vertex.id, v:self.from_vertex};
 			result.push(proxy);
 		}
 		result
