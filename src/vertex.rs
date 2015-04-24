@@ -11,7 +11,7 @@ pub enum GraphProperty {
 }
 
 use edge::{Edge,EdgeProxy};
-use graph::Traversable;
+use graph::TraversableToVertex;
 
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
@@ -85,7 +85,7 @@ impl VertexProxy {
 
 }
 
-impl Traversable for VertexProxy {
+impl TraversableToVertex for VertexProxy {
 	/* basic traversal operations
 	   cannot be chained
 	   look at traversal.rs for breadth first chaining

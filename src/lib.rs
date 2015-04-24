@@ -9,7 +9,7 @@ pub mod traversal;
 #[cfg(test)]
 mod tests {
     use vertex::{Vertex, GraphProperty};
-    use graph::{Graph, Traversable};
+    use graph::{Graph, TraversableToVertex};
     #[test]
     fn test_unsafe_vertex() {
         let v = Vertex::new(1);
