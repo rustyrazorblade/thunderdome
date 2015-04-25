@@ -85,11 +85,23 @@ impl VertexProxy {
 
 	pub fn outE(&self) -> Vec<EdgeProxy> {
 		let mut result = Vec::new();
+		unsafe {
+			for &x in self.out_edges.iter() {
+				let proxy = EdgeProxy{edge:x};
+				result.push(proxy);
+			}
+		}
 		result
 	}
 
 	pub fn inE(&self) -> Vec<EdgeProxy> {
 		let mut result = Vec::new();
+		unsafe {
+			for &x in self.in_edges.iter() {
+				let proxy = EdgeProxy{edge:x};
+				result.push(proxy);
+			}
+		}
 		result
 	}
 
