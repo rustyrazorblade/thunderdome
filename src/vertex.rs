@@ -36,12 +36,12 @@ impl Vertex {
                         in_edges: Vec::new()})
     }
 
-	pub fn outE() -> Vec<Edge> {
+	pub fn outE() -> Vec<EdgeProxy> {
 		let mut result = Vec::new();
 		result
 	}
 
-	pub fn inE() -> Vec<Edge> {
+	pub fn inE() -> Vec<EdgeProxy> {
 		let mut result = Vec::new();
 		result
 	}
@@ -130,16 +130,6 @@ impl TraversableToVertex for VertexProxy {
 			result
 		}
 	}
-//	fn inE(&self) -> Vec<EdgeProxy> {
-//		let mut result = Vec::new();
-//
-//		result
-//	}
-//	fn outE(&self) -> Vec<EdgeProxy> {
-//		let mut result = Vec::new();
-//
-//		result
-//	}
 
 }
 
