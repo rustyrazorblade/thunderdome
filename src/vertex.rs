@@ -36,6 +36,16 @@ impl Vertex {
                         in_edges: Vec::new()})
     }
 
+	pub fn outE() -> Vec<Edge> {
+		let mut result = Vec::new();
+		result
+	}
+
+	pub fn inE() -> Vec<Edge> {
+		let mut result = Vec::new();
+		result
+	}
+
 
 }
 
