@@ -36,15 +36,6 @@ impl Vertex {
                         in_edges: Vec::new()})
     }
 
-	pub fn outE() -> Vec<EdgeProxy> {
-		let mut result = Vec::new();
-		result
-	}
-
-	pub fn inE() -> Vec<EdgeProxy> {
-		let mut result = Vec::new();
-		result
-	}
 
 
 }
@@ -92,6 +83,15 @@ impl VertexProxy {
         unimplemented!()
     }
 
+	pub fn outE(&self) -> Vec<EdgeProxy> {
+		let mut result = Vec::new();
+		result
+	}
+
+	pub fn inE(&self) -> Vec<EdgeProxy> {
+		let mut result = Vec::new();
+		result
+	}
 
 }
 

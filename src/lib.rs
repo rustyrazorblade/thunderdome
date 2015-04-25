@@ -129,4 +129,15 @@ mod tests {
 		let result = g.v(1).outV();
 
 	}
+
+	#[test]
+	fn test_vertex_ine() {
+		let mut g = Graph::new();
+		let mut vertex = g.add_vertex();
+		let mut vertex2 = g.add_vertex();
+
+		vertex.add_edge(&mut vertex2);
+		let result = vertex.outE();
+		assert_eq!(1, result.len());
+	}
 }
