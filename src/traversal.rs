@@ -95,7 +95,14 @@ impl GraphQuery {
 	 */
 	fn map<F: Fn(&GraphElement) -> Vec<GraphElement>>(&self, closure: F)
 		-> GraphQuery {
-		GraphQuery::empty()
+		let mut result = GraphQuery::empty();
+		for x in self.paths.iter() {
+			// apply the closure to the last element in each map
+			// if nothing is returned, we should not use the path anymore
+		}
+
+		result
+
 	}
 
 	/*
