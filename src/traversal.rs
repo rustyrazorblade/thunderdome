@@ -74,6 +74,9 @@ impl GraphQuery {
 	pub fn get_paths(&self) -> &Vec<Path> {
 		&self.paths
 	}
+	pub fn push(&self, path:Path) {
+		self.paths.push(path)
+	}
 
 	/*
 	generic mapper for our queries
@@ -96,9 +99,13 @@ impl GraphQuery {
 	fn map<F: Fn(&GraphElement) -> Vec<GraphElement>>(&self, closure: F)
 		-> GraphQuery {
 		let mut result = GraphQuery::empty();
-		for x in self.paths.iter() {
+		for path in self.paths.iter() {
 			// apply the closure to the last element in each map
 			// if nothing is returned, we should not use the path anymore
+			let element = path.path.last().unwrap();
+			let mut tmp = closure(element);
+			let new_path = path.clone();
+			result.push(new_path);
 		}
 
 		result
