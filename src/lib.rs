@@ -150,4 +150,15 @@ mod tests {
 		let result = vertex2.inE();
 		assert_eq!(1, result.len());
 	}
+
+    #[test]
+    fn test_permute_path() {
+        let mut g = Graph::new();
+        let mut v = g.add_vertex();
+        let mut v2 = g.add_vertex();
+        let mut v3 = g.add_vertex();
+
+        let vec = vec![v2, v3];
+
+    }
 }

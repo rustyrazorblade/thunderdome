@@ -38,6 +38,17 @@ impl Path {
 		Path{path:vec![]}
 	}
 
+	/*
+	takes the current path and a vector of elements
+	and returns a vector of new paths,
+	each of which extends the existing path
+	 */
+	fn permute(&self, path: Vec<GraphElement>) -> Vec<Path> {
+		let result: Vec<Path> = Vec::new();
+
+		result
+	}
+
 }
 
 impl Clone for Path {
@@ -71,10 +82,11 @@ impl GraphQuery {
         GraphQuery{paths:Vec::new()}
     }
 
+
 	pub fn get_paths(&self) -> &Vec<Path> {
 		&self.paths
 	}
-	pub fn push(&self, path:Path) {
+	pub fn push(&mut self, path:Path) {
 		self.paths.push(path)
 	}
 
