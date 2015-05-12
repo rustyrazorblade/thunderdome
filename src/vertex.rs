@@ -18,7 +18,7 @@ use graph::TraversableToVertex;
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
 * should be ok
 */
-pub struct Vertex {
+pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, GraphProperty>,
     // pointers on both sides, yay
@@ -26,10 +26,10 @@ pub struct Vertex {
     pub in_edges:  Vec<*mut Edge>,
 }
 
-impl Vertex {
-    pub fn new(id: i64) -> Box<Vertex> {
+impl RawVertex {
+    pub fn new(id: i64) -> Box<RawVertex> {
         let mut props  = HashMap::new();
-        Box::new(Vertex{id:id,
+        Box::new(RawVertex{id:id,
                         properties: props,
                         out_edges: Vec::new(),
                         in_edges: Vec::new()})
@@ -40,20 +40,20 @@ impl Vertex {
 }
 
 #[derive(Clone)]
-pub struct VertexProxy {
+pub struct Vertex {
     pub id: i64,
-    pub v: *mut Vertex,
+    pub v: *mut RawVertex,
 }
 
-impl VertexProxy {
+impl Vertex {
 
-	pub fn new(v: *mut Vertex) {
+	pub fn new(v: *mut RawVertex) {
 
 	}
 
-    pub fn add_edge(&mut self, to_vertex: &mut VertexProxy) -> EdgeProxy {
-        let in_vertex: &mut Vertex;
-        let out_vertex: &mut Vertex;
+    pub fn add_edge(&mut self, to_vertex: &mut Vertex) -> EdgeProxy {
+        let in_vertex: &mut RawVertex;
+        let out_vertex: &mut RawVertex;
 
         unsafe {
             in_vertex =  &mut *(self.v);
@@ -107,7 +107,7 @@ impl VertexProxy {
 
 }
 
-impl TraversableToVertex for VertexProxy {
+impl TraversableToVertex for Vertex {
 	/* basic traversal operations
 	   cannot be chained
 	   look at traversal.rs for breadth first chaining
@@ -116,27 +116,27 @@ impl TraversableToVertex for VertexProxy {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self) -> Vec<VertexProxy> {
+	fn outV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {
 				let edge: &Edge = &*x;
-				let vertex: &Vertex = &*(edge.to_vertex);
+				let vertex: &RawVertex = &*(edge.to_vertex);
 
-				let proxy = VertexProxy{id:vertex.id, v:edge.to_vertex};
+				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
 				result.push(proxy);
 			}
 			result
 		}
 	}
-	fn inV(&self) -> Vec<VertexProxy> {
+	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.in_edges.iter() {
 				let edge: &Edge = &*x;
-				let vertex: &Vertex = &*(edge.from_vertex);
+				let vertex: &RawVertex = &*(edge.from_vertex);
 
-				let proxy = VertexProxy{id:vertex.id, v:edge.from_vertex};
+				let proxy = Vertex{id:vertex.id, v:edge.from_vertex};
 				result.push(proxy);
 			}
 			result
@@ -145,18 +145,18 @@ impl TraversableToVertex for VertexProxy {
 
 }
 
-impl Deref for VertexProxy {
-    type Target = Vertex;
+impl Deref for Vertex {
+    type Target = RawVertex;
 
-    fn deref<'a>(&'a self) -> &'a Vertex {
+    fn deref<'a>(&'a self) -> &'a RawVertex {
         unsafe {
             &*(self.v)
         }
     }
 }
 
-impl DerefMut for VertexProxy {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut Vertex {
+impl DerefMut for Vertex {
+    fn deref_mut<'a>(&'a mut self) -> &'a mut RawVertex {
         unsafe {
             &mut *(self.v)
         }

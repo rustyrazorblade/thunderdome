@@ -8,13 +8,13 @@ pub mod traversal;
 
 #[cfg(test)]
 mod tests {
-    use vertex::{Vertex, GraphProperty};
+    use vertex::{RawVertex, GraphProperty};
     use graph::{Graph, TraversableToVertex};
     use traversal::{Path,GraphElement};
 
     #[test]
     fn test_unsafe_vertex() {
-        let v = Vertex::new(1);
+        let v = RawVertex::new(1);
 
         let out_edges = &v.out_edges;
         let in_edges = &v.in_edges;
@@ -160,8 +160,8 @@ mod tests {
         let mut v2 = g.add_vertex();
         let mut v3 = g.add_vertex();
 
-        let vec = vec![GraphElement::Vertex(v2),
-                       GraphElement::Vertex(v3)];
+        let vec = vec![GraphElement::RawVertex(v2),
+                       GraphElement::RawVertex(v3)];
 
         let mut path = Path::new(v);
         let path2 = path.permute(&vec);

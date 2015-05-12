@@ -1,11 +1,11 @@
 
-use vertex::{Vertex, VertexProxy};
+use vertex::{RawVertex, Vertex};
 use edge::{Edge, EdgeProxy};
 use graph::TraversableToVertex;
 // define a traversal as a series of stages
 
 struct VertexVisit {
-    vertex: VertexProxy
+    vertex: Vertex
 }
 
 struct EdgeVisit {
@@ -18,7 +18,7 @@ enum TraversalStage {
 
 #[derive(Clone)]
 pub enum GraphElement {
-    Vertex(VertexProxy),
+    RawVertex(Vertex),
     Edge(EdgeProxy)
 }
 
@@ -32,8 +32,8 @@ pub struct Path {
 }
 
 impl Path {
-    pub fn new(vertex: VertexProxy) -> Path {
-		Path{path:vec![GraphElement::Vertex(vertex)]}
+    pub fn new(vertex: Vertex) -> Path {
+		Path{path:vec![GraphElement::RawVertex(vertex)]}
     }
 	pub fn new_empty() -> Path {
 		Path{path:vec![]}
@@ -74,7 +74,7 @@ pub struct GraphQuery {
 }
 
 impl GraphQuery {
-    pub fn new(vertices: Vec<VertexProxy>) -> GraphQuery {
+    pub fn new(vertices: Vec<Vertex>) -> GraphQuery {
         // create a new path for each proxy, add the proxy
         let mut paths = Vec::new();
         for p in vertices {
@@ -142,7 +142,7 @@ impl GraphQuery {
 			let element = path.path.last().unwrap();
 
 			match element {
-				&GraphElement::Vertex(ref v) => {
+				&GraphElement::RawVertex(ref v) => {
 					println!("matched vertex");
 					let mut tmp = v.outV();
 					for vertex in tmp {

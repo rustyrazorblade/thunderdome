@@ -1,12 +1,12 @@
 use std::ops::Deref;
 
-use vertex::{Vertex, VertexProxy};
+use vertex::{RawVertex, Vertex};
 use graph::TraversableToVertex;
 
 #[derive(Debug)]
 pub struct Edge {
-    pub from_vertex: *mut Vertex,
-    pub to_vertex: *mut Vertex
+    pub from_vertex: *mut RawVertex,
+    pub to_vertex: *mut RawVertex
 }
 
 #[derive(Clone)]
@@ -22,20 +22,20 @@ impl Deref for EdgeProxy {
 }
 
 impl TraversableToVertex for EdgeProxy {
-	fn inV(&self) -> Vec<VertexProxy> {
+	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
-			let vertex: &Vertex = &*(self.to_vertex);
-			let proxy = VertexProxy{id:vertex.id, v:self.to_vertex};
+			let vertex: &RawVertex = &*(self.to_vertex);
+			let proxy = Vertex{id:vertex.id, v:self.to_vertex};
 			result.push(proxy);
 		}
 		result
 	}
-	fn outV(&self) -> Vec<VertexProxy> {
+	fn outV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
-			let vertex: &Vertex = &*(self.from_vertex);
-			let proxy = VertexProxy{id:vertex.id, v:self.from_vertex};
+			let vertex: &RawVertex = &*(self.from_vertex);
+			let proxy = Vertex{id:vertex.id, v:self.from_vertex};
 			result.push(proxy);
 		}
 		result
