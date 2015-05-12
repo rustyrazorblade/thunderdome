@@ -2,7 +2,8 @@ use std::collections::HashMap;
 use std::mem;
 
 use vertex::{RawVertex,Vertex};
-use traversal::{GraphQuery, GraphElement};
+use traversal::GraphQuery;
+use path::{Path, GraphElement};
 use edge::EdgeProxy;
 
 #[derive(Debug)]

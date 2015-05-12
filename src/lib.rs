@@ -5,12 +5,13 @@ pub mod graph;
 pub mod vertex;
 pub mod edge;
 pub mod traversal;
+pub mod path;
 
 #[cfg(test)]
 mod tests {
     use vertex::{RawVertex, GraphProperty};
     use graph::{Graph, TraversableToVertex};
-    use traversal::{Path,GraphElement};
+    use path::{Path, GraphElement};
 
     #[test]
     fn test_unsafe_vertex() {
