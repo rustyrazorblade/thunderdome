@@ -12,7 +12,7 @@ pub enum GraphElement {
 
 
 pub struct Path {
-    # TODO make this private
+    // TODO make this private
     pub path: Vec<GraphElement>
 }
 

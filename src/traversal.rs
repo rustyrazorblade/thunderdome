@@ -5,14 +5,6 @@ use graph::TraversableToVertex;
 use path::{Path, GraphElement};
 // define a traversal as a series of stages
 
-enum TraversalStage {
-
-}
-
-
-
-
-
 pub struct GraphQuery {
 	// many paths
     pub paths: Vec<Path>
