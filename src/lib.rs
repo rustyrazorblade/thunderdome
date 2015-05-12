@@ -10,6 +10,8 @@ pub mod traversal;
 mod tests {
     use vertex::{Vertex, GraphProperty};
     use graph::{Graph, TraversableToVertex};
+    use traversal::{Path,GraphElement};
+
     #[test]
     fn test_unsafe_vertex() {
         let v = Vertex::new(1);
@@ -158,7 +160,10 @@ mod tests {
         let mut v2 = g.add_vertex();
         let mut v3 = g.add_vertex();
 
-        let vec = vec![v2, v3];
+        let vec = vec![GraphElement::Vertex(v2),
+                       GraphElement::Vertex(v3)];
 
+        let mut path = Path::new(v);
+        let path2 = path.permute(&vec);
     }
 }
