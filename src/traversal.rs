@@ -4,14 +4,6 @@ use edge::{Edge, EdgeProxy};
 use graph::TraversableToVertex;
 // define a traversal as a series of stages
 
-struct VertexVisit {
-    vertex: Vertex
-}
-
-struct EdgeVisit {
-    edge: EdgeProxy
-}
-
 enum TraversalStage {
 
 }
@@ -126,13 +118,11 @@ impl GraphQuery {
 			let new_path = path.clone();
 			result.push(new_path);
 		}
-
 		result
-
 	}
 
 	/*
-
+        TODO: rewrite to use map()
 	 */
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
