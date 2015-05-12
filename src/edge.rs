@@ -9,6 +9,7 @@ pub struct Edge {
     pub to_vertex: *mut Vertex
 }
 
+#[derive(Clone)]
 pub struct EdgeProxy {
     pub edge: *mut Edge
 }
@@ -40,4 +41,3 @@ impl TraversableToVertex for EdgeProxy {
 		result
 	}
 }
-

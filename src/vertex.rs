@@ -18,7 +18,6 @@ use graph::TraversableToVertex;
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
 * should be ok
 */
-#[derive(Debug)]
 pub struct Vertex {
     pub id: i64,
     pub properties: HashMap<String, GraphProperty>,
@@ -40,6 +39,7 @@ impl Vertex {
 
 }
 
+#[derive(Clone)]
 pub struct VertexProxy {
     pub id: i64,
     pub v: *mut Vertex,
@@ -162,4 +162,3 @@ impl DerefMut for VertexProxy {
         }
     }
 }
-
