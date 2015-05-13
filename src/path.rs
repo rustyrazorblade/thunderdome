@@ -40,6 +40,9 @@ impl Path {
 
 		result
 	}
+    pub fn last(&self) -> Option<&GraphElement> {
+        self.path.last()
+    }
 
 }
 

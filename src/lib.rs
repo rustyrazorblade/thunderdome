@@ -165,6 +165,11 @@ mod tests {
                        GraphElement::RawVertex(v3)];
 
         let mut path = Path::new(v);
+
+        // check last path
         let path2 = path.permute(&vec);
+
+
+
     }
 }
