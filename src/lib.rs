@@ -161,8 +161,8 @@ mod tests {
         let mut v2 = g.add_vertex();
         let mut v3 = g.add_vertex();
 
-        let vec = vec![Element::RawVertex(v2),
-                       Element::RawVertex(v3)];
+        let vec = vec![Element::Vertex(v2),
+                       Element::Vertex(v3)];
 
         let mut path = Path::new(v);
 

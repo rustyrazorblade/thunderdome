@@ -65,7 +65,7 @@ impl GraphQuery {
 			let element = path.last().unwrap();
 
 			let result = match element {
-				&Element::RawVertex(ref v) => {
+				&Element::Vertex(ref v) => {
 					Some(v.outV())
 				},
 				&Element::Edge(ref e) => {

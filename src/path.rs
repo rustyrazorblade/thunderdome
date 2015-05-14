@@ -6,7 +6,7 @@ use graph::TraversableToVertex;
 
 #[derive(Clone)]
 pub enum Element {
-    RawVertex(Vertex),
+    Vertex(Vertex),
     Edge(EdgeProxy)
 }
 
@@ -18,7 +18,7 @@ pub struct Path {
 
 impl Path {
     pub fn new(vertex: Vertex) -> Path {
-		Path{path:vec![Element::RawVertex(vertex)]}
+		Path{path:vec![Element::Vertex(vertex)]}
     }
 	pub fn new_empty() -> Path {
 		Path{path:vec![]}
