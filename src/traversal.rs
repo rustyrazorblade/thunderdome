@@ -39,31 +39,36 @@ impl GraphQuery {
 	future this may use worker threads to perform
 	traversals
 	 */
-    fn map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
+    fn map<F: Fn(&Path) -> Option<&[Element]>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
-		for x in self.paths.iter() {
-			let mut tmp = closure(x);
-			result.paths.append(&mut tmp)
+		for path in self.paths.iter() {
+			let mut tmp = closure(path);
+            // currently gets back a Vec<Path> but what if it gets Elements?
+            match tmp {
+                Some(x) => {
+                    let new_elements = path.permute(x);
+                    result.paths.push_all(&new_elements);
+                },
+                None =>
+                    {}
+            };
 		}
-		result
+		result.as_slice()
     }
 
     pub fn outV(&self) -> GraphQuery {
+        // needs to be modified to return a Vec of elements or a slice?
+        // map can figure out the rest
 		let f = |path: &Path| {
 			println!("applying outV");
-			let mut result : Vec<Path> = Vec::new();
 			//take the final element in the path
 			let element = path.last().unwrap();
+            let result: Vec<Element>;
 
 			match element {
 				&Element::RawVertex(ref v) => {
 					println!("matched vertex");
-					let mut tmp = v.outV();
-					for vertex in tmp {
-						println!("adding path based on vertex match");
-						let new_path = path.clone();
-						result.push(new_path);
-					}
+					let mut result = v.outV();
 				},
 				&Element::Edge(ref e) => {
 

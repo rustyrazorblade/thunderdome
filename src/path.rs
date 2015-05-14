@@ -29,7 +29,7 @@ impl Path {
 	and returns a vector of new paths,
 	each of which extends the existing path
 	 */
-	pub fn permute(&self, elements_to_add: &[Element]) -> Vec<Path> {
+	pub fn permute(&self, elements_to_add: &[Element]) -> [Path] {
 		let mut result: Vec<Path> = Vec::new();
 		for element in elements_to_add.iter() {
 			// construct a new path
@@ -37,8 +37,7 @@ impl Path {
 			p.path.push(element.clone());
 			result.push(p);
 		}
-
-		result
+		result.as_slice()
 	}
     pub fn last(&self) -> Option<&Element> {
         self.path.last()

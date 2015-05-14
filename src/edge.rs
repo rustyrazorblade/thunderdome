@@ -22,22 +22,22 @@ impl Deref for EdgeProxy {
 }
 
 impl TraversableToVertex for EdgeProxy {
-	fn inV(&self) -> Vec<Vertex> {
+	fn inV(&self) -> &[Vertex] {
 		let mut result = Vec::new();
 		unsafe {
 			let vertex: &RawVertex = &*(self.to_vertex);
 			let proxy = Vertex{id:vertex.id, v:self.to_vertex};
 			result.push(proxy);
 		}
-		result
+		result.as_slice()
 	}
-	fn outV(&self) -> Vec<Vertex> {
+	fn outV(&self) -> &[Vertex] {
 		let mut result = Vec::new();
 		unsafe {
 			let vertex: &RawVertex = &*(self.from_vertex);
 			let proxy = Vertex{id:vertex.id, v:self.from_vertex};
 			result.push(proxy);
 		}
-		result
+		result.as_slice()
 	}
 }

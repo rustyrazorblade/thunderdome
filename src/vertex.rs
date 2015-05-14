@@ -117,7 +117,7 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self) -> Vec<Vertex> {
+	fn outV(&self) -> &[Vertex] {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {
@@ -127,10 +127,10 @@ impl TraversableToVertex for Vertex {
 				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
 				result.push(proxy);
 			}
-			result
+			result.as_slice()
 		}
 	}
-	fn inV(&self) -> Vec<Vertex> {
+	fn inV(&self) -> &[Vertex] {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.in_edges.iter() {
@@ -140,7 +140,7 @@ impl TraversableToVertex for Vertex {
 				let proxy = Vertex{id:vertex.id, v:edge.from_vertex};
 				result.push(proxy);
 			}
-			result
+			result.as_slice()
 		}
 	}
 
