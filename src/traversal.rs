@@ -3,6 +3,9 @@ use vertex::{RawVertex, Vertex};
 use edge::{Edge, EdgeProxy};
 use graph::TraversableToVertex;
 use path::{Path, Element};
+
+// use std::iter::Iterator;
+
 // define a traversal as a series of stages
 
 pub struct GraphQuery {
@@ -39,20 +42,14 @@ impl GraphQuery {
 	future this may use worker threads to perform
 	traversals
 	 */
-    fn map<F: Fn(&Path) -> Option<&[Element]>>(&self, closure: F) -> GraphQuery  {
+    fn map<F: Fn(&Path) -> &[Element]>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
 		for path in self.paths.iter() {
 			let mut tmp = closure(path);
             // currently gets back a Vec<Path> but what if it gets Elements?
-            match tmp {
-                Some(x) => {
-                    let new_elements = path.permute(x);
-                    result.paths.push_all(&new_elements);
-                },
-                None =>
-                    {}
-            };
-		}
+            let new_elements = path.permute(tmp);
+            result.paths.push_all(&new_elements);
+        }
 		result
     }
 
@@ -64,12 +61,13 @@ impl GraphQuery {
 			//take the final element in the path
 			let element = path.last().unwrap();
 
-			let result = match element {
+			let result : &[Element] = match element {
 				&Element::Vertex(ref v) => {
-					Some(v.outV())
+					let tmp = v.outV().iter().map(|&v| Element::Vertex(v)).collect();
+                    &tmp
 				},
 				&Element::Edge(ref e) => {
-                    None
+                    &[]
 				}
 			};
 			// apply outV
