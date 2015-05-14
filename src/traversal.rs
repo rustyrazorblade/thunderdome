@@ -63,20 +63,17 @@ impl GraphQuery {
 			println!("applying outV");
 			//take the final element in the path
 			let element = path.last().unwrap();
-            let result: Vec<Element>;
 
-			match element {
+			let result = match element {
 				&Element::RawVertex(ref v) => {
-					println!("matched vertex");
-					let mut result = v.outV();
+					Some(v.outV())
 				},
 				&Element::Edge(ref e) => {
-
+                    None
 				}
-			}
+			};
 			// apply outV
-
-			Some(result)
+			result
 		};
 		self.map(f)
     }
