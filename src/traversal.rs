@@ -53,7 +53,7 @@ impl GraphQuery {
                     {}
             };
 		}
-		result.as_slice()
+		result
     }
 
     pub fn outV(&self) -> GraphQuery {
@@ -76,7 +76,7 @@ impl GraphQuery {
 			}
 			// apply outV
 
-			result
+			Some(result)
 		};
 		self.map(f)
     }
