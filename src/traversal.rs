@@ -42,12 +42,13 @@ impl GraphQuery {
     future this may use worker threads to perform
     traversals
      */
-    fn map<F: Fn(&Path) -> &[Element]>(&self, closure: F) -> GraphQuery  {
+    fn map<F: Fn(&Path) -> Vec<Element>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
         for path in self.paths.iter() {
             let mut tmp = closure(path);
+            let mut tmp2 = tmp.as_slice();
             // currently gets back a Vec<Path> but what if it gets Elements?
-            let new_elements = path.permute(tmp);
+            let new_elements = path.permute(tmp2);
             result.paths.push_all(&new_elements);
         }
         result
@@ -61,13 +62,12 @@ impl GraphQuery {
             //take the final element in the path
             let element = path.last().unwrap();
 
-            let result : &[Element] = match element {
-                &Element::Vertex(ref v) => {
-                    v.outV().iter().map(|&v| Element::Vertex(v)).collect()
-                },
-                &Element::Edge(ref e) => {
-                    &[]
-                }
+            let result : Vec<Element> = match element {
+                &Element::Vertex(v) =>
+                    vec![v.outV().iter().map(|&v| Element::Vertex(v))],
+                    // vec![ v.outV() ]
+                &Element::Edge(e) =>
+                    Vec::new()
             };
             // apply outV
             result
