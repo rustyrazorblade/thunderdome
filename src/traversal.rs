@@ -39,7 +39,7 @@ impl GraphQuery {
 	future this may use worker threads to perform
 	traversals
 	 */
-    fn full_map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
+    fn map<F: Fn(&Path) -> Vec<Path>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
 		for x in self.paths.iter() {
 			let mut tmp = closure(x);
@@ -55,18 +55,18 @@ impl GraphQuery {
 	if None comes back we don't include the paths in the new GraphQuery
 	that is returned
 	*/
-	fn map<F: Fn(&Path) -> Option<Vec<Path>>>(&self, closure: F)
-		-> GraphQuery {
-		let mut result = GraphQuery::empty();
-		for path in self.paths.iter() {
-			// apply the closure to the last element in each map
-			// if nothing is returned, we should not use the path anymore
-			let mut tmp = closure(&path);
-			let new_path = path.clone();
-			result.push(new_path);
-		}
-		result
-	}
+	// fn map<F: Fn(&Path) -> Option<Vec<Path>>>(&self, closure: F)
+	// 	-> GraphQuery {
+	// 	let mut result = GraphQuery::empty();
+	// 	for path in self.paths.iter() {
+	// 		// apply the closure to the last element in each map
+	// 		// if nothing is returned, we should not use the path anymore
+	// 		let mut tmp = closure(&path);
+	// 		let new_path = path.clone();
+	// 		result.push(new_path);
+	// 	}
+	// 	result
+	// }
 
 	/*
         TODO: rewrite to use map()
@@ -96,7 +96,7 @@ impl GraphQuery {
 
 			result
 		};
-		self.full_map(f)
+		self.map(f)
     }
 
 //	pub fn inV(&self) -> GraphQuery {
