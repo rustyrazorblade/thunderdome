@@ -63,7 +63,7 @@ impl GraphQuery {
 
 			let result : &[Element] = match element {
 				&Element::Vertex(ref v) => {
-					let tmp = v.outV().iter().map(|&v| Element::Vertex(v)).collect();
+					let tmp : &[Element] = v.outV().iter().map(|&v| Element::Vertex(v));
                     &tmp
 				},
 				&Element::Edge(ref e) => {
