@@ -5,7 +5,7 @@ use graph::TraversableToVertex;
 // will be used in conjunction with a GraphQuery
 
 #[derive(Clone)]
-pub enum GraphElement {
+pub enum Element {
     RawVertex(Vertex),
     Edge(EdgeProxy)
 }
@@ -13,12 +13,12 @@ pub enum GraphElement {
 
 pub struct Path {
     // TODO make this private
-    pub path: Vec<GraphElement>
+    pub path: Vec<Element>
 }
 
 impl Path {
     pub fn new(vertex: Vertex) -> Path {
-		Path{path:vec![GraphElement::RawVertex(vertex)]}
+		Path{path:vec![Element::RawVertex(vertex)]}
     }
 	pub fn new_empty() -> Path {
 		Path{path:vec![]}
@@ -29,7 +29,7 @@ impl Path {
 	and returns a vector of new paths,
 	each of which extends the existing path
 	 */
-	pub fn permute(&self, elements_to_add: &[GraphElement]) -> Vec<Path> {
+	pub fn permute(&self, elements_to_add: &[Element]) -> Vec<Path> {
 		let mut result: Vec<Path> = Vec::new();
 		for element in elements_to_add.iter() {
 			// construct a new path
@@ -40,7 +40,7 @@ impl Path {
 
 		result
 	}
-    pub fn last(&self) -> Option<&GraphElement> {
+    pub fn last(&self) -> Option<&Element> {
         self.path.last()
     }
 

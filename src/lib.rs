@@ -11,7 +11,7 @@ pub mod path;
 mod tests {
     use vertex::{RawVertex, GraphProperty};
     use graph::{Graph, TraversableToVertex};
-    use path::{Path, GraphElement};
+    use path::{Path, Element};
 
     #[test]
     fn test_unsafe_vertex() {
@@ -161,8 +161,8 @@ mod tests {
         let mut v2 = g.add_vertex();
         let mut v3 = g.add_vertex();
 
-        let vec = vec![GraphElement::RawVertex(v2),
-                       GraphElement::RawVertex(v3)];
+        let vec = vec![Element::RawVertex(v2),
+                       Element::RawVertex(v3)];
 
         let mut path = Path::new(v);
 

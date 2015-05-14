@@ -3,7 +3,7 @@ use std::mem;
 
 use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
-use path::{Path, GraphElement};
+use path::{Path, Element};
 use edge::EdgeProxy;
 
 #[derive(Debug)]

@@ -2,7 +2,7 @@
 use vertex::{RawVertex, Vertex};
 use edge::{Edge, EdgeProxy};
 use graph::TraversableToVertex;
-use path::{Path, GraphElement};
+use path::{Path, Element};
 // define a traversal as a series of stages
 
 pub struct GraphQuery {
@@ -48,29 +48,6 @@ impl GraphQuery {
 		result
     }
 
-	/*
-	accepts an Path and a closure
-	applies the closure to the path
-	gets an Option back: a bunch of paths or None
-	if None comes back we don't include the paths in the new GraphQuery
-	that is returned
-	*/
-	// fn map<F: Fn(&Path) -> Option<Vec<Path>>>(&self, closure: F)
-	// 	-> GraphQuery {
-	// 	let mut result = GraphQuery::empty();
-	// 	for path in self.paths.iter() {
-	// 		// apply the closure to the last element in each map
-	// 		// if nothing is returned, we should not use the path anymore
-	// 		let mut tmp = closure(&path);
-	// 		let new_path = path.clone();
-	// 		result.push(new_path);
-	// 	}
-	// 	result
-	// }
-
-	/*
-        TODO: rewrite to use map()
-	 */
     pub fn outV(&self) -> GraphQuery {
 		let f = |path: &Path| {
 			println!("applying outV");
@@ -79,7 +56,7 @@ impl GraphQuery {
 			let element = path.last().unwrap();
 
 			match element {
-				&GraphElement::RawVertex(ref v) => {
+				&Element::RawVertex(ref v) => {
 					println!("matched vertex");
 					let mut tmp = v.outV();
 					for vertex in tmp {
@@ -88,7 +65,7 @@ impl GraphQuery {
 						result.push(new_path);
 					}
 				},
-				&GraphElement::Edge(ref e) => {
+				&Element::Edge(ref e) => {
 
 				}
 			}
@@ -101,7 +78,7 @@ impl GraphQuery {
 
 //	pub fn inV(&self) -> GraphQuery {
 //		let g = GraphQuery::empty();
-//		let f = |element: &GraphElement| {
+//		let f = |element: &Element| {
 //			element.inV()
 //		};
 //		self.map(f)
