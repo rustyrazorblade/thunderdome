@@ -76,7 +76,7 @@ impl GraphQuery {
 			println!("applying outV");
 			let mut result : Vec<Path> = Vec::new();
 			//take the final element in the path
-			let element = path.path.last().unwrap();
+			let element = path.last().unwrap();
 
 			match element {
 				&GraphElement::RawVertex(ref v) => {
