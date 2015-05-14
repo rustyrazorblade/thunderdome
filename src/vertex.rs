@@ -47,8 +47,9 @@ pub struct Vertex {
 
 impl Vertex {
 
-	pub fn new(v: *mut RawVertex) {
-
+	pub fn new(v: *mut RawVertex) -> Vertex {
+        let raw : &RawVertex = unsafe{ mem::transmute(v)};
+        Vertex{id:raw.id, v:v}
 	}
 
     pub fn add_edge(&mut self, to_vertex: &mut Vertex) -> EdgeProxy {
