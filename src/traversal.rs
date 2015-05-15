@@ -3,6 +3,7 @@ use vertex::{RawVertex, Vertex};
 use edge::{Edge, EdgeProxy};
 use graph::TraversableToVertex;
 use path::{Path, Element};
+use std::iter::Extend;
 
 // use std::iter::Iterator;
 
@@ -49,7 +50,7 @@ impl GraphQuery {
             let mut tmp2 = tmp.as_slice();
             // currently gets back a Vec<Path> but what if it gets Elements?
             let new_elements = path.permute(tmp2);
-            result.paths.push_all(&new_elements);
+            result.paths.extend(new_elements);
         }
         result
     }
