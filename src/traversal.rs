@@ -47,9 +47,9 @@ impl GraphQuery {
         let mut result = GraphQuery::empty(); // result
         for path in self.paths.iter() {
             let mut tmp = closure(path);
-            let mut tmp2 = tmp.as_slice();
+            // let mut tmp2 = tmp.as_slice();
             // currently gets back a Vec<Path> but what if it gets Elements?
-            let new_elements = path.permute(tmp2);
+            let new_elements = path.permute(&tmp);
             result.paths.extend(new_elements);
         }
         result
