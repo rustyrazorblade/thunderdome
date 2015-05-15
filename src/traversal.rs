@@ -62,11 +62,10 @@ impl GraphQuery {
             //take the final element in the path
             let element = path.last().unwrap();
 
-            let result : Vec<Element> = match element {
-                &Element::Vertex(v) =>
-                    vec![v.outV().iter().map(|&v| Element::Vertex(v))],
-                    // vec![ v.outV() ]
-                &Element::Edge(e) =>
+            let ref result : Vec<Element> = match element {
+                &Element::Vertex(ref v) =>
+                    v.outV().iter().map(|&v| Element::Vertex(v)).collect(),
+                &Element::Edge(ref e) =>
                     Vec::new()
             };
             // apply outV
