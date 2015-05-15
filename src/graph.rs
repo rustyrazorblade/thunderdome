@@ -58,8 +58,8 @@ impl Graph {
 }
 
 pub trait TraversableToVertex {
-	fn inV(&self) -> &[Vertex];
-	fn outV(&self) -> &[Vertex];
+	fn inV(&self) -> Vec<Vertex>;
+	fn outV(&self) -> Vec<Vertex>;
 //	fn inE(&self) -> Vec<EdgeProxy>;
 
 

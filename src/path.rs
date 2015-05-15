@@ -30,7 +30,7 @@ impl Path {
 	each of which extends the existing path
 	 */
     // TODO return an Option
-	pub fn permute(&self, elements_to_add: &[Element]) -> &[Path] {
+	pub fn permute(&self, elements_to_add: &[Element]) -> Vec<Path> {
 		let mut result: Vec<Path> = Vec::new();
 		for element in elements_to_add.iter() {
 			// construct a new path
@@ -38,7 +38,7 @@ impl Path {
 			p.path.push(element.clone());
 			result.push(p);
 		}
-		result.as_slice()
+		result
 	}
     pub fn last(&self) -> Option<&Element> {
         self.path.last()
