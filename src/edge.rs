@@ -6,7 +6,8 @@ use graph::TraversableToVertex;
 #[derive(Debug)]
 pub struct RawEdge {
     pub from_vertex: *mut RawVertex,
-    pub to_vertex: *mut RawVertex
+    pub to_vertex: *mut RawVertex,
+    pub label: String
 }
 
 #[derive(Clone)]

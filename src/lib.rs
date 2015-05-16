@@ -51,9 +51,9 @@ mod tests {
         let mut v1 = g.add_vertex();
         let mut v2 = g.add_vertex();
 
-        let e1 = v1.add_edge(&mut v2);
-        v1.add_edge(&mut v2);
-        v1.add_edge(&mut v2);
+        let e1 = v1.add_edge(&mut v2, "test".to_string());
+        v1.add_edge(&mut v2, "test".to_string());
+        v1.add_edge(&mut v2, "test".to_string());
 
         assert_eq!(v1.out_edges.len(), v2.in_edges.len());
 
@@ -104,7 +104,7 @@ mod tests {
         let mut g = Graph::new();
         let mut vertex = g.add_vertex();
 		let mut vertex2 = g.add_vertex();
-		vertex.add_edge(&mut vertex2);
+		vertex.add_edge(&mut vertex2, "test".to_string());
 
         let result = g.v(1).outV();
 
@@ -117,14 +117,14 @@ mod tests {
 		let mut vertex = g.add_vertex();
 		let mut vertex2 = g.add_vertex();
 
-		vertex.add_edge(&mut vertex2);
+		vertex.add_edge(&mut vertex2, "test".to_string());
 
 		let result = vertex.outV();
 		assert_eq!(1, result.len());
 
 		// add another edge, check length
 		let mut vertex3 = g.add_vertex();
-		vertex.add_edge(&mut vertex3);
+		vertex.add_edge(&mut vertex3, "test".to_string());
 
 		let result = vertex.outV();
 		assert_eq!(2, result.len());
@@ -139,7 +139,7 @@ mod tests {
 		let mut vertex = g.add_vertex();
 		let mut vertex2 = g.add_vertex();
 
-		vertex.add_edge(&mut vertex2);
+		vertex.add_edge(&mut vertex2, "test".to_string());
 
 		let result = vertex.outE();
 		assert_eq!(1, result.len());
