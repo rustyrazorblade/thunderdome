@@ -7,7 +7,7 @@ use graph::TraversableToVertex;
 #[derive(Clone)]
 pub enum Element {
     Vertex(Vertex),
-    RawEdge(Edge)
+    Edge(Edge)
 }
 
 

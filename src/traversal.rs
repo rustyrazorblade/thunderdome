@@ -65,7 +65,7 @@ impl GraphQuery {
                 &Element::Vertex(v) =>
                     v.outV().iter().map(|v| Element::Vertex(*v)).collect(),
                     // Vec::new(),
-                &Element::RawEdge(ref e) =>
+                &Element::Edge(ref e) =>
                     Vec::new()
             };
             // apply outV
