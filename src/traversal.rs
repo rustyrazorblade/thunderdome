@@ -1,6 +1,6 @@
 
 use vertex::{RawVertex, Vertex};
-use edge::{Edge, EdgeProxy};
+use edge::{RawEdge, EdgeProxy};
 use graph::TraversableToVertex;
 use path::{Path, Element};
 use std::iter::Extend;
@@ -65,7 +65,7 @@ impl GraphQuery {
                 &Element::Vertex(v) =>
                     v.outV().iter().map(|v| Element::Vertex(*v)).collect(),
                     // Vec::new(),
-                &Element::Edge(ref e) =>
+                &Element::RawEdge(ref e) =>
                     Vec::new()
             };
             // apply outV

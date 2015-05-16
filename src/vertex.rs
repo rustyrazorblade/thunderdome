@@ -10,7 +10,7 @@ pub enum GraphProperty {
     String(String),
 }
 
-use edge::{Edge,EdgeProxy};
+use edge::{RawEdge,EdgeProxy};
 use graph::TraversableToVertex;
 
 /*
@@ -22,8 +22,8 @@ pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, GraphProperty>,
     // pointers on both sides, yay
-    pub out_edges: Vec<*mut Edge>,
-    pub in_edges:  Vec<*mut Edge>,
+    pub out_edges: Vec<*mut RawEdge>,
+    pub in_edges:  Vec<*mut RawEdge>,
 }
 
 impl RawVertex {
@@ -62,10 +62,10 @@ impl Vertex {
         }
 
         // create the edge
-        let e = Box::new(Edge{from_vertex: self.v, to_vertex: to_vertex.v});
+        let e = Box::new(RawEdge{from_vertex: self.v, to_vertex: to_vertex.v});
 
         // keep it on the heap but manage it myself
-        let edge: *mut Edge = unsafe { mem::transmute(e) };
+        let edge: *mut RawEdge = unsafe { mem::transmute(e) };
 
         in_vertex.out_edges.push(edge);
         out_vertex.in_edges.push(edge);
@@ -119,7 +119,7 @@ impl TraversableToVertex for Vertex {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {
-				let edge: &Edge = &*x;
+				let edge: &RawEdge = &*x;
 				let vertex: &RawVertex = &*(edge.to_vertex);
 
 				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
@@ -132,7 +132,7 @@ impl TraversableToVertex for Vertex {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.in_edges.iter() {
-				let edge: &Edge = &*x;
+				let edge: &RawEdge = &*x;
 				let vertex: &RawVertex = &*(edge.from_vertex);
 
 				let proxy = Vertex{id:vertex.id, v:edge.from_vertex};

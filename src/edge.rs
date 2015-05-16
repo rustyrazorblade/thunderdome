@@ -4,19 +4,19 @@ use vertex::{RawVertex, Vertex};
 use graph::TraversableToVertex;
 
 #[derive(Debug)]
-pub struct Edge {
+pub struct RawEdge {
     pub from_vertex: *mut RawVertex,
     pub to_vertex: *mut RawVertex
 }
 
 #[derive(Clone)]
 pub struct EdgeProxy {
-    pub edge: *mut Edge
+    pub edge: *mut RawEdge
 }
 
 impl Deref for EdgeProxy {
-    type Target = Edge;
-    fn deref<'a>(&'a self) -> &'a Edge {
+    type Target = RawEdge;
+    fn deref<'a>(&'a self) -> &'a RawEdge {
         unsafe { &*(self.edge) }
     }
 }
