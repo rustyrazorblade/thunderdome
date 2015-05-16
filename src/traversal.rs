@@ -62,7 +62,6 @@ impl GraphQuery {
             println!("applying outV");
             //take the final element in the path
             let element = path.last().unwrap();
-            let result : Vec<Element> = Vec::new();
 
             let result : Vec<Element> = match element {
                 &Element::Vertex(v) =>
