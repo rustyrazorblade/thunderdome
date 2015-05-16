@@ -56,10 +56,8 @@ impl GraphQuery {
     }
 
     pub fn outV(&self) -> GraphQuery {
-        // needs to be modified to return a Vec of elements or a slice?
         // map can figure out the rest
         let f = |path: &Path| {
-            println!("applying outV");
             //take the final element in the path
             let element = path.last().unwrap();
 
