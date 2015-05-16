@@ -10,18 +10,18 @@ pub struct RawEdge {
 }
 
 #[derive(Clone)]
-pub struct EdgeProxy {
+pub struct Edge {
     pub edge: *mut RawEdge
 }
 
-impl Deref for EdgeProxy {
+impl Deref for Edge {
     type Target = RawEdge;
     fn deref<'a>(&'a self) -> &'a RawEdge {
         unsafe { &*(self.edge) }
     }
 }
 
-impl TraversableToVertex for EdgeProxy {
+impl TraversableToVertex for Edge {
 	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {

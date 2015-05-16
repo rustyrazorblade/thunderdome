@@ -4,7 +4,7 @@ use std::mem;
 use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
 use path::{Path, Element};
-use edge::EdgeProxy;
+use edge::Edge;
 
 #[derive(Debug)]
 pub struct Graph {
@@ -60,7 +60,7 @@ impl Graph {
 pub trait TraversableToVertex {
 	fn inV(&self) -> Vec<Vertex>;
 	fn outV(&self) -> Vec<Vertex>;
-//	fn inE(&self) -> Vec<EdgeProxy>;
+//	fn inE(&self) -> Vec<Edge>;
 
 
 }

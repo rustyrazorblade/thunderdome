@@ -1,5 +1,5 @@
 use vertex::{RawVertex, Vertex};
-use edge::{RawEdge, EdgeProxy};
+use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 // used to track a single graph traversal
 // will be used in conjunction with a GraphQuery
@@ -7,7 +7,7 @@ use graph::TraversableToVertex;
 #[derive(Clone)]
 pub enum Element {
     Vertex(Vertex),
-    RawEdge(EdgeProxy)
+    RawEdge(Edge)
 }
 
 

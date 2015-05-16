@@ -10,7 +10,7 @@ pub enum GraphProperty {
     String(String),
 }
 
-use edge::{RawEdge,EdgeProxy};
+use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;
 
 /*
@@ -52,7 +52,7 @@ impl Vertex {
         Vertex{id:raw.id, v:v}
 	}
 
-    pub fn add_edge(&mut self, to_vertex: &mut Vertex) -> EdgeProxy {
+    pub fn add_edge(&mut self, to_vertex: &mut Vertex) -> Edge {
         let in_vertex: &mut RawVertex;
         let out_vertex: &mut RawVertex;
 
@@ -69,7 +69,7 @@ impl Vertex {
 
         in_vertex.out_edges.push(edge);
         out_vertex.in_edges.push(edge);
-        EdgeProxy{edge:edge}
+        Edge{edge:edge}
     }
 
     pub fn set_property(&mut self, field: String, value: GraphProperty) {
@@ -84,21 +84,21 @@ impl Vertex {
         unimplemented!()
     }
 
-	pub fn outE(&self) -> Vec<EdgeProxy> {
+	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {
-				let proxy = EdgeProxy{edge:x};
+				let proxy = Edge{edge:x};
 				result.push(proxy);
 			}
 		}
 		result
 	}
 
-	pub fn inE(&self) -> Vec<EdgeProxy> {
+	pub fn inE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
 		for &x in self.in_edges.iter() {
-			let proxy = EdgeProxy{edge:x};
+			let proxy = Edge{edge:x};
 			result.push(proxy);
 		}
 		result

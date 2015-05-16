@@ -1,6 +1,6 @@
 
 use vertex::{RawVertex, Vertex};
-use edge::{RawEdge, EdgeProxy};
+use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 use path::{Path, Element};
 use std::iter::Extend;
