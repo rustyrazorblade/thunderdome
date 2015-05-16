@@ -106,7 +106,7 @@ mod tests {
 		let mut vertex2 = g.add_vertex();
 		vertex.add_edge(&mut vertex2, "test".to_string());
 
-        let result = g.v(1).outV();
+        let result = g.v(1).outV(vec!["test".to_string()]);
 
 		assert_eq!(result.paths.len(), 1);
     }
@@ -129,7 +129,7 @@ mod tests {
 		let result = vertex.outV();
 		assert_eq!(2, result.len());
 
-		let result = g.v(1).outV();
+		let result = g.v(1).outV(vec!["test".to_string()]);
 
 	}
 
