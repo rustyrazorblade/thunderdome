@@ -42,6 +42,9 @@ impl GraphQuery {
     generic mapper for our queries
     future this may use worker threads to perform
     traversals
+
+    TODO make sure that if nothing comes back we don't keep it in the path
+
      */
     fn map<F: Fn(&Path) -> Vec<Element>>(&self, closure: F) -> GraphQuery  {
         let mut result = GraphQuery::empty(); // result
@@ -72,6 +75,12 @@ impl GraphQuery {
             result
         };
         self.map(f)
+    }
+
+    pub fn filter<F: Fn(&Path) -> bool>(&self, closure: F) -> GraphQuery {
+        let gq = GraphQuery::empty();
+
+        gq
     }
 
 //    pub fn inV(&self) -> GraphQuery {
