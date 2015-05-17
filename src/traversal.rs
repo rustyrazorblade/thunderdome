@@ -55,7 +55,7 @@ impl GraphQuery {
         result
     }
 
-    pub fn outV(&self, labels: Vec<&str>) -> GraphQuery {
+    pub fn outV(&self, labels: &[&str]) -> GraphQuery {
         // map can figure out the rest
         let f = |path: &Path| {
             //take the final element in the path
