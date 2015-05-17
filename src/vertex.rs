@@ -52,7 +52,7 @@ impl Vertex {
         Vertex{id:raw.id, v:v}
 	}
 
-    pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: String) -> Edge {
+    pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
         let in_vertex: &mut RawVertex;
         let out_vertex: &mut RawVertex;
 
@@ -64,7 +64,7 @@ impl Vertex {
         // create the edge
         let e = Box::new(RawEdge{from_vertex: self.v,
                                  to_vertex: to_vertex.v,
-                                 label: label });
+                                 label: label.to_string() });
 
         // keep it on the heap but manage it myself
         let edge: *mut RawEdge = unsafe { mem::transmute(e) };
