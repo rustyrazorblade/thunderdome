@@ -2,7 +2,6 @@ use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
 
-
 #[derive(Debug)]
 pub enum GraphProperty {
     Int(i64),
@@ -124,8 +123,12 @@ impl TraversableToVertex for Vertex {
 				let edge: &RawEdge = &*x;
 				let vertex: &RawVertex = &*(edge.to_vertex);
 
-				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
-				result.push(proxy);
+                let label : &str = &edge.label;
+
+                if labels.is_empty() || labels.contains(&label) {
+    				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
+    				result.push(proxy);
+                }
 			}
 			result
 		}
