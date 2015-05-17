@@ -117,7 +117,7 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self) -> Vec<Vertex> {
+	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
 			for &x in self.out_edges.iter() {

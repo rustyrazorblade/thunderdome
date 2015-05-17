@@ -32,7 +32,7 @@ impl TraversableToVertex for Edge {
 		}
 		result
 	}
-	fn outV(&self) -> Vec<Vertex> {
+	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
 			let vertex: &RawVertex = &*(self.from_vertex);

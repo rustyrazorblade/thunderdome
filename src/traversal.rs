@@ -55,7 +55,7 @@ impl GraphQuery {
         result
     }
 
-    pub fn outV(&self, labels: Vec<String>) -> GraphQuery {
+    pub fn outV(&self, labels: Vec<&str>) -> GraphQuery {
         // map can figure out the rest
         let f = |path: &Path| {
             //take the final element in the path
@@ -63,7 +63,7 @@ impl GraphQuery {
 
             let result : Vec<Element> = match element {
                 &Element::Vertex(v) =>
-                    v.outV().iter().map(|v| Element::Vertex(*v)).collect(),
+                    v.outV(&["teest"]).iter().map(|v| Element::Vertex(*v)).collect(),
                     // Vec::new(),
                 &Element::Edge(ref e) =>
                     Vec::new()

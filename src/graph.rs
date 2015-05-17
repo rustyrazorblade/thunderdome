@@ -59,7 +59,7 @@ impl Graph {
 
 pub trait TraversableToVertex {
 	fn inV(&self) -> Vec<Vertex>;
-	fn outV(&self) -> Vec<Vertex>;
+	fn outV(&self, &[&str]) -> Vec<Vertex>;
 //	fn inE(&self) -> Vec<Edge>;
 
 
