@@ -63,7 +63,7 @@ impl GraphQuery {
 
             let result : Vec<Element> = match element {
                 &Element::Vertex(v) =>
-                    v.outV(&["teest"]).iter().map(|v| Element::Vertex(*v)).collect(),
+                    v.outV(&labels).iter().map(|v| Element::Vertex(*v)).collect(),
                     // Vec::new(),
                 &Element::Edge(ref e) =>
                     Vec::new()

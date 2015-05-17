@@ -111,7 +111,7 @@ mod tests {
 		assert_eq!(result.paths.len(), 1);
 
         let result2 = g.v(1).outV(&["likes"]);
-		assert_eq!(result.paths.len(), 0);
+		assert_eq!(result2.paths.len(), 0);
     }
 
 	#[test]

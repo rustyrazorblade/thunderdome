@@ -54,6 +54,7 @@ impl Vertex {
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
         let in_vertex: &mut RawVertex;
         let out_vertex: &mut RawVertex;
+        println!("add_edge() with label {}", label);
 
         unsafe {
             in_vertex =  &mut *(self.v);
@@ -61,6 +62,8 @@ impl Vertex {
         }
 
         // create the edge
+        println!("adding vertex of edge {}", label.to_string());
+
         let e = Box::new(RawEdge{from_vertex: self.v,
                                  to_vertex: to_vertex.v,
                                  label: label.to_string() });
@@ -118,14 +121,25 @@ impl TraversableToVertex for Vertex {
 	*/
 	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
 		let mut result = Vec::new();
+
+        // convert our labels to a vector of strings
+        let mut labels_as_strings : Vec<String> = Vec::new();
+
+        for l in labels {
+            let s = l.to_string();
+            println!("string version: {}, {}", l, s);
+            labels_as_strings.push(l.to_string());
+            println!("adding label: {} size {}", l, l.len());
+        }
+
 		unsafe {
 			for &x in self.out_edges.iter() {
 				let edge: &RawEdge = &*x;
 				let vertex: &RawVertex = &*(edge.to_vertex);
 
-                let label : &str = &edge.label;
+                // convert the labels to labels_str
 
-                if labels.is_empty() || labels.contains(&label) {
+                if labels.is_empty() || labels_as_strings.contains(&edge.label) {
     				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
     				result.push(proxy);
                 }
