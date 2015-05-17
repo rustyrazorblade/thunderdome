@@ -127,17 +127,13 @@ impl TraversableToVertex for Vertex {
 
         for l in labels {
             let s = l.to_string();
-            println!("string version: {}, {}", l, s);
             labels_as_strings.push(l.to_string());
-            println!("adding label: {} size {}", l, l.len());
         }
 
 		unsafe {
 			for &x in self.out_edges.iter() {
 				let edge: &RawEdge = &*x;
 				let vertex: &RawVertex = &*(edge.to_vertex);
-
-                // convert the labels to labels_str
 
                 if labels.is_empty() || labels_as_strings.contains(&edge.label) {
     				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
