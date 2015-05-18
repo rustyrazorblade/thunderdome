@@ -78,11 +78,12 @@ impl GraphQuery {
         self.map(f)
     }
 
-    pub fn filter<F: Fn(&Path) -> bool>(&self, closure: F) -> GraphQuery {
+    pub fn filter<F: Fn(&&Path) -> bool>(&self, closure: F) -> GraphQuery {
         let result = GraphQuery::empty();
         // apply the filter to each path
-        let tmp : Vec<Path> = self.paths.iter().filter(closure).collect();
-        result.paths = tmp;
+        let tmp = self.paths.iter().filter(closure).map(|x| x.clone());
+        let paths : Vec<Path> = tmp.collect();
+        // result.paths = paths;
         return result
     }
 
