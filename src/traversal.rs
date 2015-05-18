@@ -81,8 +81,8 @@ impl GraphQuery {
     pub fn filter<F: Fn(&Path) -> bool>(&self, closure: F) -> GraphQuery {
         let result = GraphQuery::empty();
         // apply the filter to each path
-        let tmp = self.paths.iter().filter(|&x| true);
-        // result.paths = tmp;
+        let tmp : Vec<Path> = self.paths.iter().filter(closure).collect();
+        result.paths = tmp;
         return result
     }
 
