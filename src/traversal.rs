@@ -25,6 +25,9 @@ impl GraphQuery {
         }
         GraphQuery{paths:paths}
     }
+    pub fn new_with_paths(paths: Vec<Path>) -> GraphQuery {
+        GraphQuery{paths:paths}
+    }
 
     pub fn empty() -> GraphQuery {
         // return an empty graph query
@@ -79,12 +82,10 @@ impl GraphQuery {
     }
 
     pub fn filter<F: Fn(&&Path) -> bool>(&self, closure: F) -> GraphQuery {
-        let result = GraphQuery::empty();
         // apply the filter to each path
         let tmp = self.paths.iter().filter(closure).map(|x| x.clone());
         let paths : Vec<Path> = tmp.collect();
-        // result.paths = paths;
-        return result
+        GraphQuery::new_with_paths(paths)
     }
 
 //    pub fn inV(&self) -> GraphQuery {
