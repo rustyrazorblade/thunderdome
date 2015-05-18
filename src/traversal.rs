@@ -4,6 +4,7 @@ use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 use path::{Path, Element};
 use std::iter::Extend;
+use std::iter::Filter;
 
 // use std::iter::Iterator;
 
@@ -78,9 +79,11 @@ impl GraphQuery {
     }
 
     pub fn filter<F: Fn(&Path) -> bool>(&self, closure: F) -> GraphQuery {
-        let gq = GraphQuery::empty();
-
-        gq
+        let result = GraphQuery::empty();
+        // apply the filter to each path
+        let tmp : Vec<Path> = self.paths.iter().filter(closure).collect();
+        result.paths = tmp;
+        return result
     }
 
 //    pub fn inV(&self) -> GraphQuery {
