@@ -62,17 +62,15 @@ impl Deref for Edge {
 impl TraversableToVertex for Edge {
 	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
-		unsafe {
-			let vertex: &RawVertex = &*(self.to_vertex);
-			let proxy = Vertex{id:vertex.id, v:self.to_vertex};
-			result.push(proxy);
-		}
+		let vertex: RawVertex = self.borrow_mut().to_vertex;
+		let proxy = Vertex{id:vertex.id, v:self.borrow_mut().to_vertex};
+		result.push(proxy);
 		result
 	}
 	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		unsafe {
-			let vertex: &RawVertex = &*(self.from_vertex);
+			let vertex: RawVertex = self.from_vertex.borrow_mut();
 			let proxy = Vertex{id:vertex.id, v:self.from_vertex};
 			result.push(proxy);
 		}
