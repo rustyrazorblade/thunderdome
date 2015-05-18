@@ -6,6 +6,8 @@ use property::Property;
 use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;
 
+use std::sync::Arc;
+use std::cell::RefCell;
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
