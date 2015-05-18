@@ -1,5 +1,5 @@
 
-use vertex::{RawVertex, Vertex};
+use vertex::{RawVertex, Vertex, GraphProperty};
 use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 use path::{Path, Element};
@@ -81,11 +81,25 @@ impl GraphQuery {
         self.map(f)
     }
 
-    pub fn filter<F: Fn(&&Path) -> bool>(&self, closure: F) -> GraphQuery {
+    pub fn filter<F>(&self, closure: F) -> GraphQuery
+        where F:  for<'r> Fn(&'r &Path) -> bool  {
         // apply the filter to each path
         let tmp = self.paths.iter().filter(closure).map(|x| x.clone());
         let paths : Vec<Path> = tmp.collect();
         GraphQuery::new_with_paths(paths)
+    }
+
+    /*
+        has queries
+        goal is queries like:
+        g.v(1).outV().has("favorite_food", "pizza")
+
+        will probably be more like:
+
+        g.v(1).outV().has("favorite_food", )
+    */
+    pub fn has(&self, prop: &str, value: GraphProperty) {
+
     }
 
 //    pub fn inV(&self) -> GraphQuery {
