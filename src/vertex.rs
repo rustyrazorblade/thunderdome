@@ -1,13 +1,7 @@
 use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
-
-#[derive(Debug)]
-pub enum GraphProperty {
-    Int(i64),
-    Float(f64),
-    String(String),
-}
+use property::GraphProperty;
 
 use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;

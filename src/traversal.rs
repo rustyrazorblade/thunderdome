@@ -1,5 +1,6 @@
 
-use vertex::{RawVertex, Vertex, GraphProperty};
+use vertex::{RawVertex, Vertex};
+use property::GraphProperty;
 use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 use path::{Path, Element};
