@@ -17,8 +17,8 @@ pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
-    pub out_edges: Vec<*mut RawEdge>,
-    pub in_edges:  Vec<*mut RawEdge>,
+    pub out_edges: Vec<Arc<RefCell<Box<RawEdge>>>>,
+    pub in_edges:  Vec<Arc<RefCell<Box<RawEdge>>>>
 }
 
 impl RawVertex {
@@ -60,16 +60,14 @@ impl Vertex {
         // create the edge
         println!("adding vertex of edge {}", label.to_string());
 
-        let e = Box::new(RawEdge{from_vertex: self.v,
-                                 to_vertex: to_vertex.v,
-                                 label: label.to_string() });
-
-        // keep it on the heap but manage it myself
-        let edge: *mut RawEdge = unsafe { mem::transmute(e) };
-
-        in_vertex.out_edges.push(edge);
-        out_vertex.in_edges.push(edge);
-        Edge{edge:edge}
+        // let e = Box::new(RawEdge{from_vertex: self.v,
+        //                          to_vertex: to_vertex.v,
+        //                          label: label.to_string() });
+        //
+        // // keep it on the heap but manage it myself
+        // // let edge: *mut RawEdge = unsafe { mem::transmute(e) };
+        // let edge: Arc<RefCell<RawEdge>> =
+        Edge::new(self, to_vertex, label);
     }
 
     pub fn set_property(&mut self, field: String, value: Property) {

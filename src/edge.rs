@@ -3,6 +3,10 @@ use std::ops::Deref;
 use vertex::{RawVertex, Vertex};
 use graph::TraversableToVertex;
 
+use std::sync::Arc;
+use std::cell::RefCell;
+
+
 #[derive(Debug)]
 pub struct RawEdge {
     pub from_vertex: *mut RawVertex,
@@ -10,15 +14,48 @@ pub struct RawEdge {
     pub label: String
 }
 
+impl RawEdge {
+    fn new(from_vertex: *mut RawVertex,
+           to_vertex: *mut RawVertex,
+           label: &str) -> Arc<RefCell<Box<RawEdge>>> {
+
+        Arc::new(
+            RefCell::new(
+            Box::new(
+                RawEdge{from_vertex: from_vertex,
+                to_vertex: to_vertex,
+                label: label.to_string()})))
+    }
+}
+
 #[derive(Clone)]
 pub struct Edge {
-    pub edge: *mut RawEdge
+    pub edge:  Arc<RefCell<Box<RawEdge>>>
+}
+
+impl Edge {
+    fn new(from_vertex: &mut Vertex,
+           to_vertex: &mut Vertex,
+           label: &str) {
+
+        let edge = RawEdge::new(from_vertex.v,
+                                to_vertex.v,
+                                label);
+        // RawEdge{from_vertex:from_vertex.v,
+        //                    to_vertex:to_vertex.v,
+        //                    label: label};
+
+        from_vertex.out_edges.push(edge);
+        to_vertex.in_edges.push(edge);
+
+    }
 }
 
 impl Deref for Edge {
-    type Target = RawEdge;
-    fn deref<'a>(&'a self) -> &'a RawEdge {
-        unsafe { &*(self.edge) }
+    type Target = Arc<RefCell<Box<RawEdge>>>;
+
+    fn deref<'a>(&'a self) -> &'a Arc<RefCell<Box<RawEdge>>> {
+        self.edge
     }
 }
 
