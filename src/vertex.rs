@@ -1,7 +1,7 @@
 use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
-use property::GraphProperty;
+use property::Property;
 
 use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;
@@ -13,7 +13,7 @@ use graph::TraversableToVertex;
 */
 pub struct RawVertex {
     pub id: i64,
-    pub properties: HashMap<String, GraphProperty>,
+    pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
     pub out_edges: Vec<*mut RawEdge>,
     pub in_edges:  Vec<*mut RawEdge>,
@@ -70,11 +70,11 @@ impl Vertex {
         Edge{edge:edge}
     }
 
-    pub fn set_property(&mut self, field: String, value: GraphProperty) {
+    pub fn set_property(&mut self, field: String, value: Property) {
         self.properties.insert(field, value);
     }
 
-    pub fn get_property(&self, field:String) -> Option<&GraphProperty> {
+    pub fn get_property(&self, field:String) -> Option<&Property> {
         self.properties.get(&field)
     }
 

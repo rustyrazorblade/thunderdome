@@ -1,6 +1,6 @@
 
 use vertex::{RawVertex, Vertex};
-use property::GraphProperty;
+use property::Property;
 use edge::{RawEdge, Edge};
 use graph::TraversableToVertex;
 use path::{Path, Element};
@@ -99,7 +99,7 @@ impl GraphQuery {
 
         g.v(1).outV().has("favorite_food", )
     */
-    pub fn has(&self, prop: &str, value: GraphProperty) {
+    pub fn has(&self, prop: &str, value: Property) {
 
     }
 

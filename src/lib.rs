@@ -11,7 +11,7 @@ pub mod property;
 #[cfg(test)]
 mod tests {
     use vertex::RawVertex;
-    use property::GraphProperty;
+    use property::Property;
     use graph::{Graph, TraversableToVertex};
     use path::{Path, Element};
 
@@ -72,13 +72,13 @@ mod tests {
         let mut g = Graph::new();
         let mut v1 = g.add_vertex();
         let key = "jon".to_string();
-        let value = GraphProperty::Int(1);
+        let value = Property::Int(1);
         v1.set_property(key.clone(), value);
 
         let result = v1.get_property(key).unwrap();
 
         match result {
-            &GraphProperty::Int(1) =>
+            &Property::Int(1) =>
                 // we're ok
                 println!("OK"),
             _ =>
