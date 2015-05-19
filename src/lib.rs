@@ -7,22 +7,3 @@ pub mod edge;
 pub mod traversal;
 pub mod path;
 pub mod property;
-
-#[cfg(test)]
-mod tests {
-    use vertex::RawVertex;
-    use property::Property;
-    use graph::{Graph, TraversableToVertex};
-    use path::{Path, Element};
-
-
-
-
-
-
-
-
-
-
-
-}
