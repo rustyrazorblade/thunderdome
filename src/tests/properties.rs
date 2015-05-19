@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn blah() {
-        assert!(false);
+        panic!();
     }
 
 
