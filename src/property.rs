@@ -4,3 +4,12 @@ pub enum Property {
     Float(f64),
     String(String),
 }
+
+pub enum Comparison {
+    GreaterThan,
+    LessThan,
+    Equal,
+    NotEqual,
+    GreaterThanEqual,
+    LessThanEqual
+}

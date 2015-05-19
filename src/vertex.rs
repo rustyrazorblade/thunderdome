@@ -76,6 +76,7 @@ impl Vertex {
     pub fn get_property(&self, field:String) -> Option<&Property> {
         self.properties.get(&field)
     }
+    
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
