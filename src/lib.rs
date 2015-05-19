@@ -177,4 +177,20 @@ mod tests {
 
 
     }
+    #[test]
+    fn test_has() {
+        let mut g = Graph::new();
+        let mut v = g.add_vertex();
+        let mut v2 = g.add_vertex();
+        v.add_edge(&mut v2, &"friends");
+
+        v2.set_property("favorite_food".to_string(), Property::String("pizza".to_string()));
+
+        let result = g.v(1).outV(&[&"friends"]).
+                        has(&"favorite_food",
+                            Property::String("pizza".to_string()));
+
+        assert_eq!(result.paths.len(), 1);
+
+    }
 }

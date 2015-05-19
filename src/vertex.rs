@@ -27,10 +27,8 @@ impl RawVertex {
                         out_edges: Vec::new(),
                         in_edges: Vec::new()})
     }
-
-
-
 }
+
 
 #[derive(Clone, Copy)]
 pub struct Vertex {
@@ -70,16 +68,13 @@ impl Vertex {
         Edge{edge:edge}
     }
 
+    // TODO switch to accepting a &str
     pub fn set_property(&mut self, field: String, value: Property) {
         self.properties.insert(field, value);
     }
 
     pub fn get_property(&self, field:String) -> Option<&Property> {
         self.properties.get(&field)
-    }
-
-    pub fn query(self) {
-        unimplemented!()
     }
 
 	pub fn outE(&self) -> Vec<Edge> {

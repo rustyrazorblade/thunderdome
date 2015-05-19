@@ -7,6 +7,7 @@ use path::{Path, Element};
 use std::iter::Extend;
 use std::iter::Filter;
 
+
 // use std::iter::Iterator;
 
 // define a traversal as a series of stages
@@ -98,9 +99,26 @@ impl GraphQuery {
         will probably be more like:
 
         g.v(1).outV().has("favorite_food", )
-    */
-    pub fn has(&self, prop: &str, value: Property) {
 
+        src/traversal.rs:106:14: 106:29 error: type mismatch: the type `[closure src/traversal.rs:103:23: 105:10]` implements the trait
+
+        `for<'r> core::ops::Fn<(&'r path::Path,)>`, but the trait
+        `for<'r,'r> core::ops::Fn<(&'r &'r path::Path,)>` is required (expected &-ptr, found struct `path::Path`) [E0281]
+
+    */
+    pub fn has(&self, prop: &str, value: Property) -> GraphQuery {
+        let closure = |path: &&Path| {
+            let s = prop.to_string();
+            let element = path.last().unwrap();
+            // match element {
+            //     &Element::Vertex(v) =>
+            //         v.get_property(s).unwrap() == value,
+            //     &Element::Edge(e) =>
+            //         false
+            // }
+            false
+        };
+        self.filter(closure)
     }
 
 //    pub fn inV(&self) -> GraphQuery {
