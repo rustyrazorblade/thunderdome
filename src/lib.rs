@@ -20,13 +20,6 @@ mod tests {
 
 
 
-    #[test]
-    fn test_get_vertex() {
-        let mut g = Graph::new();
-        let vertex = g.add_vertex();
-        let v = g.get(1).unwrap();
-        assert_eq!(v.id, 1);
-    }
 
 
 
