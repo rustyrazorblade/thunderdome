@@ -1,10 +1,10 @@
+#[warn(non_snake_case)]
+
 use std::collections::HashMap;
 use std::mem;
 
 use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
-use path::{Path, Element};
-use edge::Edge;
 
 #[derive(Debug)]
 pub struct Graph {

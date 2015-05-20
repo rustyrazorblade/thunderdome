@@ -22,7 +22,7 @@ impl GraphQuery {
         // create a new path for each proxy, add the proxy
         let mut paths = Vec::new();
         for p in vertices {
-            let mut path = Path::new(p);
+            let path = Path::new(p);
             paths.push(path)
         }
         GraphQuery{paths:paths}
