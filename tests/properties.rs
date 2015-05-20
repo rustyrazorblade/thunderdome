@@ -15,11 +15,11 @@ mod property_tests {
     fn test_properties() {
         let mut g = Graph::new();
         let mut v1 = g.add_vertex();
-        let key = "jon".to_string();
+        let key = &"jon";
         let value = Property::Int(1);
-        v1.set_property(key.clone(), value);
+        v1.set_property(&key, value);
 
-        let result = v1.get_property(key).unwrap();
+        let result = v1.get_property(&key).unwrap();
 
         match result {
             &Property::Int(1) =>
@@ -37,7 +37,7 @@ mod property_tests {
         let mut v2 = g.add_vertex();
         v.add_edge(&mut v2, &"friends");
 
-        v2.set_property("favorite_food".to_string(), Property::String("pizza".to_string()));
+        v2.set_property(&"favorite_food", Property::String("pizza".to_string()));
 
         let result = g.v(1).outV(&[&"friends"]).
                         has(&"favorite_food",
