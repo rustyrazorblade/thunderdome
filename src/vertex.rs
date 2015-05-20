@@ -1,3 +1,5 @@
+#[warn(non_snake_case)]
+
 use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
