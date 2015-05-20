@@ -3,3 +3,6 @@
 name = "thunderdome"
 version = "0.0.1"
 authors = ["Jon Haddad <jon@jonhaddad.com>"]
+
+[dependencies]
+anymap = "0.10.3"
