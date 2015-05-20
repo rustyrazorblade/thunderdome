@@ -37,11 +37,12 @@ mod property_tests {
         let mut v2 = g.add_vertex();
         v.add_edge(&mut v2, &"friends");
 
-        v2.set_property(&"favorite_food", Property::String("pizza".to_string()));
+        let pizza = Property::String("pizza".to_string());
+        v2.set_property("favorite_food", pizza.clone());
 
-        let result = g.v(1).outV(&[&"friends"]).
-                        has(&"favorite_food",
-                            Property::String("pizza".to_string()));
+        let result = g.v(1).
+                        outV(&[&"friends"]).
+                        has("favorite_food", pizza.clone());
 
         // assert_eq!(result.paths.len(), 1);
 
