@@ -1,7 +1,7 @@
 
-use vertex::{RawVertex, Vertex};
+use vertex::Vertex;
 use property::Property;
-use edge::{RawEdge, Edge};
+use edge::Edge;
 use graph::TraversableToVertex;
 use path::{Path, Element};
 use std::iter::Extend;

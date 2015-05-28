@@ -57,6 +57,7 @@ impl Graph {
     }
 }
 
+#[warn(non_snake_case)]
 pub trait TraversableToVertex {
 	fn inV(&self) -> Vec<Vertex>;
 	fn outV(&self, &[&str]) -> Vec<Vertex>;

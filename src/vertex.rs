@@ -83,11 +83,9 @@ impl Vertex {
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		unsafe {
-			for &x in self.out_edges.iter() {
-				let proxy = Edge{edge:x};
-				result.push(proxy);
-			}
+		for &x in self.out_edges.iter() {
+			let proxy = Edge{edge:x};
+			result.push(proxy);
 		}
 		result
 	}
