@@ -10,3 +10,4 @@ pub mod edge;
 pub mod traversal;
 pub mod path;
 pub mod property;
+pub mod parser;
