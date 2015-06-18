@@ -8,3 +8,4 @@ authors = ["Jon Haddad <jon@jonhaddad.com>"]
 conduit = "*"
 conduit-router = "*"
 civet = "*"
+peg = "0.3.0"

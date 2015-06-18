@@ -1,4 +1,7 @@
 #![allow(raw_pointer_derive)]
+#![feature(plugin)]
+#![plugin(peg_syntax_ext)]
+
 // #![feature(collections)]
 
 pub mod graph;
