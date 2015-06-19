@@ -1,5 +1,6 @@
-// examples which need to be parsed...
-// 
-// g.v(1).outV()
-// g.V.filter{ it.getProperty("age") > 30 }
-// g.v(20).outV("friend").has("favorite_food", "pizza")
+use steps::*;
+
+
+#[pub]
+query -> GraphQuery
+    = "g." { GraphQuery{blah:1}  }
