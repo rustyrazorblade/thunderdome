@@ -1,5 +1,5 @@
 use steps::*;
 
-#[pub]
+#[export]
 query -> GraphQuery
-    = "g." { GraphQuery{blah:1}  }
+    = "g." {GraphQuery{blah:1}  }

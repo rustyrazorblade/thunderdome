@@ -7,7 +7,7 @@ mod parser_tests {
     use thunderdome::parser::*;
 
     fn global_graph_query() {
-        let result = query("g.V");
+        let result = parse("g.V");
     }
 
 }
