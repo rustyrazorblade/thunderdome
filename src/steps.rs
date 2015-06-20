@@ -4,4 +4,6 @@ pub struct GraphQuery {
 
 pub struct GlobalQuery;
 
-pub struct VertexQuery;
+pub struct VertexQuery {
+    pub ids: Vec<i64>
+}

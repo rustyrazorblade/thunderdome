@@ -8,4 +8,7 @@ authors = ["Jon Haddad <jon@jonhaddad.com>"]
 conduit = "*"
 conduit-router = "*"
 civet = "*"
-peg = "0.3.0"
+
+[dependencies.peg]
+git = "https://github.com/rustyrazorblade/rust-peg.git"
+branch = "fix_nightly_features"
