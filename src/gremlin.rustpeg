@@ -18,4 +18,7 @@ list_of_ids -> Vec<i64>
     = integer ++ "," { let mut r = Vec::new(); r.push(1); r }
 
 integer -> i64
-    = x:[1-9]* { match_str.parse().unwrap() }
+    = whitespace* x:[1-9]+ whitespace* { match_str.trim().parse().unwrap() }
+
+whitespace
+  = [ \t\u{00A0}\u{FEFF}\u{1680}\u{180E}\u{2000}-\u{200A}\u{202F}\u{205F}\u{3000}]

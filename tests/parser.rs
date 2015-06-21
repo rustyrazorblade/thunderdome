@@ -19,6 +19,7 @@ mod parser_tests {
         assert!(r.is_ok());
         let r = parse("g.v(1,2)");
         assert!(r.is_ok());
+        assert!(parse("g.v(1, 2)").is_ok());
     }
 
 }
