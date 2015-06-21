@@ -13,7 +13,7 @@ pub struct Step {
 }
 
 impl Step {
-    pub fn new(name: String) -> Step {
-        Step{name:name}
+    pub fn new(name: &str) -> Step {
+        Step{name:name.to_string()}
     }
 }
