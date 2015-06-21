@@ -12,6 +12,12 @@ pub struct Step {
     pub name: String
 }
 
+pub enum Arg {
+    Integer(i64),
+    Float(f64),
+    String(String),
+}
+
 impl Step {
     pub fn new(name: String) -> Step {
         Step{name:name}

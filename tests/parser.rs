@@ -37,4 +37,8 @@ mod parser_tests {
     fn test_args() {
         validate("g.v(1).outV('edge').has('age', 30)");
     }
+    #[test]
+    fn test_args_numbers() {
+        validate("g.V.limit(10)");
+    }
 }

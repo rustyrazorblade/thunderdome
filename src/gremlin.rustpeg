@@ -27,7 +27,19 @@ steps -> Vec<Step>
     = funcs:func_call*  { funcs }
 
 func_call -> Step
-    = "." name:func_name "(" ")" { Step::new(name) }
+    = "." name:func_name "(" args:func_args ")" { Step::new(name) }
 
 func_name -> String
     = [a-zA-Z]+ { match_str.to_string() }
+
+func_args -> Vec<Arg>
+    = func_arg ** ","
+
+func_arg -> Arg
+    = number
+
+number -> Arg
+    = integer
+
+integer -> Arg
+    = "-"? [1-9][0-9]* { Arg::Integer(match_str.parse().unwrap()) }
