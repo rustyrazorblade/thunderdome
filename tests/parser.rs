@@ -13,5 +13,10 @@ mod parser_tests {
         assert!(result.is_ok());
 
     }
+    #[test]
+    fn vertex_query() {
+        let r = parse("g.v(1)");
+        assert!(r.is_ok());
+    }
 
 }
