@@ -32,4 +32,9 @@ mod parser_tests {
         validate("g.v(1).outV()");
         validate("g.v(1).outV().inE()");
     }
+
+    #[test]
+    fn test_args() {
+        validate("g.v(1).outV('edge').has('age', 30)");
+    }
 }
