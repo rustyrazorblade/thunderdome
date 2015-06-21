@@ -22,4 +22,8 @@ mod parser_tests {
         assert!(parse("g.v(1, 2)").is_ok());
     }
 
+    #[test]
+    fn simple_step_test() {
+        assert!(parse("g.v(1).outV()").is_ok());
+    }
 }

@@ -24,10 +24,10 @@ whitespace
   = [ \t\u{00A0}\u{FEFF}\u{1680}\u{180E}\u{2000}-\u{200A}\u{202F}\u{205F}\u{3000}]
 
 steps -> Vec<Step>
-    = funcs:func_call ** "." { funcs }
+    = funcs:func_call*  { funcs }
 
 func_call -> Step
-    = name:func_name { Step::new(name) }
+    = "." name:func_name "(" ")" { Step::new(name) }
 
 func_name -> String
     = [a-zA-Z]+ { match_str.to_string() }
