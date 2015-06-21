@@ -30,5 +30,6 @@ mod parser_tests {
     #[test]
     fn simple_step_test() {
         validate("g.v(1).outV()");
+        validate("g.v(1).outV().inE()");
     }
 }
