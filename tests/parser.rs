@@ -1,7 +1,4 @@
-
-
 extern crate thunderdome;
-
 
 
 #[cfg(test)]
@@ -41,5 +38,6 @@ mod parser_tests {
     fn test_args_numbers() {
         // maybe a weird offset command?
         validate("g.V.limit(10, 20)");
+        validate("g.V.limit(10.0)");
     }
 }

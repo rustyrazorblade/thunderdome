@@ -39,8 +39,13 @@ func_arg -> Arg
     = number
 
 number -> Arg
-    = integer
+    = float / integer 
 
 integer -> Arg
     = whitespace* "-"? [1-9][0-9]* whitespace*
     { Arg::Integer(match_str.trim().parse().unwrap()) }
+
+#[export]
+float -> Arg
+    = whitespace* "-"? [0-9]* "." [0-9]+
+    { Arg::Float(match_str.trim().parse().unwrap()) }
