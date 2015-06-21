@@ -2,7 +2,7 @@ use steps::*;
 
 #[export]
 query -> GraphQuery
-    = "g." scope:query_scope {GraphQuery{blah:1, scope:scope}  }
+    = "g." scope:query_scope steps:steps {GraphQuery{scope:scope, steps:steps}  }
 
 query_scope -> Scope
     = global_scope / vertex_scope
@@ -22,3 +22,6 @@ integer -> i64
 
 whitespace
   = [ \t\u{00A0}\u{FEFF}\u{1680}\u{180E}\u{2000}-\u{200A}\u{202F}\u{205F}\u{3000}]
+
+steps -> Vec<Step>
+    = .* { Vec::new() }
