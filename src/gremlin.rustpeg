@@ -27,4 +27,7 @@ steps -> Vec<Step>
     = funcs:func_call ** "." { funcs }
 
 func_call -> Step
-    = name:. { Step::new(match_str) }
+    = name:func_name { Step::new(name) }
+
+func_name -> String
+    = [a-zA-Z]+ { match_str.to_string() }
