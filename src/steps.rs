@@ -1,9 +1,9 @@
 pub struct GraphQuery {
-    pub blah: i64
+    pub blah: i64,
+    pub scope: Scope,
 }
 
-pub struct GlobalQuery;
-
-pub struct VertexQuery {
-    pub ids: Vec<i64>
+pub enum Scope {
+    Global,
+    Vertex(Vec<i64>),
 }

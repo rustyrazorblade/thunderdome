@@ -2,4 +2,4 @@ use steps::*;
 
 #[export]
 query -> GraphQuery
-    = "g." {GraphQuery{blah:1}  }
+    = "g." {GraphQuery{blah:1, scope:Scope::Global}  }
