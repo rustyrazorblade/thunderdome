@@ -17,6 +17,8 @@ mod parser_tests {
     fn vertex_query() {
         let r = parse("g.v(1)");
         assert!(r.is_ok());
+        let r = parse("g.v(1,2)");
+        assert!(r.is_ok());
     }
 
 }

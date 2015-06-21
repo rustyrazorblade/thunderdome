@@ -15,7 +15,7 @@ vertex_scope -> Scope
     = "v(" ids:list_of_ids ")" { Scope::Vertex(ids) }
 
 list_of_ids -> Vec<i64>
-    = integer { let mut r = Vec::new(); r.push(1); r }
+    = integer ++ "," { let mut r = Vec::new(); r.push(1); r }
 
 integer -> i64
     = x:[1-9]* { match_str.parse().unwrap() }
