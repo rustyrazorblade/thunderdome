@@ -39,6 +39,7 @@ mod parser_tests {
     }
     #[test]
     fn test_args_numbers() {
-        validate("g.V.limit(10)");
+        // maybe a weird offset command?
+        validate("g.V.limit(10, 20)");
     }
 }

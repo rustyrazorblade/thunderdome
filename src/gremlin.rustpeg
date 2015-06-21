@@ -42,4 +42,5 @@ number -> Arg
     = integer
 
 integer -> Arg
-    = "-"? [1-9][0-9]* { Arg::Integer(match_str.parse().unwrap()) }
+    = whitespace* "-"? [1-9][0-9]* whitespace*
+    { Arg::Integer(match_str.trim().parse().unwrap()) }
