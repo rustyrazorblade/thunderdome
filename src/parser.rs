@@ -4,6 +4,6 @@ use steps::GraphQuery;
 
 peg_file! gremlin("gremlin.rustpeg");
 
-pub fn parse(g: &str) -> Result<GraphQuery, gremlin::ParseError> {
+pub fn pre_parse(g: &str) -> Result<GraphQuery, gremlin::ParseError> {
     gremlin::query(g)
 }
