@@ -1,3 +1,4 @@
+
 /*
 returned from the peg parser
 we'll need to take each of the steps
@@ -22,9 +23,11 @@ generic step used in ParsedGraphQuery
 will be turned into specific steps
 */
 pub struct Step {
-    pub name: String
+    pub name: String,
+    pub args: Vec<Arg>,
 }
 
+#[derive(Debug, Display)]
 pub enum Arg {
     Integer(i64),
     Float(f64),
@@ -32,7 +35,7 @@ pub enum Arg {
 }
 
 impl Step {
-    pub fn new(name: String) -> Step {
-        Step{name:name}
+    pub fn new(name: String, args: Vec<Arg>) -> Step {
+        Step{name:name, args:args}
     }
 }

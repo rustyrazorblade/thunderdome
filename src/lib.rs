@@ -1,6 +1,8 @@
 #![allow(raw_pointer_derive)]
 #![feature(plugin)]
 #![plugin(peg_syntax_ext)]
+#![feature(custom_derive)]
+
 
 // #![feature(collections)]
 

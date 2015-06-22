@@ -29,15 +29,25 @@ mod parser_tests {
         validate("g.v(1).outV()");
         let result = validate("g.v(1).outV().inE()").unwrap();
         assert_eq!(result.steps.len(), 2);
-        assert_eq!(result.steps.get(0).unwrap().name,
-                    "outV".to_string());
-        assert_eq!(result.steps.get(1).unwrap().name,
-                    "inE".to_string());
+
+        let step1 = result.steps.get(0).unwrap();
+        assert_eq!(step1.name, "outV".to_string());
+
+        let step2 = result.steps.get(1).unwrap();
+        assert_eq!(step2.name, "inE".to_string());
     }
 
     #[test]
     fn test_args() {
-        validate("g.v(1).outV('edge').has('age', 30)");
+        let result = validate("g.v(1).outV('edge').has('age', 30)").unwrap();
+        let step1 = result.steps.get(0).unwrap();
+        assert_eq!(step1.name, "outV".to_string());
+        // make sure the arg is edge.  should be a string and unquoted
+        match step1.args.get(0).unwrap() {
+            &Arg::String(ref x) if *x == "edge".to_string() => {},
+            &Arg::String(ref x) => panic!("{}", x),
+            x => { panic!("wrong type") }
+        }
     }
     #[test]
     fn test_args_numbers() {

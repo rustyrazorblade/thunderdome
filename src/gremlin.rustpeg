@@ -2,7 +2,8 @@ use steps::*;
 
 #[export]
 query -> ParsedGraphQuery
-    = "g." scope:query_scope steps:steps {ParsedGraphQuery{scope:scope, steps:steps}  }
+    = "g." scope:query_scope steps:steps
+    { ParsedGraphQuery{scope:scope, steps:steps} }
 
 query_scope -> Scope
     = global_scope / vertex_scope
@@ -27,7 +28,7 @@ steps -> Vec<Step>
     = funcs:func_call*  { funcs }
 
 func_call -> Step
-    = "." name:func_name "(" args:func_args ")" { Step::new(name) }
+    = "." name:func_name "(" args:func_args ")" { Step::new(name, args) }
 
 func_name -> String
     = [a-zA-Z]+ { match_str.to_string() }
@@ -53,11 +54,12 @@ string -> Arg
     = double_quoted_string / single_quoted_string
 
 single_quoted_string -> Arg
-    = "'" string_guts "'"
-    { Arg::String(match_str.trim().to_string()) }
+    = "'" guts:string_guts "'"
+    { Arg::String(guts) }
 
 double_quoted_string -> Arg
-    = '"' string_guts '"'
-    { Arg::String(match_str.trim().to_string()) }
+    = '"' guts:string_guts '"'
+    { Arg::String(guts) }
 
-string_guts = [a-zA-Z0-9]*
+string_guts -> String
+    = [a-zA-Z0-9]* { match_str.to_string() }
