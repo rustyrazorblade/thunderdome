@@ -24,11 +24,11 @@ vertex_id -> i64
 whitespace
   = [ \t\u{00A0}\u{FEFF}\u{1680}\u{180E}\u{2000}-\u{200A}\u{202F}\u{205F}\u{3000}]
 
-steps -> Vec<Step>
+steps -> Vec<RawStep>
     = funcs:func_call*  { funcs }
 
-func_call -> Step
-    = "." name:func_name "(" args:func_args ")" { Step::new(name, args) }
+func_call -> RawStep
+    = "." name:func_name "(" args:func_args ")" { RawStep::new(name, args) }
 
 func_name -> String
     = [a-zA-Z]+ { match_str.to_string() }

@@ -6,7 +6,7 @@ and use them to construct an actual GraphQuery
 */
 pub struct ParsedGraphQuery {
     pub scope: Scope,
-    pub steps: Vec<Step>
+    pub steps: Vec<RawStep>
 }
 
 /*
@@ -22,7 +22,7 @@ pub enum Scope {
 generic step used in ParsedGraphQuery
 will be turned into specific steps
 */
-pub struct Step {
+pub struct RawStep {
     pub name: String,
     pub args: Vec<Arg>,
 }
@@ -34,8 +34,12 @@ pub enum Arg {
     String(String),
 }
 
-impl Step {
-    pub fn new(name: String, args: Vec<Arg>) -> Step {
-        Step{name:name, args:args}
+impl RawStep {
+    pub fn new(name: String, args: Vec<Arg>) -> RawStep {
+        RawStep{name:name, args:args}
     }
+}
+
+trait Step {
+
 }
