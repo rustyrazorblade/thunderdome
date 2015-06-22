@@ -40,6 +40,11 @@ impl RawStep {
     }
 }
 
-trait Step {
+struct GraphQueryResult;
 
+impl ParsedGraphQuery {
+    fn execute(&self) -> Result<GraphQueryResult, &str> {
+        // execute each of the steps sequentially
+        Result::Err("meh")
+    }
 }
