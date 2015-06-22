@@ -29,8 +29,10 @@ mod parser_tests {
         validate("g.v(1).outV()");
         let result = validate("g.v(1).outV().inE()").unwrap();
         assert_eq!(result.steps.len(), 2);
-        assert_eq!(result.steps.get(0).unwrap().name, "outV".to_string());
-        assert_eq!(result.steps.get(1).unwrap().name, "inE".to_string());
+        assert_eq!(result.steps.get(0).unwrap().name,
+                    "outV".to_string());
+        assert_eq!(result.steps.get(1).unwrap().name,
+                    "inE".to_string());
     }
 
     #[test]
