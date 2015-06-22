@@ -62,4 +62,4 @@ double_quoted_string -> Arg
     { Arg::String(guts) }
 
 string_guts -> String
-    = [a-zA-Z0-9]* { match_str.to_string() }
+    = [a-zA-Z0-9\-]* { match_str.to_string() }
