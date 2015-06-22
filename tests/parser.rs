@@ -6,7 +6,7 @@ mod parser_tests {
     use thunderdome::parser::*;
     use thunderdome::steps::*;
 
-    fn validate(q: &str) -> Option<GraphQuery> {
+    fn validate(q: &str) -> Option<ParsedGraphQuery> {
         let result = pre_parse(q);
         assert!(result.is_ok());
         result.ok()

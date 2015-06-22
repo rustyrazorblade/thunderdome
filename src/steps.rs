@@ -1,4 +1,9 @@
-pub struct GraphQuery {
+/*
+returned from the peg parser
+we'll need to take each of the steps
+and use them to construct an actual GraphQuery
+*/
+pub struct ParsedGraphQuery {
     pub scope: Scope,
     pub steps: Vec<Step>
 }

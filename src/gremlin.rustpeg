@@ -1,8 +1,8 @@
 use steps::*;
 
 #[export]
-query -> GraphQuery
-    = "g." scope:query_scope steps:steps {GraphQuery{scope:scope, steps:steps}  }
+query -> ParsedGraphQuery
+    = "g." scope:query_scope steps:steps {ParsedGraphQuery{scope:scope, steps:steps}  }
 
 query_scope -> Scope
     = global_scope / vertex_scope
