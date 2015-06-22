@@ -10,5 +10,4 @@ conduit-router = "*"
 civet = "*"
 
 [dependencies.peg]
-git = "https://github.com/rustyrazorblade/rust-peg.git"
-branch = "fix_nightly_features"
+git = "https://github.com/kevinmehall/rust-peg.git"

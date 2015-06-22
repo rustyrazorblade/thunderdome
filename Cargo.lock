@@ -5,7 +5,7 @@ dependencies = [
  "civet 0.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "conduit-router 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "peg 0.3.0 (git+https://github.com/rustyrazorblade/rust-peg.git?branch=fix_nightly_features)",
+ "peg 0.3.0 (git+https://github.com/kevinmehall/rust-peg.git)",
 ]
 
 [[package]]
@@ -50,7 +50,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "peg"
 version = "0.3.0"
-source = "git+https://github.com/rustyrazorblade/rust-peg.git?branch=fix_nightly_features#df05cfbed8b1cbd284c9923d2a51f8b16e21a7f7"
+source = "git+https://github.com/kevinmehall/rust-peg.git#fc49125552f43509c7c5a87ee094a592152f3231"
 
 [[package]]
 name = "route-recognizer"

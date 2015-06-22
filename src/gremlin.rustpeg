@@ -39,13 +39,25 @@ func_arg -> Arg
     = number
 
 number -> Arg
-    = float / integer 
+    = float / integer / string
 
 integer -> Arg
     = whitespace* "-"? [1-9][0-9]* whitespace*
     { Arg::Integer(match_str.trim().parse().unwrap()) }
 
-#[export]
 float -> Arg
     = whitespace* "-"? [0-9]* "." [0-9]+
     { Arg::Float(match_str.trim().parse().unwrap()) }
+
+string -> Arg
+    = double_quoted_string / single_quoted_string
+
+single_quoted_string -> Arg
+    = "'" string_guts "'"
+    { Arg::String(match_str.trim().to_string()) }
+
+double_quoted_string -> Arg
+    = '"' string_guts '"'
+    { Arg::String(match_str.trim().to_string()) }
+
+string_guts = [a-zA-Z0-9]*
