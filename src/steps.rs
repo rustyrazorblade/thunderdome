@@ -45,6 +45,10 @@ struct GraphQueryResult;
 impl ParsedGraphQuery {
     fn execute(&self) -> Result<GraphQueryResult, &str> {
         // execute each of the steps sequentially
+        for step in self.steps.iter() {
+            // lookup step in hash table
+            // execute function, passing step args
+        }
         Result::Err("meh")
     }
 }
