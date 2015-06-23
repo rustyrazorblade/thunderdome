@@ -44,6 +44,11 @@ struct GraphQueryResult;
 
 impl ParsedGraphQuery {
     fn execute(&self) -> Result<GraphQueryResult, &str> {
+        // get the starting point(s)
+
+        // i'm tempted to say global graph traversals must include a
+        // starting point, g.v(predicate)
+
         // execute each of the steps sequentially
         for step in self.steps.iter() {
             // lookup step in hash table
