@@ -41,7 +41,7 @@ mod property_tests {
         v2.set_property("favorite_food", pizza.clone());
 
         let result = g.v(1).
-                        outV(&[&"friends"]).
+                        outV(&["friends"]).
                         has("favorite_food", pizza.clone());
 
         // assert_eq!(result.paths.len(), 1);
