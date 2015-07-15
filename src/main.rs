@@ -16,16 +16,16 @@ fn hello(_req: &mut Request) -> io::Result<Response> {
 }
 
 fn main() {
-    println!("Thunderdome Graph Server starting up...");
+    println!("Thunderdome Graph Database Server starting up...");
 
     let mut router = RouteBuilder::new();
     router.get("/", hello);
 
-    let server = Server::start(Config { port: 8888, threads: 1 }, router);
+    let server = Server::start(Config { port: 9000, threads: 4 }, router);
 
     // Preventing process exit.
     let (_tx, rx) = channel::<()>();
     rx.recv().unwrap();
 
-    println!("Thunderdome Graph Server shutting down");
+    println!("Thunderdome Graph Database Server shutting down, goodbye.");
 }
