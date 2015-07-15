@@ -52,9 +52,9 @@ mod parser_tests {
     #[test]
     fn test_args_numbers() {
         // maybe a weird offset command?
-        validate("g.V.limit(10, 20)");
-        let result = validate("g.V.limit(10.0)").unwrap();
-        match result.steps.get(0).unwrap().args.get(0).unwrap() {
+        validate("g.V().limit(10, 20)");
+        let result = validate("g.V().limit(10.0)").unwrap();
+        match result.steps.get(1).unwrap().args.get(0).unwrap() {
             &Arg::Float(ref x) if *x == 10.0 => { },
             _ => { panic!("OH NOES")}
         }

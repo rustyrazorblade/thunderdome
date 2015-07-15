@@ -2,18 +2,8 @@ use steps::*;
 
 #[export]
 query -> ParsedGraphQuery
-    = "g." scope:query_scope steps:steps
-    { ParsedGraphQuery{scope:scope, steps:steps} }
-
-query_scope -> Scope
-    = global_scope / vertex_scope
-
-
-global_scope -> Scope
-    = "V" { Scope::Global }
-
-vertex_scope -> Scope
-    = "v(" ids:list_of_ids ")" { Scope::Vertex(ids) }
+    = "g" steps:steps
+    { ParsedGraphQuery{steps:steps} }
 
 list_of_ids -> Vec<i64>
     = vertex_id ++ "," { let mut r = Vec::new(); r.push(1); r }
