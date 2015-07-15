@@ -14,7 +14,7 @@ mod parser_tests {
 
     #[test]
     fn global_graph_query() {
-        validate("g.V");
+        validate("g.V()");
     }
 
     #[test]
@@ -28,19 +28,19 @@ mod parser_tests {
     fn simple_step_test() {
         validate("g.v(1).outV()");
         let result = validate("g.v(1).outV().inE()").unwrap();
-        assert_eq!(result.steps.len(), 2);
+        assert_eq!(result.steps.len(), 3);
 
-        let step1 = result.steps.get(0).unwrap();
+        let step1 = result.steps.get(1).unwrap();
         assert_eq!(step1.name, "outV".to_string());
 
-        let step2 = result.steps.get(1).unwrap();
+        let step2 = result.steps.get(2).unwrap();
         assert_eq!(step2.name, "inE".to_string());
     }
 
     #[test]
     fn test_args() {
         let result = validate("g.v(1).outV('edge').has('age', 30)").unwrap();
-        let step1 = result.steps.get(0).unwrap();
+        let step1 = result.steps.get(1).unwrap();
         assert_eq!(step1.name, "outV".to_string());
         // make sure the arg is edge.  should be a string and unquoted
         match step1.args.get(0).unwrap() {
