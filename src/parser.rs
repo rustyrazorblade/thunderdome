@@ -64,38 +64,3 @@ impl fmt::Display for RawStep {
         write!(f, "RawStep {}", self.name)
     }
 }
-
-
-struct GraphQueryResult;
-
-impl ParsedGraphQuery {
-    fn execute(&self) -> Result<GraphQueryResult, &str> {
-        // get the starting point(s)
-
-        // for now lets just put this hash table here
-
-        let mut steps_table = HashMap::new();
-        steps_table.insert("outV", traverse_out);
-        steps_table.insert("inV", traverse_out);
-
-        // i'm tempted to say global graph traversals must include a
-        // starting point, g.v(predicate)
-
-        // execute each of the steps sequentially
-        for step in self.steps.iter() {
-            // lookup step in hash table
-            println!("{}", step);
-            // execute function, passing step args
-        }
-        Result::Err("meh")
-    }
-}
-
-fn traverse_out() -> Result<&'static str, &'static str>  {
-    Ok("cool")
-}
-
-fn traverse_in() -> Result<&'static str, &'static str>  {
-    Ok("cool")
-
-}

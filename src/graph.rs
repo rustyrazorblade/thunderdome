@@ -5,19 +5,56 @@ use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
 use path::{Path, Element};
 use edge::Edge;
+use parser::parse;
 
 #[derive(Debug)]
 pub struct Graph {
     elements: i64,
     // we transmute our Boxed vertex into a pointer later
     vertices: HashMap<i64, *mut RawVertex>,
+    queue: Vec<String>,
 }
 
+// graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
 impl Graph {
     pub fn new() -> Box<Graph> {
         let vertices: HashMap<i64, *mut RawVertex> = HashMap::new();
-        Box::new(Graph{elements:0, vertices:vertices})
+        Box::new(Graph{elements:0, vertices:vertices, queue:Vec::with_capacity(100)})
     }
+
+    // todo actually return a result DERP DERP DERP
+    pub fn execute(&self, query: &str) {
+        // parse the graph query
+
+        let mut steps_table = HashMap::new();
+        steps_table.insert("outV", traverse_out);
+        steps_table.insert("inV", traverse_out);
+
+        match parse(query) {
+            Ok(query) => {
+                // execute each of the steps sequentially
+                for step in query.steps.iter() {
+                    // lookup step in hash table
+                    println!("{}", step);
+                    // execute function, passing step args
+                }
+            },
+            Err(x) => {
+                println!("SUCH FAIL!!!!")
+            }
+                // Result::Err("meh")
+        }
+
+
+        // i'm tempted to say global graph traversals must include a
+        // starting point, g.v(predicate)
+
+
+    }
+
+
+
+
 
     pub fn add_vertex(&mut self) -> Vertex {
         let new_id = self.elements + 1;
@@ -62,5 +99,14 @@ pub trait TraversableToVertex {
 	fn outV(&self, &[&str]) -> Vec<Vertex>;
 //	fn inE(&self) -> Vec<Edge>;
 
+
+}
+
+fn traverse_out() -> Result<&'static str, &'static str>  {
+    Ok("cool")
+}
+
+fn traverse_in() -> Result<&'static str, &'static str>  {
+    Ok("cool")
 
 }
