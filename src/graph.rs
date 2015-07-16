@@ -26,9 +26,11 @@ impl Graph {
     pub fn execute(&self, query: &str) {
         // parse the graph query
 
-        let mut steps_table = HashMap::new();
-        steps_table.insert("outV", traverse_out);
-        steps_table.insert("inV", traverse_out);
+        // let mut steps_table : HashMap<&'static str, FnMut() -> Result<&'static str, &'static str> > = HashMap::new();
+        // steps_table.insert("outV", traverse_out);
+        // steps_table.insert("inV", traverse_in);
+
+        // todo - validate query is using legit steps
 
         match parse(query) {
             Ok(query) => {
@@ -36,6 +38,13 @@ impl Graph {
                 for step in query.steps.iter() {
                     // lookup step in hash table
                     println!("{}", step);
+
+                    let name : &str = &step.name;
+                    let step_result = match name {
+                        "outV" => self.traverse_out_vertex(),
+                        "inV" => self.traverse_in_vertex(),
+                        _ => Err("no thingy found")
+                    };
                     // execute function, passing step args
                 }
             },
@@ -44,17 +53,17 @@ impl Graph {
             }
                 // Result::Err("meh")
         }
-
-
-        // i'm tempted to say global graph traversals must include a
-        // starting point, g.v(predicate)
-
-
+        println!("query finished");
+        ()
     }
 
+    fn traverse_out_vertex(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
 
-
-
+    fn traverse_in_vertex(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
 
     pub fn add_vertex(&mut self) -> Vertex {
         let new_id = self.elements + 1;
@@ -99,14 +108,5 @@ pub trait TraversableToVertex {
 	fn outV(&self, &[&str]) -> Vec<Vertex>;
 //	fn inE(&self) -> Vec<Edge>;
 
-
-}
-
-fn traverse_out() -> Result<&'static str, &'static str>  {
-    Ok("cool")
-}
-
-fn traverse_in() -> Result<&'static str, &'static str>  {
-    Ok("cool")
 
 }
