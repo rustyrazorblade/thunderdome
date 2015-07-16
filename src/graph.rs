@@ -3,7 +3,7 @@ use std::mem;
 
 use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
-use path::{Path, Element};
+use path::{Element, TreePath};
 use edge::Edge;
 use parser::{parse, Arg};
 
@@ -40,7 +40,7 @@ impl Graph {
                     println!("{}", step);
 
                     let name : &str = &step.name;
-                    
+
                     // there has to be a better way of doing this?
                     let step_result = match name {
                         "outV" => self.traverse_out_vertex(&step.args),
@@ -65,6 +65,7 @@ impl Graph {
 
     fn vertex_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("vertex query");
+        // gather the requested vertices
         Ok("cool")
     }
 
@@ -138,4 +139,9 @@ pub trait TraversableToVertex {
 //	fn inE(&self) -> Vec<Edge>;
 
 
+}
+
+
+struct GraphQueryResult {
+    results: TreePath
 }
