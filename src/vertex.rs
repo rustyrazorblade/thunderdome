@@ -30,7 +30,7 @@ impl RawVertex {
 }
 
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Vertex {
     pub id: i64,
     pub v: *mut RawVertex,

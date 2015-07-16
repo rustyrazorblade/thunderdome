@@ -14,13 +14,17 @@ pub struct Graph {
     // we transmute our Boxed vertex into a pointer later
     vertices: HashMap<i64, *mut RawVertex>,
     queue: Vec<String>,
+    treepath: Option<TreePath>,
 }
 
 // graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
 impl Graph {
     pub fn new() -> Box<Graph> {
         let vertices: HashMap<i64, *mut RawVertex> = HashMap::new();
-        Box::new(Graph{elements:0, vertices:vertices, queue:Vec::with_capacity(100)})
+        Box::new(Graph{elements:0,
+                        vertices:vertices,
+                        queue:Vec::with_capacity(100),
+                        treepath: None })
     }
 
     // todo actually return a result DERP DERP DERP
@@ -67,11 +71,13 @@ impl Graph {
     fn vertex_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("vertex query");
         // gather the requested vertices
+        unimplemented!();
         Ok("cool")
     }
 
     fn global_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("global query");
+        unimplemented!();
         Ok("cool")
     }
 
@@ -84,16 +90,19 @@ impl Graph {
     fn traverse_in_vertex(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("inV traversal");
 
+        unimplemented!();
         Ok("cool")
     }
 
     fn traverse_out_edge(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("outE traversal");
+        unimplemented!();
         Ok("cool")
     }
 
     fn traverse_in_edge(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("inE traversal");
+        unimplemented!();
         Ok("cool")
     }
     pub fn add_vertex(&mut self) -> Vertex {

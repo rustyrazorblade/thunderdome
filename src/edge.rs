@@ -10,7 +10,7 @@ pub struct RawEdge {
     pub label: String
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Edge {
     pub edge: *mut RawEdge
 }
