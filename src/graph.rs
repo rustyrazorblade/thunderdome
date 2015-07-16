@@ -5,7 +5,7 @@ use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
 use path::{Path, Element};
 use edge::Edge;
-use parser::parse;
+use parser::{parse, Arg};
 
 #[derive(Debug)]
 pub struct Graph {
@@ -41,12 +41,12 @@ impl Graph {
 
                     let name : &str = &step.name;
                     let step_result = match name {
-                        "outV" => self.traverse_out_vertex(),
-                        "inV" => self.traverse_in_vertex(),
-                        "outE" => self.traverse_out_edge(),
-                        "inE" => self.traverse_in_edge(),
-                        "v" => self.vertex_query(),
-                        "V" => self.global_query(),
+                        "outV" => self.traverse_out_vertex(&step.args),
+                        "inV" => self.traverse_in_vertex(&step.args),
+                        "outE" => self.traverse_out_edge(&step.args),
+                        "inE" => self.traverse_in_edge(&step.args),
+                        "v" => self.vertex_query(&step.args),
+                        "V" => self.global_query(&step.args),
                         _ => Err("no thingy found")
                     };
                     // execute function, passing step args
@@ -61,27 +61,35 @@ impl Graph {
         ()
     }
 
-    fn vertex_query(&self) -> Result<&'static str, &'static str>  {
+    fn vertex_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("vertex query");
         Ok("cool")
     }
 
-    fn global_query(&self) -> Result<&'static str, &'static str>  {
+    fn global_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("global query");
         Ok("cool")
     }
 
-    fn traverse_out_vertex(&self) -> Result<&'static str, &'static str>  {
+    fn traverse_out_vertex(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("outV traversal");
+
         Ok("cool")
     }
 
-    fn traverse_in_vertex(&self) -> Result<&'static str, &'static str>  {
+    fn traverse_in_vertex(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("inV traversal");
+
         Ok("cool")
     }
 
-    fn traverse_out_edge(&self) -> Result<&'static str, &'static str>  {
+    fn traverse_out_edge(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("outE traversal");
         Ok("cool")
     }
 
-    fn traverse_in_edge(&self) -> Result<&'static str, &'static str>  {
+    fn traverse_in_edge(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+        println!("inE traversal");
         Ok("cool")
     }
     pub fn add_vertex(&mut self) -> Vertex {
