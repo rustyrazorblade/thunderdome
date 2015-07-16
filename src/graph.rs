@@ -54,7 +54,7 @@ impl Graph {
                         "outE" => self.traverse_out_edge(&step.args),
                         "inE" => self.traverse_in_edge(&step.args),
                         "v" => self.vertex_query(&result, &step.args),
-                        "V" => self.global_query(&step.args),
+                        "V" => self.global_query(&result, &step.args),
                         _ => Err("no thingy found")
                     };
                     // execute function, passing step args
@@ -69,14 +69,24 @@ impl Graph {
         ()
     }
 
-    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>)
+        -> Result<&'static str, &'static str>  {
         println!("vertex query");
         // gather the requested vertices
-        unimplemented!();
+        for arg in args {
+            // this better be an integer
+            match arg {
+                Arg::Integer(i) => {
+                    result.
+                }
+            }
+
+        }
         Ok("cool")
     }
 
-    fn global_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+    fn global_query(&self, result: &GraphQueryResult, args: &Vec<Arg>)
+        -> Result<&'static str, &'static str>  {
         println!("global query");
         unimplemented!();
         Ok("cool")
@@ -137,7 +147,6 @@ impl Graph {
         let mut v = Vec::new();
         match vertex {
             Some(result) => {
-                v.push(result);
                 GraphQuery::new(v)
             }
             None => GraphQuery::empty()
@@ -154,11 +163,11 @@ pub trait TraversableToVertex {
 
 
 struct GraphQueryResult {
-    results: Option<TreePath>
+    tree: Option<TreePath>
 }
 
 impl GraphQueryResult {
     pub fn new() -> GraphQueryResult {
-        GraphQueryResult{ results: None }
+        GraphQueryResult{ tree: None }
     }
 }
