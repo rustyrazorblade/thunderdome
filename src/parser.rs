@@ -68,6 +68,7 @@ impl ParsedGraphQuery {
 
         let mut steps_table = HashMap::new();
         steps_table.insert("outV", traverse_out);
+        steps_table.insert("inV", traverse_out);
 
         // i'm tempted to say global graph traversals must include a
         // starting point, g.v(predicate)
@@ -82,5 +83,9 @@ impl ParsedGraphQuery {
 }
 
 fn traverse_out() {
+
+}
+
+fn traverse_in() {
 
 }
