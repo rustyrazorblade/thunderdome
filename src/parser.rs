@@ -1,5 +1,5 @@
 #![plugin(peg_syntax_ext)]
-
+use std::fmt;
 use std::collections::HashMap;
 
 
@@ -40,6 +40,7 @@ pub enum Scope {
 generic step used in ParsedGraphQuery
 will be turned into specific steps
 */
+#[derive(Debug)]
 pub struct RawStep {
     pub name: String,
     pub args: Vec<Arg>,
@@ -57,6 +58,13 @@ impl RawStep {
         RawStep{name:name, args:args}
     }
 }
+
+impl fmt::Display for RawStep {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RawStep {}", self.name)
+    }
+}
+
 
 struct GraphQueryResult;
 
@@ -76,7 +84,7 @@ impl ParsedGraphQuery {
         // execute each of the steps sequentially
         for step in self.steps.iter() {
             // lookup step in hash table
-
+            println!("{}", step);
             // execute function, passing step args
         }
         Result::Err("meh")
