@@ -4,7 +4,6 @@ extern crate thunderdome;
 #[cfg(test)]
 mod parser_tests {
     use thunderdome::parser::*;
-    use thunderdome::steps::*;
 
     fn validate(q: &str) -> Option<ParsedGraphQuery> {
         let result = pre_parse(q);
