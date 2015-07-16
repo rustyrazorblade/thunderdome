@@ -43,6 +43,10 @@ impl Graph {
                     let step_result = match name {
                         "outV" => self.traverse_out_vertex(),
                         "inV" => self.traverse_in_vertex(),
+                        "outE" => self.traverse_out_edge(),
+                        "inE" => self.traverse_in_edge(),
+                        "v" => self.vertex_query(),
+                        "V" => self.global_query(),
                         _ => Err("no thingy found")
                     };
                     // execute function, passing step args
@@ -57,6 +61,14 @@ impl Graph {
         ()
     }
 
+    fn vertex_query(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
+
+    fn global_query(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
+
     fn traverse_out_vertex(&self) -> Result<&'static str, &'static str>  {
         Ok("cool")
     }
@@ -65,6 +77,13 @@ impl Graph {
         Ok("cool")
     }
 
+    fn traverse_out_edge(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
+
+    fn traverse_in_edge(&self) -> Result<&'static str, &'static str>  {
+        Ok("cool")
+    }
     pub fn add_vertex(&mut self) -> Vertex {
         let new_id = self.elements + 1;
         self.elements += 1;
