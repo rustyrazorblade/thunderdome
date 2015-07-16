@@ -4,7 +4,7 @@ extern crate thunderdome;
 mod path_tests {
     use thunderdome::graph::*;
     use thunderdome::path::*;
-    
+
     #[test]
     fn test_permute_path() {
         let mut g = Graph::new();
