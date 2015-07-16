@@ -3,7 +3,8 @@ use std::mem;
 
 use vertex::{RawVertex,Vertex};
 use traversal::GraphQuery;
-use path::{Element, TreePath};
+use path::Element;
+use treepath::TreePath;
 use edge::Edge;
 use parser::{parse, Arg};
 

@@ -16,10 +16,7 @@ pub struct Path {
     pub path: Vec<Element>
 }
 
-pub struct TreePath {
-    pub element: Element,
-    pub children: Option<Box<TreePath>>
-}
+
 
 impl Path {
     pub fn new(vertex: Vertex) -> Path {
