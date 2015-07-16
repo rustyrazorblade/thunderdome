@@ -36,6 +36,7 @@ impl Graph {
         // steps_table.insert("inV", traverse_in);
 
         // todo - validate query is using legit steps
+        let result = GraphQueryResult::new();
 
         match parse(query) {
             Ok(query) => {
@@ -52,7 +53,7 @@ impl Graph {
                         "inV" => self.traverse_in_vertex(&step.args),
                         "outE" => self.traverse_out_edge(&step.args),
                         "inE" => self.traverse_in_edge(&step.args),
-                        "v" => self.vertex_query(&step.args),
+                        "v" => self.vertex_query(&result, &step.args),
                         "V" => self.global_query(&step.args),
                         _ => Err("no thingy found")
                     };
@@ -68,7 +69,7 @@ impl Graph {
         ()
     }
 
-    fn vertex_query(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("vertex query");
         // gather the requested vertices
         unimplemented!();
@@ -83,6 +84,7 @@ impl Graph {
 
     fn traverse_out_vertex(&self, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("outV traversal");
+
 
         Ok("cool")
     }
@@ -148,10 +150,15 @@ pub trait TraversableToVertex {
 	fn outV(&self, &[&str]) -> Vec<Vertex>;
 //	fn inE(&self) -> Vec<Edge>;
 
-
 }
 
 
 struct GraphQueryResult {
-    results: TreePath
+    results: Option<TreePath>
+}
+
+impl GraphQueryResult {
+    pub fn new() -> GraphQueryResult {
+        GraphQueryResult{ results: None }
+    }
 }
