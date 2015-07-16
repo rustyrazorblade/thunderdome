@@ -1,5 +1,8 @@
 #![plugin(peg_syntax_ext)]
 
+use std::collections::HashMap;
+
+
 peg_file! gremlin("gremlin.rustpeg");
 
 pub fn parse(g: &str) -> Result<ParsedGraphQuery, gremlin::ParseError> {
@@ -61,6 +64,11 @@ impl ParsedGraphQuery {
     fn execute(&self) -> Result<GraphQueryResult, &str> {
         // get the starting point(s)
 
+        // for now lets just put this hash table here
+
+        let mut steps_table = HashMap::new();
+        steps_table.insert("outV", traverse_out);
+
         // i'm tempted to say global graph traversals must include a
         // starting point, g.v(predicate)
 
@@ -71,4 +79,8 @@ impl ParsedGraphQuery {
         }
         Result::Err("meh")
     }
+}
+
+fn traverse_out() {
+
 }
