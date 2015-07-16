@@ -40,6 +40,8 @@ impl Graph {
                     println!("{}", step);
 
                     let name : &str = &step.name;
+                    
+                    // there has to be a better way of doing this?
                     let step_result = match name {
                         "outV" => self.traverse_out_vertex(&step.args),
                         "inV" => self.traverse_in_vertex(&step.args),

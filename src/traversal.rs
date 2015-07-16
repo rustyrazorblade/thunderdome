@@ -14,8 +14,11 @@ use std::iter::Filter;
 
 pub struct GraphQuery {
     // many paths
+    // TODO convert paths to a tree structure this is ridiculous
     pub paths: Vec<Path>
 }
+
+
 
 impl GraphQuery {
     pub fn new(vertices: Vec<Vertex>) -> GraphQuery {
