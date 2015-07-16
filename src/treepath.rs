@@ -1,3 +1,6 @@
+//! Module docs?  whatever
+
+
 use path::Element;
 use vertex::Vertex;
 use graph::Graph;
@@ -9,12 +12,30 @@ pub struct TreePath {
 }
 
 impl TreePath {
+    // convenience method
     pub fn from_vertex(vertex: Vertex) -> TreePath {
         let e = Element::Vertex(vertex);
-        TreePath{element:e, children:None}
+        TreePath::from_element(e)
     }
-    pub fn add_child(&mut self, element: Element) {
 
+    pub fn from_element(element: Element) -> TreePath {
+        TreePath{element:element, children:None}
+    }
+
+    pub fn add_child(&mut self, element: Element) {
+        let child = TreePath::from_element(element);
+        match self.children {
+            None => {
+                // self.children = Some(TreePath::from_element(element))
+                let mut v = Box::new(Vec::new());
+                // create a new Treepath
+                v.push(child);
+                self.children = Some(v);
+            }
+            Some(ref mut children) => {
+                children.push(child);
+            }
+        }
     }
     pub fn child_count(&self) -> usize {
         match self.children {
@@ -28,20 +49,4 @@ impl TreePath {
     // pub fn from_vertices(vlist: &[Vertex]) -> TreePath {
     //
     // }
-}
-
-#[test]
-fn test_create_tree() {
-
-    let mut g = Graph::new();
-    let v = g.add_vertex();
-    let v2 = g.add_vertex();
-    let v3 = g.add_vertex();
-
-    let mut t = TreePath::from_vertex(v);
-    t.add_child(Element::Vertex(v2));
-    t.add_child(Element::Vertex(v3));
-
-    assert_eq!(2, t.child_count());
-
 }
