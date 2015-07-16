@@ -76,16 +76,18 @@ impl ParsedGraphQuery {
         // execute each of the steps sequentially
         for step in self.steps.iter() {
             // lookup step in hash table
+
             // execute function, passing step args
         }
         Result::Err("meh")
     }
 }
 
-fn traverse_out() {
-
+fn traverse_out() -> Result<&'static str, &'static str>  {
+    Ok("cool")
 }
 
-fn traverse_in() {
+fn traverse_in() -> Result<&'static str, &'static str>  {
+    Ok("cool")
 
 }
