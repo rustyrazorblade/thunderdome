@@ -75,6 +75,7 @@ impl Graph {
         println!("vertex query");
         // gather the requested vertices
         let mut error = false;
+
         for arg in args.iter() {
             // this better be an integer
             match *arg {
@@ -82,7 +83,9 @@ impl Graph {
                     // lookup the vertex
                     let v = self.get(x);
                     match v {
-                        Some(vertex) => { result.tree.add_child(Element::Vertex(vertex)); },
+                        Some(vertex) => {
+                            result.tree.add_child(Element::Vertex(vertex));
+                        },
                         None => { }
                     }
                 }
@@ -174,7 +177,7 @@ pub trait TraversableToVertex {
 
 
 pub struct GraphQueryResult {
-    tree: TreePath
+    pub tree: TreePath
 }
 
 impl GraphQueryResult {

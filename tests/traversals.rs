@@ -4,6 +4,7 @@ extern crate thunderdome;
 mod traversal_tests {
 
     use thunderdome::graph::*;
+    use thunderdome::path::Element;
 
     fn simple_graph() -> Box<Graph> {
         let mut g = Graph::new();
@@ -80,7 +81,17 @@ mod traversal_tests {
 
         let result = g.execute("g.v(1)");
         // tree should have a root, then a single child
-        
+        match result.tree.children {
+            // should have a single child
+            Some(x) =>
+                // box/vec
+                // assert!(result.tree. == Element::TreeRoot);
+                assert!(x.len() == 1),
+            _ =>
+                panic!("FUCK")
+        };
+
+
         let result = g.execute("g.v(1).outV('friend')");
     }
 
