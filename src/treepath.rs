@@ -5,7 +5,7 @@ use path::Element;
 use vertex::Vertex;
 use graph::Graph;
 
-#[derive(Debug, Display)]
+#[derive(Debug, Display, Clone)]
 pub struct TreePath {
     pub element: Element,
     pub children: Option<Box<Vec<TreePath>>>

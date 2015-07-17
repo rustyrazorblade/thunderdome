@@ -36,7 +36,7 @@ impl Graph {
 
         // todo - validate query is using legit steps
         let mut result = GraphQueryResult::new();
-
+        println!("===== Begin query {} ======", query);
         match parse(query) {
             Ok(query) => {
                 // execute each of the steps sequentially
@@ -65,7 +65,7 @@ impl Graph {
             }
                 // Result::Err("meh")
         };
-        println!("query finished");
+        println!("===== query finished =====");
         Ok(result)
     }
 

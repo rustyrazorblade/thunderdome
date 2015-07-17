@@ -89,14 +89,17 @@ mod traversal_tests {
         let x = result.tree.children.unwrap();
         // should have a single child - the 1
         assert_eq!(x.len(), 1);
-        let ref e = x.get(0).unwrap().element;
+
+        let ref tree = x.get(0).unwrap();
+        let ref e = tree.element;
+
         match *e {
             Element::Vertex(vertex) =>
                 assert_eq!(vertex.id, 1),
             _ =>
                 panic!("WRONG")
         };
-        // assert_eq!(x.element, Element::Vertex);
+        let friends = tree.children.clone().unwrap();
         // let friends = x.children.unwrap();
 
     }
