@@ -85,6 +85,20 @@ mod traversal_tests {
         assert!(x.len() == 1);
 
         let result = g.execute("g.v(1).outV('friend')").unwrap();
+
+        let x = result.tree.children.unwrap();
+        // should have a single child - the 1
+        assert_eq!(x.len(), 1);
+        let ref e = x.get(0).unwrap().element;
+        match *e {
+            Element::Vertex(vertex) =>
+                assert_eq!(vertex.id, 1),
+            _ =>
+                panic!("WRONG")
+        };
+        // assert_eq!(x.element, Element::Vertex);
+        // let friends = x.children.unwrap();
+
     }
 
 
