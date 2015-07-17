@@ -81,18 +81,10 @@ mod traversal_tests {
 
         let result: GraphQueryResult = g.execute("g.v(1)").unwrap();
         // tree should have a root, then a single child
-        match result.tree.children {
-            // should have a single child
-            Some(x) =>
-                // box/vec
-                // assert!(result.tree. == Element::TreeRoot);
-                assert!(x.len() == 1),
-            _ =>
-                panic!("FUCK")
-        };
+        let x = result.tree.children.unwrap();
+        assert!(x.len() == 1);
 
-
-        let result = g.execute("g.v(1).outV('friend')");
+        let result = g.execute("g.v(1).outV('friend')").unwrap();
     }
 
 
