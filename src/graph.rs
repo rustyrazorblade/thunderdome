@@ -27,8 +27,7 @@ impl Graph {
                         treepath: TreePath::new() })
     }
 
-    // todo actually return a result DERP DERP DERP
-    pub fn execute(&self, query: &str) -> GraphQueryResult  {
+    pub fn execute(&self, query: &str) -> Result<GraphQueryResult, &str>  {
         // parse the graph query
 
         // let mut steps_table : HashMap<&'static str, FnMut() -> Result<&'static str, &'static str> > = HashMap::new();
@@ -66,7 +65,7 @@ impl Graph {
                 // Result::Err("meh")
         };
         println!("query finished");
-        result
+        Ok(result)
     }
 
     fn vertex_query(&self, result: &mut GraphQueryResult, args: &Vec<Arg>) ->
