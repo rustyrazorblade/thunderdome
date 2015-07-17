@@ -36,7 +36,7 @@ impl Graph {
         // steps_table.insert("inV", traverse_in);
 
         // todo - validate query is using legit steps
-        let result = GraphQueryResult::new();
+        let mut result = GraphQueryResult::new();
 
         match parse(query) {
             Ok(query) => {
@@ -53,7 +53,7 @@ impl Graph {
                         "inV" => self.traverse_in_vertex(&step.args),
                         "outE" => self.traverse_out_edge(&step.args),
                         "inE" => self.traverse_in_edge(&step.args),
-                        "v" => self.vertex_query(&result, &step.args),
+                        "v" => self.vertex_query(&mut result, &step.args),
                         "V" => self.global_query(&result, &step.args),
                         _ => Err("no thingy found")
                     };
@@ -69,14 +69,31 @@ impl Graph {
         result
     }
 
-    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
+    fn vertex_query(&self, result: &mut GraphQueryResult, args: &Vec<Arg>) ->
+                    Result<&'static str, &'static str>  {
+
         println!("vertex query");
         // gather the requested vertices
-        for x in args.iter() {
+        let mut error = false;
+        for arg in args.iter() {
             // this better be an integer
-
+            match *arg {
+                Arg::Integer(x) => {
+                    // lookup the vertex
+                    let v = self.get(x);
+                    match v {
+                        Some(vertex) => { result.tree.add_child(Element::Vertex(vertex)); },
+                        None => { }
+                    }
+                }
+                _ => error = true
+            }
         }
-        Ok("cool")
+        if error {
+            Err("errors")
+        } else {
+            Ok("you are a pirate")
+        }
     }
 
     fn global_query(&self, result: &GraphQueryResult, args: &Vec<Arg>)
@@ -157,11 +174,11 @@ pub trait TraversableToVertex {
 
 
 pub struct GraphQueryResult {
-    tree: Option<TreePath>
+    tree: TreePath
 }
 
 impl GraphQueryResult {
     pub fn new() -> GraphQueryResult {
-        GraphQueryResult{ tree: None }
+        GraphQueryResult{ tree: TreePath::new() }
     }
 }

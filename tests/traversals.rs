@@ -77,8 +77,11 @@ mod traversal_tests {
     #[test]
     fn test_real_out_vertex_execution() {
         let mut g = simple_graph();
+
+        let result = g.execute("g.v(1)");
+        // tree should have a root, then a single child
+        
         let result = g.execute("g.v(1).outV('friend')");
-        panic!("NO YOU ARE NOT READY FOR THIS");
     }
 
 
