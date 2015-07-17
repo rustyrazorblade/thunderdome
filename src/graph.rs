@@ -14,7 +14,7 @@ pub struct Graph {
     // we transmute our Boxed vertex into a pointer later
     vertices: HashMap<i64, *mut RawVertex>,
     queue: Vec<String>,
-    treepath: Option<TreePath>,
+    treepath: TreePath,
 }
 
 // graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
@@ -24,11 +24,11 @@ impl Graph {
         Box::new(Graph{elements:0,
                         vertices:vertices,
                         queue:Vec::with_capacity(100),
-                        treepath: None })
+                        treepath: TreePath::new() })
     }
 
     // todo actually return a result DERP DERP DERP
-    pub fn execute(&self, query: &str) {
+    pub fn execute(&self, query: &str) -> GraphQueryResult  {
         // parse the graph query
 
         // let mut steps_table : HashMap<&'static str, FnMut() -> Result<&'static str, &'static str> > = HashMap::new();
@@ -64,22 +64,16 @@ impl Graph {
                 println!("SUCH FAIL!!!!")
             }
                 // Result::Err("meh")
-        }
+        };
         println!("query finished");
-        ()
+        result
     }
 
-    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>)
-        -> Result<&'static str, &'static str>  {
+    fn vertex_query(&self, result: &GraphQueryResult, args: &Vec<Arg>) -> Result<&'static str, &'static str>  {
         println!("vertex query");
         // gather the requested vertices
-        for arg in args {
+        for x in args.iter() {
             // this better be an integer
-            match arg {
-                Arg::Integer(i) => {
-                    result.
-                }
-            }
 
         }
         Ok("cool")
@@ -162,7 +156,7 @@ pub trait TraversableToVertex {
 }
 
 
-struct GraphQueryResult {
+pub struct GraphQueryResult {
     tree: Option<TreePath>
 }
 

@@ -77,7 +77,7 @@ mod traversal_tests {
     #[test]
     fn test_real_out_vertex_execution() {
         let mut g = simple_graph();
-        g.execute("g.v(1).outV('friend')");
+        let result = g.execute("g.v(1).outV('friend')");
         panic!("NO YOU ARE NOT READY FOR THIS");
     }
 

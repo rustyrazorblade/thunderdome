@@ -78,7 +78,8 @@ impl GraphQuery {
                     v.outV(&labels).iter().map(|v| Element::Vertex(*v)).collect(),
                     // Vec::new(),
                 &Element::Edge(ref e) =>
-                    Vec::new()
+                    Vec::new(),
+                &Element::TreeRoot => Vec::new()
             };
             // apply outV
             result

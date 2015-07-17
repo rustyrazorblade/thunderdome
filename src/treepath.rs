@@ -12,6 +12,11 @@ pub struct TreePath {
 }
 
 impl TreePath {
+    // we need to be able to use this on new graph query results because
+    // we don't always start with a single vertex
+    pub fn new() -> TreePath {
+        TreePath{element:Element::TreeRoot, children:None}
+    }
     // convenience method
     pub fn from_vertex(vertex: Vertex) -> TreePath {
         let e = Element::Vertex(vertex);
@@ -26,7 +31,6 @@ impl TreePath {
         let child = TreePath::from_element(element);
         match self.children {
             None => {
-                // self.children = Some(TreePath::from_element(element))
                 let mut v = Box::new(Vec::new());
                 // create a new Treepath
                 v.push(child);
