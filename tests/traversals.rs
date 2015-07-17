@@ -79,7 +79,7 @@ mod traversal_tests {
     fn test_real_out_vertex_execution() {
         let mut g = simple_graph();
 
-        let result: GraphQueryResult = try!(g.execute("g.v(1)"));
+        let result: GraphQueryResult = g.execute("g.v(1)").unwrap();
         // tree should have a root, then a single child
         match result.tree.children {
             // should have a single child

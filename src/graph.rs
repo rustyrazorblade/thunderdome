@@ -54,13 +54,14 @@ impl Graph {
                         "inE" => self.traverse_in_edge(&step.args),
                         "v" => self.vertex_query(&mut result, &step.args),
                         "V" => self.global_query(&result, &step.args),
-                        _ => Err("no thingy found")
+                        _ => return Err("no step found")
                     };
                     // execute function, passing step args
                 }
             },
             Err(x) => {
                 println!("SUCH FAIL!!!!")
+
             }
                 // Result::Err("meh")
         };
