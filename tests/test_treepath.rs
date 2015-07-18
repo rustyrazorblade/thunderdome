@@ -26,10 +26,6 @@ fn test_create_tree() {
 
 #[test]
 fn test_iterate_over_leaves() {
-
-}
-
-#[test]
-fn test_remove_leaf() {
+    // make sure we can iterate over the tree's leaves and remove sub trees
 
 }

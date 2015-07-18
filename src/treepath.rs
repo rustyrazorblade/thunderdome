@@ -46,9 +46,6 @@ impl TreePath {
     pub fn leaves(&self)  {
 
     }
-
-
-
     // pub fn from_vertices(vlist: &[Vertex]) -> TreePath {
     //
     // }
