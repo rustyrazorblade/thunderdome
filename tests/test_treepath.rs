@@ -21,3 +21,13 @@ fn test_create_tree() {
     assert_eq!(2, t.child_count());
 
 }
+
+#[test]
+fn test_iterate_over_leaves() {
+
+}
+
+#[test]
+fn test_remove_leaf() {
+
+}
