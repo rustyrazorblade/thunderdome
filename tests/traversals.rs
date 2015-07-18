@@ -81,16 +81,16 @@ mod traversal_tests {
 
         let result: GraphQueryResult = g.execute("g.v(1)").unwrap();
         // tree should have a root, then a single child
-        let x = result.tree.children.unwrap();
+        let x = result.tree.children;
         assert!(x.len() == 1);
 
         let result = g.execute("g.v(1).outV('friend')").unwrap();
 
-        let x = result.tree.children.unwrap();
+        let x = result.tree.children;
         // should have a single child - the 1
         assert_eq!(x.len(), 1);
 
-        let ref tree = x.get(0).unwrap();
+        let ref tree = x.get(&0).unwrap();
         let ref e = tree.element;
 
         match *e {
@@ -99,7 +99,7 @@ mod traversal_tests {
             _ =>
                 panic!("WRONG")
         };
-        let friends = tree.children.clone().unwrap();
+        // let friends = tree.children.clone().unwrap();
         // let friends = x.children.unwrap();
 
     }

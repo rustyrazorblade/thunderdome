@@ -16,6 +16,8 @@ fn test_create_tree() {
 
     let mut t = TreePath::from_vertex(v);
     t.add_child(Element::Vertex(v2));
+    assert_eq!(1, t.element_count);
+
     t.add_child(Element::Vertex(v3));
 
     assert_eq!(2, t.child_count());
