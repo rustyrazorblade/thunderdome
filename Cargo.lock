@@ -4,7 +4,7 @@ version = "0.0.1"
 dependencies = [
  "civet 0.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "conduit-router 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "conduit-router 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "peg 0.3.0 (git+https://github.com/kevinmehall/rust-peg.git)",
 ]
 
@@ -34,7 +34,7 @@ dependencies = [
 
 [[package]]
 name = "conduit-router"
-version = "0.7.1"
+version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
