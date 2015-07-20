@@ -5,11 +5,12 @@ use path::Element;
 use vertex::Vertex;
 use graph::Graph;
 use std::collections::HashMap;
+use std::rc::Rc;
 
 #[derive(Debug, Display, Clone)]
 pub struct TreePath {
     pub element: Element,
-    pub children: Box<HashMap<usize, TreePath>>,
+    pub children: Box<HashMap<usize, Rc<TreePath>>>,
     pub element_count: usize
 }
 
@@ -32,7 +33,7 @@ impl TreePath {
     }
 
     pub fn add_child(&mut self, element: Element) {
-        let child = TreePath::from_element(element);
+        let child = Rc::new(TreePath::from_element(element));
                 // create a new Treepath
         self.children.insert(self.element_count, child);
         self.element_count += 1;
