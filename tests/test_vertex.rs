@@ -41,10 +41,9 @@ mod vertex_tests {
 
         assert_eq!(v1.id, 1);
 
-        unsafe {
-            let vertex = &*v1;
-            assert_eq!((*v1).id, 1);
-        }
+        # TODO: figure out why i had this here 
+        // let vertex = &*v1;
+        // assert_eq!((*v1).id, 1);
 
         let v2 = g.add_vertex();
         assert!(v2.id == 2);

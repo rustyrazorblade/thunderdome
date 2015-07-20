@@ -59,10 +59,10 @@ impl Vertex {
                                  label: label.to_string() });
 
         // keep it on the heap but manage it myself
-        let edge: *mut RawEdge = unsafe { mem::transmute(e) };
+        let edge = Edge::new(in_vertex, out_vertex, label);
 
-        in_vertex.out_edges.push(edge);
-        out_vertex.in_edges.push(edge);
+        in_vertex.out_edges.push(edge.clone());
+        out_vertex.in_edges.push(edge.clone());
         Edge{edge:edge}
     }
 
@@ -79,11 +79,9 @@ impl Vertex {
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		unsafe {
-			for &x in self.out_edges.iter() {
-				let proxy = Edge{edge:x};
-				result.push(proxy);
-			}
+		for &x in self.out_edges.iter() {
+			let proxy = Edge{edge:x};
+			result.push(proxy.clone());
 		}
 		result
 	}
@@ -119,49 +117,33 @@ impl TraversableToVertex for Vertex {
             labels_as_strings.push(l.to_string());
         }
 
-		unsafe {
-			for &x in self.out_edges.iter() {
-				let edge: &RawEdge = &*x;
-				let vertex: &RawVertex = &*(edge.to_vertex);
-
-                if labels.is_empty() || labels_as_strings.contains(&edge.label) {
-    				let proxy = Vertex{id:vertex.id, v:edge.to_vertex};
-    				result.push(proxy);
-                }
-			}
-			result
+		for &edge in self.out_edges.iter() {
+            if labels.is_empty() || labels_as_strings.contains(&edge.label) {
+				result.push(edge.to_vertex.clone());
+            }
 		}
+		result
 	}
 	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
-		unsafe {
-			for &x in self.in_edges.iter() {
-				let edge: &RawEdge = &*x;
-				let vertex: &RawVertex = &*(edge.from_vertex);
-
-				let proxy = Vertex{id:vertex.id, v:edge.from_vertex};
-				result.push(proxy);
-			}
-			result
+		for &edge in self.in_edges.iter() {
+			result.push(edge.from_vertex.clone());
 		}
+		result
 	}
 
 }
 
 impl Deref for Vertex {
-    type Target = RawVertex;
+    type Target = Rc<Box<RawVertex>>;
 
-    fn deref<'a>(&'a self) -> &'a RawVertex {
-        unsafe {
-            &*(self.v)
-        }
+    fn deref<'a>(&'a self) -> &'a Rc<Box<RawVertex>> {
+        *self.v
     }
 }
 
 impl DerefMut for Vertex {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut RawVertex {
-        unsafe {
-            &mut *(self.v)
-        }
+    fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RawVertex>> {
+        *self.v
     }
 }
