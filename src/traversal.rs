@@ -67,25 +67,6 @@ impl GraphQuery {
         result
     }
 
-    pub fn outV(&self, labels: &[&str]) -> GraphQuery {
-        // map can figure out the rest
-        let f = |path: &Path| {
-            //take the final element in the path
-            let element = path.last().unwrap();
-
-            let result : Vec<Element> = match element {
-                &Element::Vertex(v) =>
-                    v.outV(&labels).iter().map(|v| Element::Vertex(*v)).collect(),
-                    // Vec::new(),
-                &Element::Edge(ref e) =>
-                    Vec::new(),
-                &Element::TreeRoot => Vec::new()
-            };
-            // apply outV
-            result
-        };
-        self.map(f)
-    }
 
     pub fn filter<F>(&self, closure: F) -> GraphQuery
         where F:  for<'r> Fn(&'r &Path) -> bool  {

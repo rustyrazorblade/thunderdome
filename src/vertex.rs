@@ -80,7 +80,7 @@ impl Vertex {
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for &edge in self.out_edges.iter() {
+		for edge in self.out_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -88,7 +88,7 @@ impl Vertex {
 
 	pub fn inE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for &edge in self.in_edges.iter() {
+		for edge in self.in_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -116,7 +116,7 @@ impl TraversableToVertex for Vertex {
             labels_as_strings.push(l.to_string());
         }
 
-		for &edge in self.out_edges.iter() {
+		for edge in self.out_edges.iter() {
             if labels.is_empty() || labels_as_strings.contains(&edge.label) {
 				result.push(edge.to_vertex.clone());
             }
@@ -125,7 +125,7 @@ impl TraversableToVertex for Vertex {
 	}
 	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
-		for &edge in self.in_edges.iter() {
+		for edge in self.in_edges.iter() {
 			result.push(edge.from_vertex.clone());
 		}
 		result
