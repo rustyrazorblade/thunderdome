@@ -3,6 +3,7 @@ use std::mem;
 use std::collections::HashMap;
 use property::Property;
 
+use std::rc::Rc;
 use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;
 
@@ -11,36 +12,37 @@ use graph::TraversableToVertex;
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
 * should be ok
 */
+#[derive(Debug)]
 pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
-    pub out_edges: Vec<*mut RawEdge>,
-    pub in_edges:  Vec<*mut RawEdge>,
+    pub out_edges: Vec<Rc<RawEdge>>,
+    pub in_edges:  Vec<Rc<RawEdge>>,
 }
 
 impl RawVertex {
-    pub fn new(id: i64) -> Box<RawVertex> {
+    pub fn new(id: i64) -> Rc<Box<RawVertex>> {
         let mut props  = HashMap::new();
-        Box::new(RawVertex{id:id,
+        Rc::new(Box::new(RawVertex{id:id,
                         properties: props,
                         out_edges: Vec::new(),
-                        in_edges: Vec::new()})
+                        in_edges: Vec::new()}))
     }
 }
 
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub struct Vertex {
     pub id: i64,
-    pub v: *mut RawVertex,
+    pub v: Rc<Box<RawVertex>>,
 }
 
 impl Vertex {
 
-	pub fn new(v: *mut RawVertex) -> Vertex {
-        let raw : &RawVertex = unsafe{ mem::transmute(v)};
-        Vertex{id:raw.id, v:v}
+	pub fn new(id: i64) -> Vertex {
+        let raw = RawVertex::new(id);
+        Vertex{id:raw.id, v:raw}
 	}
 
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {

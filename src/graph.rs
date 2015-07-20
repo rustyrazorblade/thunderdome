@@ -1,30 +1,25 @@
 use std::collections::HashMap;
 use std::mem;
 
-use vertex::{RawVertex,Vertex};
+use vertex::Vertex;
 use traversal::GraphQuery;
 use path::Element;
 use treepath::TreePath;
 use edge::Edge;
+use std::rc::Rc;
 use parser::{parse, Arg};
 
 #[derive(Debug)]
 pub struct Graph {
     elements: i64,
-    // we transmute our Boxed vertex into a pointer later
-    vertices: HashMap<i64, *mut RawVertex>,
-    queue: Vec<String>,
-    treepath: TreePath,
+    vertices: HashMap<i64, Vertex>
 }
 
 // graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
 impl Graph {
     pub fn new() -> Box<Graph> {
-        let vertices: HashMap<i64, *mut RawVertex> = HashMap::new();
         Box::new(Graph{elements:0,
-                        vertices:vertices,
-                        queue:Vec::with_capacity(100),
-                        treepath: TreePath::new() })
+                        vertices:HashMap::new() })
     }
 
     pub fn execute(&self, query: &str) -> Result<GraphQueryResult, &str>  {
@@ -134,24 +129,14 @@ impl Graph {
     pub fn add_vertex(&mut self) -> Vertex {
         let new_id = self.elements + 1;
         self.elements += 1;
-        let v = RawVertex::new(new_id);
-        let ptr: *mut RawVertex = unsafe { mem::transmute(v) };
-
-        self.vertices.insert(new_id, ptr);
-
+        let v = Vertex::new(new_id);
+        self.vertices.insert(new_id, v.clone());
         // return the proxy which knows it's own id
-        Vertex{id:new_id, v: ptr}
+        v
     }
 
     pub fn get(&self, vertex_id:i64) -> Option<Vertex>  {
-        let vertex_pointer = self.vertices.get(&vertex_id);
-        // return a proxy
-        match vertex_pointer {
-            Some(ptr) =>
-                Some(Vertex{id:vertex_id, v:*ptr}),
-            None =>
-                None
-        }
+        self.vertices.get(&vertex_id).cloned()
     }
 
     // this will be used to start a graph query

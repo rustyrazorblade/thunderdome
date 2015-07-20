@@ -1,5 +1,5 @@
-use vertex::{RawVertex, Vertex};
-use edge::{RawEdge, Edge};
+use vertex::Vertex;
+use edge::Edge;
 use graph::TraversableToVertex;
 // used to track a single graph traversal
 // will be used in conjunction with a GraphQuery
