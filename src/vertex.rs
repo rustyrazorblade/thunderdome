@@ -141,7 +141,7 @@ impl Deref for Vertex {
     type Target = Rc<Box<RawVertex>>;
 
     fn deref<'a>(&'a self) -> &'a Rc<Box<RawVertex>> {
-        self.v
+        &self.v
     }
 }
 
