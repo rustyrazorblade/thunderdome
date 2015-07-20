@@ -147,6 +147,6 @@ impl Deref for Vertex {
 
 impl DerefMut for Vertex {
     fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RawVertex>> {
-        self.v
+        &mut self.v
     }
 }

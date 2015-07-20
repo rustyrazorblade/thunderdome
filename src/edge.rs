@@ -30,7 +30,7 @@ impl Edge {
 impl Deref for Edge {
     type Target = RawEdge;
     fn deref<'a>(&'a self) -> &'a RawEdge {
-        self.edge
+        &self.edge
     }
 }
 
