@@ -52,22 +52,18 @@ impl Vertex {
         // let out_vertex = &mut *(to_vertex.v);
 
         // why do i need the raw shit?
-        let in_vertex = self;
-        let out_vertex = to_vertex;
+        // let mut in_vertex = self;
+        // let mut out_vertex = to_vertex;
         // create the edge
         println!("adding vertex of edge {}", label.to_string());
 
-        let e = Box::new(RawEdge{from_vertex: self.clone(),
-                                 to_vertex: to_vertex.clone(),
-                                 label: label.to_string() });
-
         // keep it on the heap but manage it myself
-        let edge = Edge::new(in_vertex.clone(),
-                             out_vertex.clone(),
+        let edge = Edge::new(self.clone(),
+                             to_vertex.clone(),
                              label.to_string());
 
-        in_vertex.out_edges.push(edge.clone());
-        out_vertex.in_edges.push(edge.clone());
+        self.out_edges.push(edge.clone());
+        to_vertex.in_edges.push(edge.clone());
         edge
     }
 
