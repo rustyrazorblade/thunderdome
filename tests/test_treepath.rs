@@ -21,6 +21,11 @@ fn simple_graph() -> Box<Graph> {
     g
 }
 
+fn sample_tree() -> TreePath {
+    let t = TreePath::new();
+    // t.add_child()
+    t
+}
 
 #[test]
 fn test_create_tree() {
@@ -43,5 +48,4 @@ fn test_create_tree() {
 #[test]
 fn test_iterate_over_leaves() {
     // make sure we can iterate over the tree's leaves and remove sub trees
-    let g = simple_graph();
 }
