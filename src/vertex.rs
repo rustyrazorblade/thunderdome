@@ -46,20 +46,16 @@ impl Vertex {
 	}
 
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
-        let in_vertex: &mut RawVertex;
-        let out_vertex: &mut RawVertex;
         println!("add_edge() with label {}", label);
 
-        unsafe {
-            in_vertex =  &mut *(self.v);
-            out_vertex = &mut *(to_vertex.v);
-        }
+        let in_vertex =  &mut *(self.v);
+        let out_vertex = &mut *(to_vertex.v);
 
         // create the edge
         println!("adding vertex of edge {}", label.to_string());
 
-        let e = Box::new(RawEdge{from_vertex: self.v,
-                                 to_vertex: to_vertex.v,
+        let e = Box::new(RawEdge{from_vertex: self,
+                                 to_vertex: to_vertex,
                                  label: label.to_string() });
 
         // keep it on the heap but manage it myself
