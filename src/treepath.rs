@@ -11,7 +11,8 @@ use std::rc::Rc;
 pub struct TreePath {
     pub element: Element,
     pub children: Box<HashMap<usize, Rc<TreePath>>>,
-    pub element_count: usize
+    pub element_count: usize,
+    pub parents: Box<HashMap<usize, Rc<TreePath>>>,
 }
 
 impl TreePath {
@@ -19,7 +20,10 @@ impl TreePath {
     // we don't always start with a single vertex
     pub fn new() -> TreePath {
 
-        TreePath{element:Element::TreeRoot, children:Box::new(HashMap::new()), element_count:0}
+        TreePath{element:Element::TreeRoot,
+                 children:Box::new(HashMap::new()),
+                 parents: Box::new(HashMap::new()),
+                 element_count:0}
     }
 
     // convenience method
@@ -29,7 +33,10 @@ impl TreePath {
     }
 
     pub fn from_element(element: Element) -> TreePath {
-        TreePath{element:element, children:Box::new(HashMap::new()), element_count:0}
+        TreePath{element:element,
+                 children:Box::new(HashMap::new()),
+                 parents:Box::new(HashMap::new()),
+                 element_count:0}
     }
 
     pub fn add_child(&mut self, element: Element) {
