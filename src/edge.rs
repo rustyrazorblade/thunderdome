@@ -19,7 +19,7 @@ pub struct Edge {
 impl Edge {
     // creates a new edge
     // sets the in & out of it but doesn't touch the vertex
-    pub fn new(from_vertex: &Vertex, to_vertex: &Vertex, label:String) -> Edge {
+    pub fn new(from_vertex:Vertex, to_vertex: Vertex, label:String) -> Edge {
         let edge = Rc::new(Box::new(RawEdge{from_vertex:from_vertex,
                                       to_vertex:to_vertex,
                                       label:label}));

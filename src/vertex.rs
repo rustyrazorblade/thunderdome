@@ -12,13 +12,13 @@ use graph::TraversableToVertex;
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
 * should be ok
 */
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
-    pub out_edges: Vec<Rc<RawEdge>>,
-    pub in_edges:  Vec<Rc<RawEdge>>,
+    pub out_edges: Vec<Edge>,
+    pub in_edges:  Vec<Edge>,
 }
 
 impl RawVertex {
@@ -48,22 +48,27 @@ impl Vertex {
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
         println!("add_edge() with label {}", label);
 
-        let in_vertex =  &mut *(self.v);
-        let out_vertex = &mut *(to_vertex.v);
+        // let in_vertex =  &mut *(self.v);
+        // let out_vertex = &mut *(to_vertex.v);
 
+        // why do i need the raw shit?
+        let in_vertex = self;
+        let out_vertex = to_vertex;
         // create the edge
         println!("adding vertex of edge {}", label.to_string());
 
-        let e = Box::new(RawEdge{from_vertex: self,
-                                 to_vertex: to_vertex,
+        let e = Box::new(RawEdge{from_vertex: self.clone(),
+                                 to_vertex: to_vertex.clone(),
                                  label: label.to_string() });
 
         // keep it on the heap but manage it myself
-        let edge = Edge::new(in_vertex, out_vertex, label);
+        let edge = Edge::new(in_vertex.clone(),
+                             out_vertex.clone(),
+                             label.to_string());
 
         in_vertex.out_edges.push(edge.clone());
         out_vertex.in_edges.push(edge.clone());
-        Edge{edge:edge}
+        edge
     }
 
     // TODO switch to accepting a &str
@@ -79,18 +84,16 @@ impl Vertex {
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for &x in self.out_edges.iter() {
-			let proxy = Edge{edge:x};
-			result.push(proxy.clone());
+		for &edge in self.out_edges.iter() {
+			result.push(edge.clone());
 		}
 		result
 	}
 
 	pub fn inE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for &x in self.in_edges.iter() {
-			let proxy = Edge{edge:x};
-			result.push(proxy);
+		for &edge in self.in_edges.iter() {
+			result.push(edge.clone());
 		}
 		result
 	}
@@ -138,12 +141,12 @@ impl Deref for Vertex {
     type Target = Rc<Box<RawVertex>>;
 
     fn deref<'a>(&'a self) -> &'a Rc<Box<RawVertex>> {
-        *self.v
+        self.v
     }
 }
 
 impl DerefMut for Vertex {
     fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RawVertex>> {
-        *self.v
+        self.v
     }
 }
