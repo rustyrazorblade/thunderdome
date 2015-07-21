@@ -6,6 +6,7 @@ use property::Property;
 use std::rc::Rc;
 use edge::{RawEdge,Edge};
 use graph::TraversableToVertex;
+use std::sync::RwLock;
 
 /*
 * storing in & out edges seperately should cut down on the number of "things" i have to traverse
@@ -22,12 +23,15 @@ pub struct RawVertex {
 }
 
 impl RawVertex {
-    pub fn new(id: i64) -> Rc<Box<RawVertex>> {
+    pub fn new(id: i64) -> Rc<Box<RwLock<RawVertex>>> {
         let mut props  = HashMap::new();
-        Rc::new(Box::new(RawVertex{id:id,
+
+        let vertex = RawVertex{id:id,
                         properties: props,
                         out_edges: Vec::new(),
-                        in_edges: Vec::new()}))
+                        in_edges: Vec::new()};
+
+        Rc::new(Box::new(RwLock::new(vertex)))
     }
 }
 
@@ -35,14 +39,15 @@ impl RawVertex {
 #[derive(Clone, Debug)]
 pub struct Vertex {
     pub id: i64,
-    pub v: Rc<Box<RawVertex>>,
+    pub v: Rc<Box<RwLock<RawVertex>>>,
 }
+
 
 impl Vertex {
 
 	pub fn new(id: i64) -> Vertex {
         let raw = RawVertex::new(id);
-        Vertex{id:raw.id, v:raw}
+        Vertex{id:id, v:raw}
 	}
 
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
@@ -62,25 +67,27 @@ impl Vertex {
                              to_vertex.clone(),
                              label.to_string());
 
-        self.out_edges.push(edge.clone());
-        to_vertex.in_edges.push(edge.clone());
+        self.write().unwrap().out_edges.push(edge.clone());
+        // self.out_edges.push(edge.clone());
+
+        to_vertex.write().unwrap().in_edges.push(edge.clone());
         edge
     }
 
     // TODO switch to accepting a &str
     pub fn set_property(&mut self, field: &str, value: Property) {
-        self.properties.insert(field.to_string(), value);
+        self.write().unwrap().properties.insert(field.to_string(), value);
     }
 
 
 
     pub fn get_property(&self, field:&str) -> Option<&Property> {
-        self.properties.get(&field.to_string())
+        self.write().unwrap().properties.get(&field.to_string())
     }
 
 	pub fn outE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for edge in self.out_edges.iter() {
+		for edge in self.read().unwrap().out_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -88,7 +95,7 @@ impl Vertex {
 
 	pub fn inE(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
-		for edge in self.in_edges.iter() {
+		for edge in self.read().unwrap().in_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -134,15 +141,15 @@ impl TraversableToVertex for Vertex {
 }
 
 impl Deref for Vertex {
-    type Target = Rc<Box<RawVertex>>;
+    type Target = Rc<Box<RwLock<RawVertex>>>;
 
-    fn deref<'a>(&'a self) -> &'a Rc<Box<RawVertex>> {
+    fn deref<'a>(&'a self) -> &'a Rc<Box<RwLock<RawVertex>>> {
         &self.v
     }
 }
 
 impl DerefMut for Vertex {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RawVertex>> {
+    fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RwLock<RawVertex>>> {
         &mut self.v
     }
 }
