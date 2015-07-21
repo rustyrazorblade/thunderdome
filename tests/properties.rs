@@ -22,7 +22,7 @@ mod property_tests {
         let result = v1.get_property(&key).unwrap();
 
         match result {
-            &Property::Int(1) =>
+            Property::Int(1) =>
                 // we're ok
                 println!("OK"),
             _ =>
@@ -40,11 +40,6 @@ mod property_tests {
         let pizza = Property::String("pizza".to_string());
         v2.set_property("favorite_food", pizza.clone());
 
-        let result = g.v(1).
-                        outV(&["friends"]).
-                        has("favorite_food", pizza.clone());
-
-        // assert_eq!(result.paths.len(), 1);
 
     }
 

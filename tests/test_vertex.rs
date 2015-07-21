@@ -26,13 +26,6 @@ mod vertex_tests {
         assert_eq!(1, result.len());
     }
 
-    #[test]
-    fn test_deref() {
-        let mut g = Graph::new();
-        let v1 = g.add_vertex();
-        let vertex = &*v1;
-        assert!(vertex.id == 1);
-    }
 
     #[test]
     fn test_new_vertex() {
@@ -40,13 +33,10 @@ mod vertex_tests {
         let v1 = g.add_vertex();
 
         assert_eq!(v1.id, 1);
-
-        # TODO: figure out why i had this here 
-        // let vertex = &*v1;
-        // assert_eq!((*v1).id, 1);
+        assert_eq!(v1.read().unwrap().id, 1);
 
         let v2 = g.add_vertex();
-        assert!(v2.id == 2);
+        assert!(v2.read().unwrap().id == 2);
     }
 
 }
