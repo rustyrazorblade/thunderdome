@@ -13,16 +13,16 @@ mod vertex_tests {
 
         vertex.add_edge(&mut vertex2, "test");
 
-        let result = vertex.outE();
+        let result = vertex.out_edges();
         assert_eq!(1, result.len());
 
-        let result = vertex.inE();
+        let result = vertex.in_edges();
         assert_eq!(0, result.len());
 
-        let result = vertex2.outE();
+        let result = vertex2.out_edges();
         assert_eq!(0, result.len());
 
-        let result = vertex2.inE();
+        let result = vertex2.in_edges();
         assert_eq!(1, result.len());
     }
 

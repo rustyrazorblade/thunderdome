@@ -87,7 +87,7 @@ impl Vertex {
         self.write().unwrap().properties.get(&field.to_string()).cloned()
     }
 
-	pub fn outE(&self) -> Vec<Edge> {
+	pub fn out_edges(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().out_edges.iter() {
 			result.push(edge.clone());
@@ -95,7 +95,7 @@ impl Vertex {
 		result
 	}
 
-	pub fn inE(&self) -> Vec<Edge> {
+	pub fn in_edges(&self) -> Vec<Edge> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().in_edges.iter() {
 			result.push(edge.clone());
