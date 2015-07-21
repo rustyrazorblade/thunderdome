@@ -1,12 +1,8 @@
 use std::collections::HashMap;
-use std::mem;
 
 use vertex::Vertex;
-use traversal::GraphQuery;
 use path::Element;
 use treepath::TreePath;
-use edge::Edge;
-use std::rc::Rc;
 use parser::{parse, Arg};
 
 #[derive(Debug)]
@@ -51,10 +47,14 @@ impl Graph {
                         "V" => self.global_query(&result, &step.args),
                         _ => return Err("no step found")
                     };
+                    match step_result {
+                        Err(_) => return Err("fail"),
+                        Ok(_) => ()
+                    };
                     // execute function, passing step args
                 }
             },
-            Err(x) => {
+            Err(_) => {
                 println!("SUCH FAIL!!!!")
 
             }
@@ -139,18 +139,6 @@ impl Graph {
         self.vertices.get(&vertex_id).cloned()
     }
 
-    // this will be used to start a graph query
-    pub fn v(&self, vertex_id:i64) -> GraphQuery {
-        // grab the original vertex
-        let vertex = self.get(vertex_id);
-        let mut v = Vec::new();
-        match vertex {
-            Some(result) => {
-                GraphQuery::new(v)
-            }
-            None => GraphQuery::empty()
-        }
-    }
 }
 
 pub trait TraversableToVertex {
