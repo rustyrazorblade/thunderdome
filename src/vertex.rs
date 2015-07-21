@@ -22,8 +22,10 @@ pub struct RawVertex {
     pub in_edges:  Vec<Edge>,
 }
 
+pub type VertexPointer = Rc<Box<RwLock<RawVertex>>>;
+
 impl RawVertex {
-    pub fn new(id: i64) -> Rc<Box<RwLock<RawVertex>>> {
+    pub fn new(id: i64) -> VertexPointer  {
         let mut props  = HashMap::new();
 
         let vertex = RawVertex{id:id,
@@ -39,7 +41,7 @@ impl RawVertex {
 #[derive(Clone, Debug)]
 pub struct Vertex {
     pub id: i64,
-    pub v: Rc<Box<RwLock<RawVertex>>>,
+    pub v: VertexPointer
 }
 
 
@@ -141,15 +143,15 @@ impl TraversableToVertex for Vertex {
 }
 
 impl Deref for Vertex {
-    type Target = Rc<Box<RwLock<RawVertex>>>;
+    type Target = VertexPointer;
 
-    fn deref<'a>(&'a self) -> &'a Rc<Box<RwLock<RawVertex>>> {
+    fn deref<'a>(&'a self) -> &'a VertexPointer {
         &self.v
     }
 }
 
 impl DerefMut for Vertex {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut Rc<Box<RwLock<RawVertex>>> {
+    fn deref_mut<'a>(&'a mut self) -> &'a mut VertexPointer {
         &mut self.v
     }
 }
