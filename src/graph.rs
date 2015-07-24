@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use vertex::Vertex;
+use vertex::{VertexPointer, Vertex};
 use path::Element;
 use treepath::TreePath;
 use parser::{parse, Arg};
@@ -8,7 +8,7 @@ use parser::{parse, Arg};
 #[derive(Debug)]
 pub struct Graph {
     elements: i64,
-    vertices: HashMap<i64, Vertex>
+    vertices: HashMap<i64, VertexPointer>
 }
 
 // graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
@@ -126,7 +126,7 @@ impl Graph {
         unimplemented!();
         Ok("cool")
     }
-    pub fn add_vertex(&mut self) -> Vertex {
+    pub fn add_vertex(&mut self) -> VertexPointer {
         let new_id = self.elements + 1;
         self.elements += 1;
         let v = Vertex::new(new_id);
@@ -135,15 +135,15 @@ impl Graph {
         v
     }
 
-    pub fn get(&self, vertex_id:i64) -> Option<Vertex>  {
+    pub fn get(&self, vertex_id:i64) -> Option<VertexPointer>  {
         self.vertices.get(&vertex_id).cloned()
     }
 
 }
 
 pub trait TraversableToVertex {
-	fn inV(&self) -> Vec<Vertex>;
-	fn outV(&self, &[&str]) -> Vec<Vertex>;
+	fn inV(&self) -> Vec<VertexPointer>;
+	fn outV(&self, &[&str]) -> Vec<VertexPointer>;
 //	fn inE(&self) -> Vec<Edge>;
 
 }

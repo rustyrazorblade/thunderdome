@@ -13,43 +13,57 @@ use std::sync::RwLock;
 * if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
 * should be ok
 */
-#[derive(Debug, Clone)]
-pub struct RawVertex {
+// #[derive(Debug, Clone)]
+// pub struct RawVertex {
+//     pub id: i64,
+//     pub properties: HashMap<String, Property>,
+//     // pointers on both sides, yay
+//     pub out_edges: Vec<Edge>,
+//     pub in_edges:  Vec<Edge>,
+// }
+
+pub type VertexPointer = Rc<Box<RwLock<Vertex>>>;
+
+// impl RawVertex {
+//     pub fn new(id: i64) -> VertexPointer  {
+//         let mut props  = HashMap::new();
+//
+//         let vertex = RawVertex{id:id,
+//                         properties: props,
+//                         out_edges: Vec::new(),
+//                         in_edges: Vec::new()};
+//
+//         Rc::new(Box::new(RwLock::new(vertex)))
+//     }
+// }
+
+
+#[derive(Clone, Debug)]
+pub struct Vertex {
     pub id: i64,
+    // pub v: VertexPointer
+
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
     pub out_edges: Vec<Edge>,
     pub in_edges:  Vec<Edge>,
 }
 
-pub type VertexPointer = Rc<Box<RwLock<RawVertex>>>;
 
-impl RawVertex {
-    pub fn new(id: i64) -> VertexPointer  {
+impl Vertex {
+
+	pub fn new(id: i64) -> VertexPointer {
+        // let raw = RawVertex::new(id);
         let mut props  = HashMap::new();
-
-        let vertex = RawVertex{id:id,
+        let vertex = Vertex{id:id,
                         properties: props,
                         out_edges: Vec::new(),
                         in_edges: Vec::new()};
 
         Rc::new(Box::new(RwLock::new(vertex)))
-    }
-}
 
+        // Vertex{id:id, v:raw}
 
-#[derive(Clone, Debug)]
-pub struct Vertex {
-    pub id: i64,
-    pub v: VertexPointer
-}
-
-
-impl Vertex {
-
-	pub fn new(id: i64) -> Vertex {
-        let raw = RawVertex::new(id);
-        Vertex{id:id, v:raw}
 	}
 
     pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
@@ -114,7 +128,7 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
+	fn outV(&self, labels: &[&str]) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
 
         // convert our labels to a vector of strings
@@ -132,7 +146,7 @@ impl TraversableToVertex for Vertex {
 		}
 		result
 	}
-	fn inV(&self) -> Vec<Vertex> {
+	fn inV(&self) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().in_edges.iter() {
 			result.push(edge.from_vertex.clone());
@@ -140,18 +154,4 @@ impl TraversableToVertex for Vertex {
 		result
 	}
 
-}
-
-impl Deref for Vertex {
-    type Target = VertexPointer;
-
-    fn deref<'a>(&'a self) -> &'a VertexPointer {
-        &self.v
-    }
-}
-
-impl DerefMut for Vertex {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut VertexPointer {
-        &mut self.v
-    }
 }
