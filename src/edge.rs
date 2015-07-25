@@ -3,34 +3,26 @@ use std::ops::Deref;
 use vertex::Vertex;
 use graph::TraversableToVertex;
 use std::rc::Rc;
+use std::sync::RwLock;
 
-#[derive(Debug)]
-pub struct RawEdge {
+pub type EdgePointer = Rc<Box<RwLock<Edge>>>;
+
+#[derive(Clone, Debug)]
+pub struct Edge {
+    // pub edge: EdgePointer,
     pub from_vertex: Vertex,
     pub to_vertex: Vertex,
     pub label: String
 }
 
-#[derive(Clone, Debug)]
-pub struct Edge {
-    pub edge: Rc<Box<RawEdge>>
-}
-
 impl Edge {
     // creates a new edge
     // sets the in & out of it but doesn't touch the vertex
-    pub fn new(from_vertex:Vertex, to_vertex: Vertex, label:String) -> Edge {
-        let edge = Rc::new(Box::new(RawEdge{from_vertex:from_vertex,
+    pub fn new(from_vertex:Vertex, to_vertex: Vertex, label:String) -> EdgePointer {
+        let edge = Rc::new(Box::new(RwLock::new(Edge{from_vertex:from_vertex,
                                       to_vertex:to_vertex,
-                                      label:label}));
-        Edge{edge:edge}
-    }
-}
-
-impl Deref for Edge {
-    type Target = RawEdge;
-    fn deref<'a>(&'a self) -> &'a RawEdge {
-        &self.edge
+                                      label:label})));
+        edge
     }
 }
 

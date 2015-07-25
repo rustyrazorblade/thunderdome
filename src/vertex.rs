@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use property::Property;
 
 use std::rc::Rc;
-use edge::{RawEdge,Edge};
+use edge::{EdgePointer, Edge};
 use graph::TraversableToVertex;
 use std::sync::RwLock;
 
@@ -18,8 +18,8 @@ pub struct RawVertex {
     pub id: i64,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
-    pub out_edges: Vec<Edge>,
-    pub in_edges:  Vec<Edge>,
+    pub out_edges: Vec<EdgePointer>,
+    pub in_edges:  Vec<EdgePointer>,
 }
 
 pub type VertexPointer = Rc<Box<RwLock<RawVertex>>>;
@@ -52,7 +52,7 @@ impl Vertex {
         Vertex{id:id, v:raw}
 	}
 
-    pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> Edge {
+    pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> EdgePointer {
         println!("add_edge() with label {}", label);
 
         // let in_vertex =  &mut *(self.v);
@@ -87,7 +87,8 @@ impl Vertex {
         self.write().unwrap().properties.get(&field.to_string()).cloned()
     }
 
-	pub fn out_edges(&self) -> Vec<Edge> {
+    // TODO: slice?  iterator?
+	pub fn out_edges(&self) -> Vec<EdgePointer> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().out_edges.iter() {
 			result.push(edge.clone());
@@ -95,7 +96,7 @@ impl Vertex {
 		result
 	}
 
-	pub fn in_edges(&self) -> Vec<Edge> {
+	pub fn in_edges(&self) -> Vec<EdgePointer> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().in_edges.iter() {
 			result.push(edge.clone());
@@ -126,8 +127,9 @@ impl TraversableToVertex for Vertex {
         }
 
 		for edge in self.read().unwrap().out_edges.iter() {
-            if labels.is_empty() || labels_as_strings.contains(&edge.label) {
-				result.push(edge.to_vertex.clone());
+            let e = edge.read().unwrap();
+            if labels.is_empty() || labels_as_strings.contains(&e.label) {
+				result.push(edge.read().unwrap().to_vertex.clone());
             }
 		}
 		result
@@ -135,7 +137,7 @@ impl TraversableToVertex for Vertex {
 	fn inV(&self) -> Vec<Vertex> {
 		let mut result = Vec::new();
 		for edge in self.read().unwrap().in_edges.iter() {
-			result.push(edge.from_vertex.clone());
+			result.push(edge.read().unwrap().from_vertex.clone());
 		}
 		result
 	}
