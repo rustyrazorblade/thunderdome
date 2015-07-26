@@ -5,7 +5,7 @@ use graph::TraversableToVertex;
 use std::rc::Rc;
 use std::sync::RwLock;
 
-pub type EdgePointer = Rc<Box<RwLock<Edge>>>;
+pub type EdgePointer = Rc<RwLock<Edge>>;
 
 #[derive(Clone, Debug)]
 pub struct Edge {
@@ -19,9 +19,9 @@ impl Edge {
     // creates a new edge
     // sets the in & out of it but doesn't touch the vertex
     pub fn new(from_vertex:Vertex, to_vertex: Vertex, label:String) -> EdgePointer {
-        let edge = Rc::new(Box::new(RwLock::new(Edge{from_vertex:from_vertex,
+        let edge = Rc::new(RwLock::new(Edge{from_vertex:from_vertex,
                                       to_vertex:to_vertex,
-                                      label:label})));
+                                      label:label}));
         edge
     }
 }
