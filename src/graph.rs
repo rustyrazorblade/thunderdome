@@ -4,6 +4,7 @@ use vertex::Vertex;
 use path::Element;
 use treepath::TreePath;
 use parser::{parse, Arg};
+use std::sync::mpsc::{channel, Sender};
 
 #[derive(Debug)]
 pub struct Graph {
@@ -11,11 +12,23 @@ pub struct Graph {
     vertices: HashMap<i64, Vertex>
 }
 
+pub struct Request {
+    query: String
+}
+
+
 // graph is not thread safe - needs to be wrapped in an Arc<Mutex> when running as server
 impl Graph {
     pub fn new() -> Box<Graph> {
         Box::new(Graph{elements:0,
                         vertices:HashMap::new() })
+    }
+
+    pub fn execution_channel(&self) -> Sender<Request> {
+        let (tx, rx) = channel();
+        // fire off listener thread for receiving messages
+
+        tx
     }
 
     pub fn execute(&self, query: &str) -> Result<GraphQueryResult, &str>  {

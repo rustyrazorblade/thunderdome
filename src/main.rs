@@ -3,29 +3,52 @@ extern crate conduit_router;
 extern crate civet;
 extern crate thunderdome;
 
-use conduit::{Request, Response};
-use conduit_router::{RouteBuilder, RequestParams};
-use civet::{Config, response, Server};
-use std::sync::mpsc::channel;
 use std::io::{self, Cursor};
 use std::collections::HashMap;
+use thunderdome::graph::{Graph, Request};
+use std::cell::RefCell;
+use std::sync::Arc;
+use std::net::{TcpListener, TcpStream};
+use std::thread;
 
-
-fn hello(_req: &mut Request) -> io::Result<Response> {
-    Ok(response(200, HashMap::new(), "Thunderdome graph server, Hello World!".as_bytes()))
-}
+use std::sync::mpsc::{channel, Sender};
 
 fn main() {
     println!("Thunderdome Graph Database Server starting up...");
 
-    let mut router = RouteBuilder::new();
-    router.get("/", hello);
+    // create an instance of the graph, wrap in RefCell / rc and let it do it's thing
+    let g = Graph::new();
+    println!("Graph up");
 
-    let server = Server::start(Config { port: 9000, threads: 4 }, router);
+    let tx = g.execution_channel();
 
-    // Preventing process exit.
-    let (_tx, rx) = channel::<()>();
-    rx.recv().unwrap();
+    println!("open execution channel");
+
+    let listener = TcpListener::bind("127.0.0.1:6000").unwrap();
+
+    println!("Socket bound");
+
+    for stream in listener.incoming() {
+        println!("connection established, spawning new thread");
+        let new_tx = tx.clone();
+        match stream {
+            Ok(stream) => {
+                thread::spawn(move || {
+                    handle_client(stream, new_tx)
+                    });
+            },
+            Err(e) => {}
+        }
+    }
+
 
     println!("Thunderdome Graph Database Server shutting down, goodbye.");
+}
+
+fn handle_client(stream: TcpStream, tx: Sender<Request> ) {
+    println!("connected.  opening local channel for graph comm and creating request context");
+
+
+
+
 }
