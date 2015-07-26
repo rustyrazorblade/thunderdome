@@ -22,7 +22,7 @@ pub struct RawVertex {
     pub in_edges:  Vec<EdgePointer>,
 }
 
-pub type VertexPointer = Rc<Box<RwLock<RawVertex>>>;
+pub type VertexPointer = Rc<RwLock<RawVertex>>;
 
 impl RawVertex {
     pub fn new(id: i64) -> VertexPointer  {
@@ -33,7 +33,7 @@ impl RawVertex {
                         out_edges: Vec::new(),
                         in_edges: Vec::new()};
 
-        Rc::new(Box::new(RwLock::new(vertex)))
+        Rc::new(RwLock::new(vertex))
     }
 }
 
