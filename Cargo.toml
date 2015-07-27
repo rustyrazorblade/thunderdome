@@ -5,9 +5,6 @@ version = "0.0.1"
 authors = ["Jon Haddad <jon@jonhaddad.com>"]
 
 [dependencies]
-conduit = "*"
-conduit-router = "*"
-civet = "*"
 
 [dependencies.peg]
 git = "https://github.com/kevinmehall/rust-peg.git"

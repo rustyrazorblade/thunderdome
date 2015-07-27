@@ -1,8 +1,5 @@
-extern crate conduit;
-extern crate conduit_router;
-extern crate civet;
 extern crate thunderdome;
-
+use std::io::Read;
 use std::io::{self, Cursor};
 use std::collections::HashMap;
 use thunderdome::graph::{Graph, Request};
@@ -45,10 +42,20 @@ fn main() {
     println!("Thunderdome Graph Database Server shutting down, goodbye.");
 }
 
-fn handle_client(stream: TcpStream, tx: Sender<Request> ) {
+fn handle_client(mut stream: TcpStream, tx: Sender<Request> ) {
     println!("connected.  opening local channel for graph comm and creating request context");
-
-
-
+    // let (client_tx, client_rx) = channel();
+    let mut buffer = String::new();
+    loop {
+        match  stream.read_to_string(&mut buffer) {
+            Ok(bytes) => {
+                println!("ok - command received");
+            },
+            Err(_) => {
+                println!("Error, leaving");
+                return ();
+            }
+        };
+    }
 
 }

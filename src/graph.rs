@@ -12,6 +12,7 @@ pub struct Graph {
     vertices: HashMap<i64, Vertex>
 }
 
+// comes in through the request channel
 pub struct Request {
     query: String
 }

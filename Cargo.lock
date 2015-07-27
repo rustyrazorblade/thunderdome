@@ -2,63 +2,11 @@
 name = "thunderdome"
 version = "0.0.1"
 dependencies = [
- "civet 0.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "conduit-router 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "peg 0.3.0 (git+https://github.com/kevinmehall/rust-peg.git)",
 ]
-
-[[package]]
-name = "civet"
-version = "0.7.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-dependencies = [
- "civet-sys 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "libc 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
- "semver 0.1.19 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "civet-sys"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-
-[[package]]
-name = "conduit"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-dependencies = [
- "semver 0.1.19 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "conduit-router"
-version = "0.7.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-dependencies = [
- "conduit 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "route-recognizer 0.1.11 (registry+https://github.com/rust-lang/crates.io-index)",
- "semver 0.1.19 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "libc"
-version = "0.1.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "peg"
 version = "0.3.0"
 source = "git+https://github.com/kevinmehall/rust-peg.git#fc49125552f43509c7c5a87ee094a592152f3231"
-
-[[package]]
-name = "route-recognizer"
-version = "0.1.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-
-[[package]]
-name = "semver"
-version = "0.1.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
 
