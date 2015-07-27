@@ -35,7 +35,7 @@ mod property_tests {
         let mut g = Graph::new();
         let mut v = g.add_vertex();
         let mut v2 = g.add_vertex();
-        v.add_edge(&mut v2, &"friends");
+        g.add_edge(&mut v, &mut v2, &"friends");
 
         let pizza = Property::String("pizza".to_string());
         v2.set_property("favorite_food", pizza.clone());

@@ -11,7 +11,7 @@ mod vertex_tests {
         let mut vertex = g.add_vertex();
         let mut vertex2 = g.add_vertex();
 
-        vertex.add_edge(&mut vertex2, "test");
+        g.add_edge(&mut vertex, &mut vertex2, "test");
 
         let result = vertex.out_edges();
         assert_eq!(1, result.len());
