@@ -5,6 +5,8 @@ use path::Element;
 use treepath::TreePath;
 use parser::{parse, Arg};
 use std::sync::mpsc::{channel, Sender};
+use edge::{EdgePointer, Edge};
+
 
 #[derive(Debug)]
 pub struct Graph {
@@ -32,6 +34,17 @@ impl Graph {
         tx
     }
 
+    pub fn add_edge(&self, v1: &Vertex, v2: &Vertex, label: String) -> EdgePointer {
+        println!("adding vertex of edge {}", label.to_string());
+
+        // keep it on the heap but manage it myself
+        let edge = Edge::new(v1.clone(), v2.clone(), label);
+
+        v1.write().unwrap().out_edges.push(edge.clone());
+        v2.write().unwrap().in_edges.push(edge.clone());
+        edge
+
+    }
     pub fn execute(&self, query: &str) -> Result<GraphQueryResult, &str>  {
         // parse the graph query
 
