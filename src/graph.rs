@@ -34,11 +34,11 @@ impl Graph {
         tx
     }
 
-    pub fn add_edge(&self, v1: &Vertex, v2: &Vertex, label: String) -> EdgePointer {
+    pub fn add_edge(&self, v1: &Vertex, v2: &Vertex, label: &str) -> EdgePointer {
         println!("adding vertex of edge {}", label.to_string());
 
         // keep it on the heap but manage it myself
-        let edge = Edge::new(v1.clone(), v2.clone(), label);
+        let edge = Edge::new(v1.clone(), v2.clone(), label.to_string());
 
         v1.write().unwrap().out_edges.push(edge.clone());
         v2.write().unwrap().in_edges.push(edge.clone());

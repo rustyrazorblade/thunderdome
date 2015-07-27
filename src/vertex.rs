@@ -52,29 +52,6 @@ impl Vertex {
         Vertex{id:id, v:raw}
 	}
 
-    pub fn add_edge(&mut self, to_vertex: &mut Vertex, label: &str) -> EdgePointer {
-        println!("add_edge() with label {}", label);
-
-        // let in_vertex =  &mut *(self.v);
-        // let out_vertex = &mut *(to_vertex.v);
-
-        // why do i need the raw shit?
-        // let mut in_vertex = self;
-        // let mut out_vertex = to_vertex;
-        // create the edge
-        println!("adding vertex of edge {}", label.to_string());
-
-        // keep it on the heap but manage it myself
-        let edge = Edge::new(self.clone(),
-                             to_vertex.clone(),
-                             label.to_string());
-
-        self.write().unwrap().out_edges.push(edge.clone());
-        // self.out_edges.push(edge.clone());
-
-        to_vertex.write().unwrap().in_edges.push(edge.clone());
-        edge
-    }
 
     // TODO switch to accepting a &str
     pub fn set_property(&mut self, field: &str, value: Property) {

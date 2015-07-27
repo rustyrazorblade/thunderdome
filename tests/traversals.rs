@@ -13,8 +13,9 @@ mod traversal_tests {
 		let mut caleb = g.add_vertex();
 		let mut mike = g.add_vertex();
 
-		jon.add_edge(&mut blake, "friend");
-		jon.add_edge(&mut caleb, "friend");
+
+		g.add_edge(&mut jon, &mut blake, "friend");
+		g.add_edge(&mut jon, &mut caleb, "friend");
 		blake.add_edge(&mut caleb, "friend");
 		blake.add_edge(&mut jon, "tried_to_murder");
 
