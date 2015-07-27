@@ -11,9 +11,9 @@ mod edge_tests {
         let mut v1 = g.add_vertex();
         let mut v2 = g.add_vertex();
 
-        let e1 = v1.add_edge(&mut v2, "test");
-        v1.add_edge(&mut v2, "test");
-        v1.add_edge(&mut v2, "test");
+        let e1 = g.add_edge(&mut v1, &mut v2, "test");
+        g.add_edge(&mut v1, &mut v2, "test");
+        g.add_edge(&mut v1, &mut v2, "test");
 
         assert_eq!(v1.read().unwrap().out_edges.len(),
                     v2.read().unwrap().in_edges.len());

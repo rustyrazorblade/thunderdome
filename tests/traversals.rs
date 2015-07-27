@@ -16,10 +16,10 @@ mod traversal_tests {
 
 		g.add_edge(&mut jon, &mut blake, "friend");
 		g.add_edge(&mut jon, &mut caleb, "friend");
-		blake.add_edge(&mut caleb, "friend");
-		blake.add_edge(&mut jon, "tried_to_murder");
+		g.add_edge(&mut blake, &mut caleb, "friend");
+		g.add_edge(&mut blake, &mut jon, "tried_to_murder");
 
-		jon.add_edge(&mut mike, "enemy");
+		g.add_edge(&mut jon, &mut mike, "enemy");
         g
     }
 
