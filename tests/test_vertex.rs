@@ -13,16 +13,16 @@ mod vertex_tests {
 
         g.add_edge(&mut vertex, &mut vertex2, "test");
 
-        let result = vertex.out_edges();
+        let result = vertex.read().unwrap().out_edges();
         assert_eq!(1, result.len());
 
-        let result = vertex.in_edges();
+        let result = vertex.read().unwrap().in_edges();
         assert_eq!(0, result.len());
 
-        let result = vertex2.out_edges();
+        let result = vertex2.read().unwrap().out_edges();
         assert_eq!(0, result.len());
 
-        let result = vertex2.in_edges();
+        let result = vertex2.read().unwrap().in_edges();
         assert_eq!(1, result.len());
     }
 
@@ -32,7 +32,6 @@ mod vertex_tests {
         let mut g = Graph::new();
         let v1 = g.add_vertex();
 
-        assert_eq!(v1.id, 1);
         assert_eq!(v1.read().unwrap().id, 1);
 
         let v2 = g.add_vertex();

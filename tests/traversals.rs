@@ -28,7 +28,7 @@ mod traversal_tests {
         let mut g = Graph::new();
         let vertex = g.add_vertex();
         let v = g.get(1).unwrap();
-        assert_eq!(v.id, 1);
+        assert_eq!(v.read().unwrap().id, 1);
     }
 
     #[test]

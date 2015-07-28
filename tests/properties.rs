@@ -17,9 +17,9 @@ mod property_tests {
         let mut v1 = g.add_vertex();
         let key = &"jon";
         let value = Property::Int(1);
-        v1.set_property(&key, value);
+        v1.write().unwrap().set_property(&key, value);
 
-        let result = v1.get_property(&key).unwrap();
+        let result = v1.read().unwrap().get_property(&key).unwrap();
 
         match result {
             Property::Int(1) =>
@@ -38,7 +38,7 @@ mod property_tests {
         g.add_edge(&mut v, &mut v2, &"friends");
 
         let pizza = Property::String("pizza".to_string());
-        v2.set_property("favorite_food", pizza.clone());
+        v2.write().unwrap().set_property("favorite_food", pizza.clone());
 
 
     }

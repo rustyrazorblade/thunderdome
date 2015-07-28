@@ -8,66 +8,50 @@ use edge::{EdgePointer, Edge};
 use graph::TraversableToVertex;
 use std::sync::RwLock;
 
-/*
-* storing in & out edges seperately should cut down on the number of "things" i have to traverse
-* if a vertex has 10k edges (5k in and out 5k out) then doing something like*   g(v).outV()
-* should be ok
-*/
-#[derive(Debug, Clone)]
-pub struct RawVertex {
+
+// this is what we want to expose to the outside world
+pub type VertexPointer = Rc<RwLock<Vertex>>;
+
+#[derive(Clone, Debug)]
+pub struct Vertex {
     pub id: i64,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
     pub out_edges: Vec<EdgePointer>,
     pub in_edges:  Vec<EdgePointer>,
-}
 
-pub type VertexPointer = Rc<RwLock<RawVertex>>;
-
-impl RawVertex {
-    pub fn new(id: i64) -> VertexPointer  {
-        let mut props  = HashMap::new();
-
-        let vertex = RawVertex{id:id,
-                        properties: props,
-                        out_edges: Vec::new(),
-                        in_edges: Vec::new()};
-
-        Rc::new(RwLock::new(vertex))
-    }
-}
-
-
-#[derive(Clone, Debug)]
-pub struct Vertex {
-    pub id: i64,
-    pub v: VertexPointer
 }
 
 
 impl Vertex {
 
-	pub fn new(id: i64) -> Vertex {
-        let raw = RawVertex::new(id);
-        Vertex{id:id, v:raw}
+	pub fn new(id: i64) -> VertexPointer {
+        let mut props  = HashMap::new();
+
+        let vertex = Vertex{id:id,
+                        properties: props,
+                        out_edges: Vec::new(),
+                        in_edges: Vec::new()};
+
+        Rc::new(RwLock::new(vertex))
 	}
 
 
     // TODO switch to accepting a &str
     pub fn set_property(&mut self, field: &str, value: Property) {
-        self.write().unwrap().properties.insert(field.to_string(), value);
+        self.properties.insert(field.to_string(), value);
     }
 
 
 
     pub fn get_property(&self, field:&str) -> Option<Property> {
-        self.write().unwrap().properties.get(&field.to_string()).cloned()
+        self.properties.get(&field.to_string()).cloned()
     }
 
     // TODO: slice?  iterator?
 	pub fn out_edges(&self) -> Vec<EdgePointer> {
 		let mut result = Vec::new();
-		for edge in self.read().unwrap().out_edges.iter() {
+		for edge in self.out_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -75,7 +59,7 @@ impl Vertex {
 
 	pub fn in_edges(&self) -> Vec<EdgePointer> {
 		let mut result = Vec::new();
-		for edge in self.read().unwrap().in_edges.iter() {
+		for edge in self.in_edges.iter() {
 			result.push(edge.clone());
 		}
 		result
@@ -92,7 +76,7 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self, labels: &[&str]) -> Vec<Vertex> {
+	fn outV(&self, labels: &[&str]) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
 
         // convert our labels to a vector of strings
@@ -103,7 +87,7 @@ impl TraversableToVertex for Vertex {
             labels_as_strings.push(l.to_string());
         }
 
-		for edge in self.read().unwrap().out_edges.iter() {
+		for edge in self.out_edges.iter() {
             let e = edge.read().unwrap();
             if labels.is_empty() || labels_as_strings.contains(&e.label) {
 				result.push(edge.read().unwrap().to_vertex.clone());
@@ -111,26 +95,12 @@ impl TraversableToVertex for Vertex {
 		}
 		result
 	}
-	fn inV(&self) -> Vec<Vertex> {
+	fn inV(&self) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
-		for edge in self.read().unwrap().in_edges.iter() {
+		for edge in self.in_edges.iter() {
 			result.push(edge.read().unwrap().from_vertex.clone());
 		}
 		result
 	}
 
-}
-
-impl Deref for Vertex {
-    type Target = VertexPointer;
-
-    fn deref<'a>(&'a self) -> &'a VertexPointer {
-        &self.v
-    }
-}
-
-impl DerefMut for Vertex {
-    fn deref_mut<'a>(&'a mut self) -> &'a mut VertexPointer {
-        &mut self.v
-    }
 }
