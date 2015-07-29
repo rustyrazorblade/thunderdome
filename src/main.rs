@@ -3,8 +3,6 @@ use std::io::Read;
 use std::io::{self, Cursor};
 use std::collections::HashMap;
 use thunderdome::graph::{Graph, Request};
-use std::cell::RefCell;
-use std::sync::Arc;
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
@@ -44,12 +42,19 @@ fn main() {
 
 fn handle_client(mut stream: TcpStream, tx: Sender<Request> ) {
     println!("connected.  opening local channel for graph comm and creating request context");
+
     // let (client_tx, client_rx) = channel();
-    let mut buffer = String::new();
+    // let mut buffer = String::new();
+    let mut buffer: Vec<u8> = Vec::new();
     loop {
-        match  stream.read_to_string(&mut buffer) {
+        // read the header - 4 bytes?
+        match  stream.read_to_end(&mut buffer) {
+            Ok(0) => {
+                println!("no bytes received bailing out");
+                return ()
+            }
             Ok(bytes) => {
-                println!("ok - command received");
+                println!("ok - command received {}", bytes);
             },
             Err(_) => {
                 println!("Error, leaving");
