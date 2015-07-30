@@ -4,7 +4,11 @@ name = "thunderdome"
 version = "0.0.1"
 authors = ["Jon Haddad <jon@jonhaddad.com>"]
 
+
 [dependencies]
+capnp = "*"
+capnpc = "*"
+capnp-rpc = "*"
 
 [dependencies.peg]
 git = "https://github.com/kevinmehall/rust-peg.git"
