@@ -1,4 +1,7 @@
 extern crate thunderdome;
+extern crate capnp;
+extern crate capnpc;
+
 use std::io::Read;
 use std::io::{self, Cursor};
 use std::collections::HashMap;
@@ -6,7 +9,14 @@ use thunderdome::graph::{Graph, Request};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
+
 use std::sync::mpsc::{channel, Sender};
+
+mod thunderdome_capnp {
+    include!("thunderdome_capnp.rs");
+}
+
+use thunderdome_capnp::graph;
 
 fn main() {
     println!("Thunderdome Graph Database Server starting up...");
