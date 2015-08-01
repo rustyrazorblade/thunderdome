@@ -49,20 +49,12 @@ impl Vertex {
     }
 
     // TODO: slice?  iterator?
-	pub fn out_edges(&self) -> Vec<EdgePointer> {
-		let mut result = Vec::new();
-		for edge in self.out_edges.iter() {
-			result.push(edge.clone());
-		}
-		result
+	pub fn out_edges(&self) -> &[EdgePointer] {
+        &self.out_edges
 	}
 
-	pub fn in_edges(&self) -> Vec<EdgePointer> {
-		let mut result = Vec::new();
-		for edge in self.in_edges.iter() {
-			result.push(edge.clone());
-		}
-		result
+	pub fn in_edges(&self) -> &[EdgePointer] {
+        &self.in_edges
 	}
 
 }
