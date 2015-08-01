@@ -29,16 +29,19 @@ impl Edge {
 }
 
 impl TraversableToVertex for Edge {
-	fn inV(&self) -> Vec<VertexPointer> {
-		let mut result = Vec::new();
-		let proxy = self.to_vertex.clone();
-		result.push(proxy);
-		result
+	fn inV(&self) -> &[VertexPointer] {
+		// let mut result = Vec::new();
+		// let proxy = self.to_vertex.clone();
+		// result.push(proxy);
+		// result
+        vec!(self.to_vertex.clone())
 	}
-	fn outV(&self) -> Vec<VertexPointer> {
-		let mut result = Vec::new();
-		let vertex = self.from_vertex.clone();
-        result.push(vertex);
-		result
+
+	fn outV(&self) -> &[VertexPointer] {
+        vec!(self.from_vertex.clone())
+		// let mut result = Vec::new();
+		// let vertex = self.from_vertex.clone();
+        // result.push(vertex);
+		// result
 	}
 }

@@ -48,15 +48,6 @@ impl Vertex {
         self.properties.get(&field.to_string()).cloned()
     }
 
-    // TODO: slice?  iterator?
-	pub fn out_edges(&self) -> &[EdgePointer] {
-        &self.out_edges
-	}
-
-	pub fn in_edges(&self) -> &[EdgePointer] {
-        &self.in_edges
-	}
-
 }
 
 impl TraversableToVertex for Vertex {
@@ -68,24 +59,21 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self) -> Vec<VertexPointer> {
-		let mut result = Vec::new();
-
-        // convert our labels to a vector of strings
-        let mut labels_as_strings : Vec<String> = Vec::new();
-
-		for edge in self.out_edges.iter() {
-            let e = edge.read().unwrap();
-			result.push(edge.read().unwrap().to_vertex.clone());
-		}
-		result
+	fn outV(&self) -> &[VertexPointer] {
+        self.out_edges.iter().map(|x|
+            x.read().from_vertex.clone()
+            ).collect()
 	}
-	fn inV(&self) -> Vec<VertexPointer> {
-		let mut result = Vec::new();
-		for edge in self.in_edges.iter() {
-			result.push(edge.read().unwrap().from_vertex.clone());
-		}
-		result
+
+	fn inV(&self) -> &[VertexPointer] {
+        self.in_edges.iter().map(|x|
+            x.read().unwrap().from_vertex.clone()
+            ).collect()
+		// let mut result = Vec::new();
+		// for edge in self.in_edges.iter() {
+		// 	result.push(edge.read().unwrap().from_vertex.clone());
+		// }
+		// result
 	}
 
 }
