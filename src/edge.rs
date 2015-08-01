@@ -35,7 +35,7 @@ impl TraversableToVertex for Edge {
 		result.push(proxy);
 		result
 	}
-	fn outV(&self, labels: &[&str]) -> Vec<VertexPointer> {
+	fn outV(&self) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
 		let vertex = self.from_vertex.clone();
         result.push(vertex);

@@ -68,22 +68,15 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self, labels: &[&str]) -> Vec<VertexPointer> {
+	fn outV(&self) -> Vec<VertexPointer> {
 		let mut result = Vec::new();
 
         // convert our labels to a vector of strings
         let mut labels_as_strings : Vec<String> = Vec::new();
 
-        for l in labels {
-            let s = l.to_string();
-            labels_as_strings.push(l.to_string());
-        }
-
 		for edge in self.out_edges.iter() {
             let e = edge.read().unwrap();
-            if labels.is_empty() || labels_as_strings.contains(&e.label) {
-				result.push(edge.read().unwrap().to_vertex.clone());
-            }
+			result.push(edge.read().unwrap().to_vertex.clone());
 		}
 		result
 	}
