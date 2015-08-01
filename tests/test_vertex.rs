@@ -13,19 +13,19 @@ mod vertex_tests {
 
         g.add_edge(&mut vertex, &mut vertex2, "test");
 
-        let result = vertex.read().unwrap().out_edges().len();
+        let result = vertex.read().unwrap().out_edges.len();
         assert_eq!(1, result);
 
-        let result = vertex.read().unwrap().in_edges().len();
+        let result = vertex.read().unwrap().in_edges.len();
         assert_eq!(0, result);
 
-        let result = vertex2.read().unwrap().out_edges().len();
+        let result = vertex2.read().unwrap().out_edges.len();
         assert_eq!(0, result);
 
-        let result = vertex2.read().unwrap().in_edges().len();
+        let result = vertex2.read().unwrap().in_edges.len();
         assert_eq!(1, result);
 
-        for edge in vertex.read().unwrap().out_edges().iter() {
+        for edge in vertex.read().unwrap().out_edges.iter() {
             println!("hi {}", edge.read().unwrap().label);
         }
     }

@@ -170,8 +170,8 @@ impl Graph {
 }
 
 pub trait TraversableToVertex {
-	fn inV(&self) -> &[VertexPointer];
-	fn outV(&self) -> &[VertexPointer];
+	fn inV(&self) -> Vec<VertexPointer>;
+	fn outV(&self) -> Vec<VertexPointer>;
 //	fn inE(&self) -> Vec<Edge>;
 
 }

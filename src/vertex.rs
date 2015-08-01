@@ -59,21 +59,16 @@ impl TraversableToVertex for Vertex {
 	/* returns all the outV vertex proxies
 	   mainly for internal use
 	*/
-	fn outV(&self) -> &[VertexPointer] {
+	fn outV(&self) -> Vec<VertexPointer> {
         self.out_edges.iter().map(|x|
-            x.read().from_vertex.clone()
+            x.read().unwrap().from_vertex.clone()
             ).collect()
 	}
 
-	fn inV(&self) -> &[VertexPointer] {
+	fn inV(&self) -> Vec<VertexPointer> {
         self.in_edges.iter().map(|x|
             x.read().unwrap().from_vertex.clone()
             ).collect()
-		// let mut result = Vec::new();
-		// for edge in self.in_edges.iter() {
-		// 	result.push(edge.read().unwrap().from_vertex.clone());
-		// }
-		// result
 	}
 
 }
