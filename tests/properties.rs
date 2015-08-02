@@ -15,11 +15,12 @@ mod property_tests {
     fn test_properties() {
         let mut g = Graph::new();
         let mut v1 = g.add_vertex();
-        let key = &"jon";
+        let key = "jon".to_string();
         let value = Box::new(1);
-        // v1.write().unwrap().set_property(&key, value);
 
-        // let result = v1.read().unwrap().get_property(&key).unwrap();
+        v1.write().unwrap().set_property(key, value);
+
+        let result = v1.read().unwrap().get_property(key).unwrap();
 
         // match result {
         //     Property::Int(1) =>
