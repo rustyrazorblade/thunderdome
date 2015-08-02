@@ -1,7 +1,7 @@
 use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
-use property::Property;
+use property::{Property, PropertyMap};
 
 use std::rc::Rc;
 use edge::{EdgePointer, Edge};
@@ -15,6 +15,7 @@ pub type VertexPointer = Rc<RwLock<Vertex>>;
 #[derive(Clone, Debug)]
 pub struct Vertex {
     pub id: i64,
+    pub props: PropertyMap,
     pub properties: HashMap<String, Property>,
     // pointers on both sides, yay
     pub out_edges: Vec<EdgePointer>,
@@ -29,6 +30,7 @@ impl Vertex {
         let mut props  = HashMap::new();
 
         let vertex = Vertex{id:id,
+                        props: PropertyMap::new(),
                         properties: props,
                         out_edges: Vec::new(),
                         in_edges: Vec::new()};
