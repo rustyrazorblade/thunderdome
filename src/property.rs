@@ -1,3 +1,6 @@
+use std::any::Any;
+use std::collections::HashMap;
+
 #[derive(Debug, Clone)]
 pub enum Property {
     Int(i64),
@@ -13,3 +16,5 @@ pub enum Comparison {
     GreaterThanEqual,
     LessThanEqual
 }
+
+pub type PropertyMap = HashMap<String, Box<Any>>;
