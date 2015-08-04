@@ -55,8 +55,8 @@ impl Vertex {
     //
     //
     //
-    pub fn get_property(&self, field:&str) -> Option<Box<Any>> {
-        self.properties.get(&field.to_string()).clone()
+    pub fn get_property(&self, field:&str) -> Option<&Box<Any>> {
+        self.properties.get(&field.to_string())
     }
 
 }
