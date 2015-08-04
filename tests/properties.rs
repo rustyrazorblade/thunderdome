@@ -18,9 +18,10 @@ mod property_tests {
         let key = "jon".to_string();
         let value = Box::new(1);
 
-        v1.write().unwrap().set_property(key, value);
-
-        let result = v1.read().unwrap().get_property(key).unwrap();
+        let mut vertex = v1.write().unwrap();
+        vertex.set_property(&key, value);
+        let prop = vertex.get_property(&key).unwrap();
+        // assert_eq!(prop, value);
 
         // match result {
         //     Property::Int(1) =>

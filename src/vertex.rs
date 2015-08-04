@@ -49,13 +49,13 @@ impl Vertex {
 	}
 
     // TODO switch to accepting a &str
-    pub fn set_property(&mut self, field: String, value: Box<Any>) {
-        self.properties.insert(field, value);
+    pub fn set_property(&mut self, field: &String, value: Box<Any>) {
+        self.properties.insert(field.clone(), value);
     }
     //
     //
     //
-    pub fn get_property(&self, field:&str) -> Option<&Box<Any>> {
+    pub fn get_property(&self, field: &String) -> Option<&Box<Any>> {
         self.properties.get(&field.to_string())
     }
 
