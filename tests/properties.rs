@@ -21,7 +21,8 @@ mod property_tests {
         let mut vertex = v1.write().unwrap();
         vertex.set_property(&key, value);
         let prop = vertex.get_property(&key).unwrap();
-        // assert_eq!(prop, value);
+
+        // assert_eq!(*prop, value);
 
         // match result {
         //     Property::Int(1) =>

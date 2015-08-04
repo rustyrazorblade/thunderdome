@@ -52,13 +52,10 @@ impl Vertex {
     pub fn set_property(&mut self, field: &String, value: Box<Any>) {
         self.properties.insert(field.clone(), value);
     }
-    //
-    //
-    //
+
     pub fn get_property(&self, field: &String) -> Option<&Box<Any>> {
         self.properties.get(&field.to_string())
     }
-
 }
 
 impl TraversableToVertex for Vertex {
