@@ -53,8 +53,13 @@ impl Vertex {
         self.properties.insert(field.clone(), value);
     }
 
-    pub fn get_property(&self, field: &String) -> Option<&Box<Any>> {
-        self.properties.get(&field.to_string())
+    pub fn get_property<T>(&self, field: &String) //-> Box<T>
+        where T: Any
+    {
+        // todo: unwrap here is dumb, fix it
+        let result = self.properties.get(field).unwrap();
+        let result2 = result.downcast::<T>();
+        // result2
     }
 }
 

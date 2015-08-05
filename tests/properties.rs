@@ -20,7 +20,8 @@ mod property_tests {
 
         let mut vertex = v1.write().unwrap();
         vertex.set_property(&key, value);
-        let prop = vertex.get_property(&key).unwrap();
+
+        let prop = vertex.get_property::<i64>(&key);
 
         // assert_eq!(*prop, value);
 
