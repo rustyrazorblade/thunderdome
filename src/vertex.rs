@@ -1,13 +1,14 @@
 use std::ops::{Deref, DerefMut};
 use std::mem;
 use std::collections::HashMap;
-use property::Property;
+use property::PropertyMap;
 
 use std::rc::Rc;
 use edge::{EdgePointer, Edge};
 use graph::TraversableToVertex;
 use std::sync::RwLock;
 
+use std::any::Any;
 
 // this is what we want to expose to the outside world
 pub type VertexPointer = Rc<RwLock<Vertex>>;
@@ -15,7 +16,7 @@ pub type VertexPointer = Rc<RwLock<Vertex>>;
 #[derive(Clone, Debug)]
 pub struct Vertex {
     pub id: i64,
-    pub properties: HashMap<String, Property>,
+    pub properties: PropertyMap,
     // pointers on both sides, yay
     pub out_edges: Vec<EdgePointer>,
     pub in_edges:  Vec<EdgePointer>,
@@ -23,29 +24,24 @@ pub struct Vertex {
 }
 
 
+
 impl Vertex {
 
 	pub fn new(id: i64) -> VertexPointer {
-        let mut props  = HashMap::new();
 
         let vertex = Vertex{id:id,
-                        properties: props,
+                        properties: PropertyMap::new(),
                         out_edges: Vec::new(),
                         in_edges: Vec::new()};
 
         Rc::new(RwLock::new(vertex))
 	}
 
+    pub fn set(&mut self, field: String, value: Box<Any> ) {
 
-    // TODO switch to accepting a &str
-    pub fn set_property(&mut self, field: &str, value: Property) {
-        self.properties.insert(field.to_string(), value);
     }
+    pub fn get(&mut self, field:String) {
 
-
-
-    pub fn get_property(&self, field:&str) -> Option<Property> {
-        self.properties.get(&field.to_string()).cloned()
     }
 
 }
