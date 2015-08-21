@@ -17,6 +17,13 @@ impl PropertyMap {
         downcasted
     }
 
+    pub fn get_mut<T:Any>(&mut self, key: String) -> Result<&mut T, &str> {
+        let mut result = try!(self.props.get_mut(&key).ok_or("not found"));
+        let downcasted = result.downcast_mut::<T>().ok_or("type fail");
+        downcasted
+    }
+
+
     pub fn new() -> PropertyMap {
         PropertyMap{ props: HashMap::new() }
     }

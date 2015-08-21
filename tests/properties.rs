@@ -23,5 +23,9 @@ fn test_properties() {
 
     p.set("key2".to_string(), Box::new(1));
 
+    {
+
+    }
+
 
 }
