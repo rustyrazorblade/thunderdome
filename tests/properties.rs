@@ -1,50 +1,22 @@
 extern crate thunderdome;
+use thunderdome::graph::*;
+use thunderdome::property::*;
 
-#[cfg(test)]
-mod property_tests {
+#[test]
+fn test_get_set_compare_properties() {
 
-    use thunderdome::graph::*;
-    use thunderdome::property::*;
+}
 
-    #[test]
-    fn test_get_set_compare_properties() {
+#[test]
+fn test_properties() {
+    // let mut g = Graph::new();
+    // let mut v1 = g.add_vertex();
+    let mut p = PropertyMap::new();
+    p.set("key".to_string(), Box::new("Value".to_string()));
+    p.set("key2".to_string(), Box::new(1));
 
-    }
+    let tmp = p.get::<String>("key".to_string()).unwrap();
+    assert_eq!(tmp, "Value");
 
-    #[test]
-    fn test_properties() {
-        // let mut g = Graph::new();
-        // let mut v1 = g.add_vertex();
-        let mut p = PropertyMap::new();
-        p.set("key".to_string(), Box::new("Value"));
-        p.set("key2".to_string(), Box::new(1));
-        
-
-        // let value = Property::Int(1);
-        // v1.write().unwrap().set_property(&key, value);
-        //
-        // let result = v1.read().unwrap().get_property(&key).unwrap();
-        //
-        // match result {
-        //     Property::Int(1) =>
-        //         // we're ok
-        //         println!("OK"),
-        //     _ =>
-        //         panic!("wrong graph property")
-        // }
-    }
-
-    #[test]
-    fn test_has() {
-        let mut g = Graph::new();
-        let mut v = g.add_vertex();
-        let mut v2 = g.add_vertex();
-        g.add_edge(&mut v, &mut v2, &"friends");
-
-        // let pizza = Property::String("pizza".to_string());
-        // v2.write().unwrap().set_property("favorite_food", pizza.clone());
-
-
-    }
 
 }
