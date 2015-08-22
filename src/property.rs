@@ -24,6 +24,9 @@ impl PropertyMap {
     pub fn set_string(&mut self, key: String, value: String) -> Option<Property> {
         self.set(key, Property::String(value))
     }
+    pub fn set_int(&mut self, key: String, value: i64) -> Option<Property> {
+        self.set(key, Property::Int(value))
+    }
     pub fn get(&self, key: String) -> Option<&Property> {
         self.props.get(&key)
     }
