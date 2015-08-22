@@ -36,9 +36,15 @@ impl PropertyMap {
     pub fn get(&self, key: String) -> Option<&Property> {
         self.props.get(&key)
     }
-    // pub fn get_int(&self, key:String) -> Result<&Property> {
-    //     let p = try!(self.get(&key, ))
-    // }
+
+    pub fn get_int(&self, key:String) -> Result<i64, PropertyError> {
+        let p = try!(self.get(key).ok_or(PropertyError::NotFound));
+        match *p {
+            Property::Int(v) => Ok(v),
+            _ => Err(PropertyError::TypeError)
+        }
+    }
+
     // pub fn get<T:Any>(&self, key: String) -> Result<&T, &str> {
     //     let result = try!(self.props.get(&key).ok_or("not found"));
     //     let downcasted = result.downcast_ref::<T>().ok_or("type fail");
