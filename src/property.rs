@@ -17,27 +17,28 @@ pub enum PropertyError {
 
 #[derive(Debug, Clone)]
 pub struct PropertyMap {
-    props: HashMap<String, Property>,
+    props: HashMap<i8, Property>,
 }
+
 
 impl PropertyMap {
     // pub fn set(&mut self, key: String, value: Box<Any>) {
     //     self.props.insert(key, value);
     // }
-    pub fn set(&mut self, key: String, value: Property) -> Option<Property> {
+    pub fn set(&mut self, key: i8, value: Property) -> Option<Property> {
         self.props.insert(key, value)
     }
-    pub fn set_string(&mut self, key: String, value: String) -> Option<Property> {
+    pub fn set_string(&mut self, key: i8, value: String) -> Option<Property> {
         self.set(key, Property::String(value))
     }
-    pub fn set_int(&mut self, key: String, value: i64) -> Option<Property> {
+    pub fn set_int(&mut self, key: i8, value: i64) -> Option<Property> {
         self.set(key, Property::Int(value))
     }
-    pub fn get(&self, key: String) -> Option<&Property> {
+    pub fn get(&self, key: i8) -> Option<&Property> {
         self.props.get(&key)
     }
 
-    pub fn get_int(&self, key:String) -> Result<i64, PropertyError> {
+    pub fn get_int(&self, key:i8) -> Result<i64, PropertyError> {
         let p = try!(self.get(key).ok_or(PropertyError::NotFound));
         match *p {
             Property::Int(v) => Ok(v),

@@ -14,12 +14,10 @@ fn test_properties() {
     // let mut v1 = g.add_vertex();
     let mut p = PropertyMap::new();
 
-    let k = "key".to_string();
     let v = "value".to_string();
-    p.set(k, Property::String(v));
-
-    p.set_string("key2".to_string(), "value".to_string());
-    p.set_int("key3".to_string(), 1);
+    p.set(0, Property::String(v));
+    p.set_string(1, "value".to_string());
+    p.set_int(2, 1);
 
     // let v2 = p.get(k).unwrap();
     // assert_eq!(v2, k)
@@ -27,5 +25,5 @@ fn test_properties() {
 
 #[test]
 fn test_map() {
-    
+
 }
