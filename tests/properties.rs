@@ -2,6 +2,7 @@ extern crate thunderdome;
 use thunderdome::graph::*;
 use thunderdome::property::*;
 
+
 #[test]
 fn test_get_set_compare_properties() {
 
@@ -13,19 +14,10 @@ fn test_properties() {
     // let mut v1 = g.add_vertex();
     let mut p = PropertyMap::new();
 
-    let (k, v) = ("key".to_string(), "Value".to_string());
-    p.set(k, Box::new(v));
-
-    {
-        let tmp = p.get::<String>("key".to_string()).unwrap();
-        assert_eq!(tmp, "Value");
-    }
-
-    p.set("key2".to_string(), Box::new(1));
-
-    {
-
-    }
-
-
+    let k = "key".to_string();
+    let v = "value".to_string();
+    p.set(k, Property::String(v));
+    // p.set_string(k, "value".to_string());
+    // let v2 = p.get(k).unwrap();
+    // assert_eq!(v2, k)
 }
