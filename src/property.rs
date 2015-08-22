@@ -1,10 +1,14 @@
+extern crate num;
+
 use std::collections::{HashMap, HashSet};
 use std::any::Any;
+
+use self::num::rational::BigRational;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Property {
     Int(i64),
-    Float(f64),
+    Decimal(BigRational),
     String(String),
     Map(HashMap<String, Property>),
 }

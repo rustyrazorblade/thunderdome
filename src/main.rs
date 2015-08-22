@@ -2,6 +2,9 @@ extern crate thunderdome;
 extern crate capnp;
 extern crate capnpc;
 
+#[macro_use]
+extern crate log;
+
 use std::io::Read;
 use std::io::{self, Cursor};
 use std::collections::HashMap;

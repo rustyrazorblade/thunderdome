@@ -9,6 +9,8 @@ authors = ["Jon Haddad <jon@jonhaddad.com>"]
 capnp = "*"
 capnpc = "*"
 capnp-rpc = "*"
+num = "*"
+log = "*"
 
 [dependencies.peg]
 git = "https://github.com/kevinmehall/rust-peg.git"
