@@ -17,7 +17,8 @@ fn test_properties() {
     let k = "key".to_string();
     let v = "value".to_string();
     p.set(k, Property::String(v));
-    // p.set_string(k, "value".to_string());
+
+    p.set_string("key2".to_string(), "value".to_string());
     // let v2 = p.get(k).unwrap();
     // assert_eq!(v2, k)
 }
