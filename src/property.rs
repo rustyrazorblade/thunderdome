@@ -1,11 +1,17 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::any::Any;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Property {
     Int(i64),
     Float(f64),
-    String(String)
+    String(String),
+    Map(HashMap<String, Property>),
+}
+
+pub enum PropertyError {
+    NotFound,
+    TypeError
 }
 
 
@@ -30,6 +36,9 @@ impl PropertyMap {
     pub fn get(&self, key: String) -> Option<&Property> {
         self.props.get(&key)
     }
+    // pub fn get_int(&self, key:String) -> Result<&Property> {
+    //     let p = try!(self.get(&key, ))
+    // }
     // pub fn get<T:Any>(&self, key: String) -> Result<&T, &str> {
     //     let result = try!(self.props.get(&key).ok_or("not found"));
     //     let downcasted = result.downcast_ref::<T>().ok_or("type fail");
