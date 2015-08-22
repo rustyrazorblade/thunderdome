@@ -11,6 +11,7 @@ pub enum Property {
     Decimal(BigRational),
     String(String),
     Map(HashMap<String, Property>),
+    Set(HashSet<String>)
 }
 
 pub enum PropertyError {
