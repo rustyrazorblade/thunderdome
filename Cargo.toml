@@ -11,6 +11,7 @@ capnpc = "*"
 capnp-rpc = "*"
 num = "*"
 log = "*"
+env_logger = "*"
 
 [dependencies.peg]
 git = "https://github.com/kevinmehall/rust-peg.git"
