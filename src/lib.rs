@@ -5,6 +5,7 @@
 #![feature(convert)]
 
 
+extern crate num;
 // #![feature(collections)]
 
 pub mod graph;

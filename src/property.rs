@@ -1,9 +1,9 @@
-extern crate num;
+
 
 use std::collections::{HashMap, HashSet};
 use std::any::Any;
 
-use self::num::rational::BigRational;
+use num::rational::BigRational;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Property {
