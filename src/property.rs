@@ -5,6 +5,19 @@ use std::any::Any;
 
 use num::rational::BigRational;
 
+#[derive(Debug)]
+pub struct Schema {
+    fields: HashMap<String, i8>
+}
+
+impl Schema {
+    pub fn new() -> Schema {
+        Schema{fields: HashMap::new()}
+    }
+}
+
+
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum Property {
     Int(i64),
