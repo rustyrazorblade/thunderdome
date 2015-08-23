@@ -5,9 +5,25 @@ use std::any::Any;
 
 use num::rational::BigRational;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Schema {
-    fields: HashMap<String, i8>
+    fields: HashMap<String, Field>,
+}
+
+
+#[derive(Debug, Clone, Copy)]
+enum Type {
+    Int,
+    Decimal,
+    String,
+    Map,
+    Set
+}
+
+#[derive(Debug, Clone)]
+pub struct Field {
+    id: i8,
+    field_type: Type
 }
 
 impl Schema {
