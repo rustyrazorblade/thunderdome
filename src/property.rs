@@ -5,14 +5,8 @@ use std::any::Any;
 
 use num::rational::BigRational;
 
-#[derive(Debug, Clone)]
-pub struct Schema {
-    fields: HashMap<String, Field>,
-}
-
-
 #[derive(Debug, Clone, Copy)]
-enum Type {
+pub enum Type {
     Int,
     Decimal,
     String,
@@ -20,15 +14,36 @@ enum Type {
     Set
 }
 
-#[derive(Debug, Clone)]
+
+#[derive(Debug, Clone, Copy)]
 pub struct Field {
-    id: i8,
+    id: usize,
     field_type: Type
+}
+
+pub enum SchemaError {
+    TypeExists,
+}
+
+#[derive(Debug, Clone)]
+pub struct Schema {
+    fields: HashMap<String, Field>,
 }
 
 impl Schema {
     pub fn new() -> Schema {
         Schema{fields: HashMap::new()}
+    }
+    pub fn add_type(&mut self, name: String, field_type: Type) -> Result<Field, SchemaError> {
+        // check if field already exists
+        if self.fields.contains_key(&name) {
+            return Err(SchemaError::TypeExists);
+        }
+
+        let i = self.fields.len();
+        let f = Field{id: i, field_type:field_type};
+        self.fields.insert(name, f);
+        Ok(f)
     }
 }
 
